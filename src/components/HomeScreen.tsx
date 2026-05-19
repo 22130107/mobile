@@ -142,7 +142,7 @@ export default function HomeScreen({ onNavigate }: HomeScreenProps) {
           <h3 className="text-xl font-bold">Chỉ số</h3>
           <button className="text-purple-600 font-semibold text-sm">Xem tất cả</button>
         </div>
-        <div className="flex overflow-x-auto space-x-3 px-4" style={{ msOverflowStyle: 'none', scrollbarWidth: 'none' }}>
+        <div className="flex overflow-x-auto space-x-3 px-4 scrollbar-hide">
           <div className="min-w-[140px] bg-red-50/30 border border-red-200 rounded-xl p-4">
             <p className="text-gray-600 text-sm font-semibold mb-1">VN-INDEX</p>
             <p className="text-lg font-bold text-gray-900 mb-1">1912.93</p>

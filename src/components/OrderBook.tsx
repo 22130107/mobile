@@ -25,7 +25,7 @@ export default function OrderBook({ onNavigate }: OrderBookProps) {
       </nav>
 
       {/* Navigation Tabs */}
-      <section className="flex overflow-x-auto whitespace-nowrap px-0 border-b border-gray-100" style={{ msOverflowStyle: 'none', scrollbarWidth: 'none' }}>
+      <section className="flex overflow-x-auto whitespace-nowrap px-0 border-b border-gray-100 scrollbar-hide">
         <button className="px-4 py-3 text-sm font-semibold text-[#6b4eff] border-b-2 border-[#6b4eff]">Lệnh trong ngày</button>
         <button className="px-4 py-3 text-sm font-medium text-gray-500">Lệnh điều kiện</button>
         <button className="px-4 py-3 text-sm font-medium text-gray-500">Phiên kế tiếp</button>
