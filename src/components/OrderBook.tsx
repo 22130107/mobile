@@ -8,11 +8,16 @@ export default function OrderBook({ onNavigate }: OrderBookProps) {
   return (
     <div className="flex flex-col h-screen relative overflow-hidden font-sans bg-white">
       {/* Main Header */}
-      <nav className="flex items-center justify-between px-4 py-3 border-b border-gray-100">
+      <nav className="flex items-center justify-between px-4 py-1.5 border-b border-gray-100">
         <button onClick={() => onNavigate('portfolio')} className="p-1 -ml-1 text-gray-800">
           <ChevronLeft className="w-6 h-6" strokeWidth={2.5} />
         </button>
-        <h1 className="text-xl font-bold text-gray-900">Sổ lệnh</h1>
+        <h1
+          className="font-bold text-gray-900"
+          style={{ margin: 0, fontSize: '18px', lineHeight: '1.2' }}
+        >
+          Sổ lệnh
+        </h1>
         <div className="border border-gray-300 rounded-full px-2 py-0.5 text-xs font-semibold flex items-center gap-1 text-gray-700">
           <span>TK</span>
           <span className="bg-gray-500 text-white rounded-full w-4 h-4 flex items-center justify-center text-[10px]">6</span>

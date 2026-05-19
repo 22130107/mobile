@@ -8,11 +8,16 @@ export default function StockPortfolio({ onNavigate }: StockPortfolioProps) {
   return (
     <div className="flex flex-col min-h-screen text-slate-900 bg-white font-sans">
       {/* Navigation Header */}
-      <header className="flex items-center justify-between px-3 py-2 bg-white mt-6">
+      <header className="flex items-center justify-between px-3 py-2 bg-white">
         <button onClick={() => onNavigate('home')} className="p-1 text-slate-800">
           <ChevronLeft className="w-5 h-5" strokeWidth={2.5} />
         </button>
-        <h1 className="text-base font-bold text-slate-900">Cổ phiếu</h1>
+        <h1
+          className="font-bold text-slate-900"
+          style={{ margin: 0, fontSize: '18px', lineHeight: '1.2' }}
+        >
+          Cổ phiếu
+        </h1>
         <button className="p-1 text-slate-800">
           <Search className="w-5 h-5" strokeWidth={2.5} />
         </button>

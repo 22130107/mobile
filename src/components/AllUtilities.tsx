@@ -12,7 +12,12 @@ export default function AllUtilities({ onNavigate }: AllUtilitiesProps) {
         <button onClick={() => onNavigate('home')} className="p-1">
           <ChevronLeft className="w-5 h-5 text-[#1a1a1a]" strokeWidth={2} />
         </button>
-        <h1 className="text-lg font-semibold flex-1 text-center pr-8">Tất cả tiện ích</h1>
+        <h1
+          className="font-semibold flex-1 text-center pr-8"
+          style={{ margin: 0, fontSize: '18px', lineHeight: '1.2' }}
+        >
+          Tất cả tiện ích
+        </h1>
         <div></div>
       </header>
 
