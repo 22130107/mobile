@@ -1,10 +1,131 @@
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { ChevronLeft, ChevronRight, Plus } from 'lucide-react';
+import { orderService } from '../services/orderService';
+import type { OrderRow } from '../types/database';
 
 interface OrderBookProps {
   onNavigate: (screen: 'home' | 'portfolio' | 'orderbook' | 'pnl' | 'utilities') => void;
 }
 
+const defaultNewOrder: Partial<OrderRow> = {
+  symbol: '',
+  side: 'BUY',
+  order_type: 'Thường',
+  qty: 0,
+  price: 0,
+  matched_qty: 0,
+  matched_price: 0,
+  status: 'Đã khớp',
+  order_time: '',
+};
+
 export default function OrderBook({ onNavigate }: OrderBookProps) {
+  const [orders, setOrders] = useState<OrderRow[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [selectedOrder, setSelectedOrder] = useState<Partial<OrderRow> | null>(null);
+
+  const loadOrders = async () => {
+    try {
+      setLoading(true);
+      const data = await orderService.getAll(1);
+      setOrders(data);
+    } catch (error) {
+      console.error('Lỗi khi tải sổ lệnh:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    loadOrders();
+  }, []);
+
+  const handleSaveOrder = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const symbol = (formData.get('symbol') as string).toUpperCase().trim();
+    if (!symbol) return;
+
+    const side = formData.get('side') as string;
+    const order_type = formData.get('order_type') as string;
+    const qty = parseInt(formData.get('qty') as string) || 0;
+    const price = parseFloat(formData.get('price') as string) || 0;
+    const matched_qty = parseInt(formData.get('matched_qty') as string) || 0;
+    const matched_price = parseFloat(formData.get('matched_price') as string) || 0;
+    const status = formData.get('status') as string;
+    
+    // Tạo định dạng thời gian HH:MM nếu trống
+    let order_time = formData.get('order_time') as string;
+    if (!order_time) {
+      const now = new Date();
+      order_time = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+    } else if (order_time.length > 5) {
+      // Cắt bỏ phần giây nếu có
+      order_time = order_time.substring(0, 5);
+    }
+
+    const payload = {
+      symbol,
+      side,
+      order_type,
+      qty,
+      price,
+      matched_qty,
+      matched_price,
+      status,
+      order_time,
+      account_id: 1
+    };
+
+    try {
+      if (selectedOrder?.id) {
+        await orderService.update(selectedOrder.id, payload);
+      } else {
+        await orderService.create(payload);
+      }
+      setModalOpen(false);
+      loadOrders();
+    } catch (error) {
+      console.error('Lỗi khi lưu lệnh:', error);
+      alert('Không thể lưu lệnh. Vui lòng kiểm tra lại!');
+    }
+  };
+
+  const handleDeleteOrder = async (id: string) => {
+    if (!window.confirm('Bạn có chắc chắn muốn hủy lệnh này?')) return;
+    try {
+      await orderService.delete(id);
+      setModalOpen(false);
+      loadOrders();
+    } catch (error) {
+      console.error('Lỗi khi hủy lệnh:', error);
+      alert('Không thể hủy lệnh. Vui lòng kiểm tra lại!');
+    }
+  };
+
+  const handleCancelAll = async () => {
+    if (orders.length === 0) return;
+    if (!window.confirm('Bạn có chắc chắn muốn hủy toàn bộ lệnh trong ngày?')) return;
+    try {
+      await orderService.deleteAll(1);
+      loadOrders();
+    } catch (error) {
+      console.error('Lỗi khi hủy toàn bộ lệnh:', error);
+      alert('Không thể hủy toàn bộ lệnh!');
+    }
+  };
+
+  const openAddModal = () => {
+    setSelectedOrder(defaultNewOrder);
+    setModalOpen(true);
+  };
+
+  const openEditModal = (order: OrderRow) => {
+    setSelectedOrder(order);
+    setModalOpen(true);
+  };
+
   return (
     <div className="flex flex-col h-screen relative overflow-hidden font-sans bg-white">
       {/* Main Header */}
@@ -66,15 +187,24 @@ export default function OrderBook({ onNavigate }: OrderBookProps) {
           </div>
         </div>
 
-        {/* P/L Action */}
-        <button className="inline-flex items-center px-4 py-1.5 border border-[#6b4eff] rounded-full text-[#6b4eff] text-sm font-medium">
-          Xem lãi lỗ dự tính
-          <ChevronRight className="w-4 h-4 ml-1" strokeWidth={2} />
-        </button>
+        {/* P/L Action & Add Button */}
+        <div className="flex justify-between items-center">
+          <button className="inline-flex items-center px-4 py-1.5 border border-[#6b4eff] rounded-full text-[#6b4eff] text-xs font-medium">
+            Xem lãi lỗ dự tính
+            <ChevronRight className="w-4 h-4 ml-1" strokeWidth={2} />
+          </button>
+          <button
+            onClick={openAddModal}
+            className="inline-flex items-center gap-1 px-4 py-1.5 bg-[#6b4eff] rounded-full text-white text-xs font-semibold hover:bg-opacity-90 active:scale-95 transition-all shadow-sm"
+          >
+            <Plus className="w-4 h-4" />
+            Thêm lệnh
+          </button>
+        </div>
       </section>
 
       {/* Data List Content */}
-      <main className="flex-grow flex flex-col px-4 mt-2 overflow-y-auto">
+      <main className="flex-grow flex flex-col px-4 mt-2 overflow-y-auto pb-24">
         {/* Table Header */}
         <div className="grid grid-cols-5 text-xs text-gray-500 font-medium pb-2 border-b border-gray-50">
           <div className="col-span-1">Mã CK</div>
@@ -84,67 +214,220 @@ export default function OrderBook({ onNavigate }: OrderBookProps) {
           <div className="col-span-1 text-right">Còn lại</div>
         </div>
 
-        {/* Row 1 */}
-        <div className="py-3 border-b border-gray-50 grid grid-cols-5 items-center">
-          <div className="col-span-1 flex flex-col">
-            <span className="font-bold text-gray-900 text-[15px]">VGI</span>
-            <span className="text-xs text-gray-400 mt-0.5">11:03</span>
-          </div>
-          <div className="col-span-1 flex flex-col items-center">
-            <span className="font-bold text-green-500 text-sm">Mua</span>
-            <span className="text-xs text-gray-400 mt-0.5">Thường</span>
-          </div>
-          <div className="col-span-1 flex flex-col items-end">
-            <span className="font-bold text-gray-900 text-sm">900</span>
-            <span className="text-xs text-gray-400 mt-0.5">93.0</span>
-          </div>
-          <div className="col-span-1 flex flex-col items-end">
-            <span className="font-bold text-gray-900 text-sm">900</span>
-            <span className="text-xs text-gray-400 mt-0.5">93.00</span>
-          </div>
-          <div className="col-span-1 flex flex-col items-end justify-end space-y-1">
-            <div className="h-5"></div>
-            <div className="bg-gray-100 text-gray-700 px-1.5 py-0.5 rounded flex items-center text-[10px] font-medium whitespace-nowrap">
-              <span className="w-1.5 h-1.5 bg-green-500 rounded-full mr-1.5"></span>
-              Đã khớp
-            </div>
-          </div>
-        </div>
+        {loading ? (
+          <div className="text-center py-10 text-gray-400 text-sm">Đang tải sổ lệnh...</div>
+        ) : orders.length === 0 ? (
+          <div className="text-center py-10 text-gray-400 text-sm">Chưa có lệnh nào đặt trong ngày.</div>
+        ) : (
+          orders.map((order, idx) => {
+            const formattedTime = order.order_time ? order.order_time.substring(0, 5) : '';
+            const isBuy = order.side === 'BUY';
+            const remaining = Math.max(0, order.qty - order.matched_qty);
+            
+            // Màu sắc trạng thái
+            let statusBulletColor = 'bg-green-500';
+            if (order.status === 'Chờ khớp') statusBulletColor = 'bg-yellow-500';
+            if (order.status === 'Đã hủy') statusBulletColor = 'bg-gray-400';
 
-        {/* Row 2 */}
-        <div className="py-3 border-b border-gray-50 grid grid-cols-5 items-center bg-gray-50/50 -mx-4 px-4">
-          <div className="col-span-1 flex flex-col">
-            <span className="font-bold text-gray-900 text-[15px]">MBS</span>
-            <span className="text-xs text-gray-400 mt-0.5">09:51</span>
-          </div>
-          <div className="col-span-1 flex flex-col items-center">
-            <span className="font-bold text-green-500 text-sm">Mua</span>
-            <span className="text-xs text-gray-400 mt-0.5">Thường</span>
-          </div>
-          <div className="col-span-1 flex flex-col items-end">
-            <span className="font-bold text-gray-900 text-sm">5,000</span>
-            <span className="text-xs text-gray-400 mt-0.5">19.9</span>
-          </div>
-          <div className="col-span-1 flex flex-col items-end">
-            <span className="font-bold text-gray-900 text-sm">5,000</span>
-            <span className="text-xs text-gray-400 mt-0.5">19.90</span>
-          </div>
-          <div className="col-span-1 flex flex-col items-end justify-end space-y-1">
-            <div className="h-5"></div>
-            <div className="bg-gray-100 text-gray-700 px-1.5 py-0.5 rounded flex items-center text-[10px] font-medium whitespace-nowrap">
-              <span className="w-1.5 h-1.5 bg-green-500 rounded-full mr-1.5"></span>
-              Đã khớp
-            </div>
-          </div>
-        </div>
+            return (
+              <div
+                key={order.id}
+                onClick={() => openEditModal(order)}
+                className={`py-3 border-b border-gray-50 grid grid-cols-5 items-center cursor-pointer hover:bg-slate-50 transition-colors ${idx % 2 === 1 ? 'bg-gray-50/30' : ''}`}
+              >
+                <div className="col-span-1 flex flex-col">
+                  <span className="font-bold text-gray-900 text-[15px]">{order.symbol}</span>
+                  <span className="text-xs text-gray-400 mt-0.5">{formattedTime}</span>
+                </div>
+                <div className="col-span-1 flex flex-col items-center">
+                  <span className={`font-bold text-sm ${isBuy ? 'text-green-500' : 'text-[#DF3C40]'}`}>
+                    {isBuy ? 'Mua' : 'Bán'}
+                  </span>
+                  <span className="text-xs text-gray-400 mt-0.5">{order.order_type}</span>
+                </div>
+                <div className="col-span-1 flex flex-col items-end">
+                  <span className="font-bold text-gray-900 text-sm">{order.qty.toLocaleString()}</span>
+                  <span className="text-xs text-gray-400 mt-0.5">{order.price.toFixed(1)}</span>
+                </div>
+                <div className="col-span-1 flex flex-col items-end">
+                  <span className="font-bold text-gray-900 text-sm">{order.matched_qty.toLocaleString()}</span>
+                  <span className="text-xs text-gray-400 mt-0.5">
+                    {order.matched_price ? order.matched_price.toFixed(2) : '0.00'}
+                  </span>
+                </div>
+                <div className="col-span-1 flex flex-col items-end justify-end space-y-1">
+                  <span className="text-xs text-gray-600 font-medium pr-1">{remaining.toLocaleString()}</span>
+                  <div className="bg-gray-100 text-gray-700 px-1.5 py-0.5 rounded flex items-center text-[10px] font-medium whitespace-nowrap">
+                    <span className={`w-1.5 h-1.5 rounded-full mr-1.5 ${statusBulletColor}`}></span>
+                    {order.status}
+                  </div>
+                </div>
+              </div>
+            );
+          })
+        )}
       </main>
 
       {/* Floating Bottom Button */}
-      <footer className="p-6 flex justify-end absolute bottom-0 right-0 w-full pointer-events-none">
-        <button className="bg-[#5a6270] text-white px-6 py-3 rounded-full font-bold shadow-md text-sm active:bg-gray-700 transition-colors pointer-events-auto">
+      <footer className="p-6 flex justify-end absolute bottom-0 right-0 w-full pointer-events-none z-40">
+        <button
+          onClick={handleCancelAll}
+          className="bg-[#5a6270] text-white px-6 py-3 rounded-full font-bold shadow-md text-sm active:bg-gray-700 transition-colors pointer-events-auto"
+        >
           Hủy tất cả
         </button>
       </footer>
+
+      {/* Add / Edit Order Modal */}
+      {modalOpen && selectedOrder && (
+        <div
+          className="fixed inset-0 z-[60] bg-black/40 flex items-stretch justify-center"
+          onClick={() => setModalOpen(false)}
+        >
+          <form
+            key={selectedOrder.id || 'new_order'}
+            onSubmit={handleSaveOrder}
+            className="w-full h-full bg-white p-4 shadow-xl overflow-y-auto flex flex-col justify-between"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <div className="space-y-4">
+              <h2 className="text-lg font-bold text-gray-900 border-b pb-2">
+                {selectedOrder.id ? 'Sửa thông tin lệnh' : 'Thêm lệnh mới'}
+              </h2>
+              
+              <div className="grid grid-cols-2 gap-3">
+                <div className="space-y-1">
+                  <label className="text-xs font-semibold text-slate-700">Mã CK</label>
+                  <input
+                    name="symbol"
+                    className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm uppercase"
+                    defaultValue={selectedOrder.symbol}
+                    placeholder="VGI, MBS..."
+                    required
+                    type="text"
+                  />
+                </div>
+
+                <div className="space-y-1">
+                  <label className="text-xs font-semibold text-slate-700">Loại Giao Dịch</label>
+                  <select
+                    name="side"
+                    className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm bg-white"
+                    defaultValue={selectedOrder.side}
+                  >
+                    <option value="BUY">Mua</option>
+                    <option value="SELL">Bán</option>
+                  </select>
+                </div>
+
+                <div className="space-y-1">
+                  <label className="text-xs font-semibold text-slate-700">Loại Lệnh</label>
+                  <input
+                    name="order_type"
+                    className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm"
+                    defaultValue={selectedOrder.order_type}
+                    placeholder="Thường, Điều kiện..."
+                    type="text"
+                  />
+                </div>
+
+                <div className="space-y-1">
+                  <label className="text-xs font-semibold text-slate-700">Trạng Thái</label>
+                  <select
+                    name="status"
+                    className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm bg-white"
+                    defaultValue={selectedOrder.status}
+                  >
+                    <option value="Đã khớp">Đã khớp</option>
+                    <option value="Chờ khớp">Chờ khớp</option>
+                    <option value="Đã hủy">Đã hủy</option>
+                  </select>
+                </div>
+
+                <div className="space-y-1">
+                  <label className="text-xs font-semibold text-slate-700">Khối Lượng Đặt</label>
+                  <input
+                    name="qty"
+                    className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm"
+                    defaultValue={selectedOrder.qty}
+                    type="number"
+                    required
+                  />
+                </div>
+
+                <div className="space-y-1">
+                  <label className="text-xs font-semibold text-slate-700">Giá Đặt</label>
+                  <input
+                    name="price"
+                    className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm"
+                    defaultValue={selectedOrder.price}
+                    type="number"
+                    step="0.1"
+                    required
+                  />
+                </div>
+
+                <div className="space-y-1">
+                  <label className="text-xs font-semibold text-slate-700">Khối Lượng Khớp</label>
+                  <input
+                    name="matched_qty"
+                    className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm"
+                    defaultValue={selectedOrder.matched_qty}
+                    type="number"
+                  />
+                </div>
+
+                <div className="space-y-1">
+                  <label className="text-xs font-semibold text-slate-700">Giá Khớp</label>
+                  <input
+                    name="matched_price"
+                    className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm"
+                    defaultValue={selectedOrder.matched_price || 0}
+                    type="number"
+                    step="0.01"
+                  />
+                </div>
+
+                <div className="space-y-1 col-span-2">
+                  <label className="text-xs font-semibold text-slate-700">Giờ đặt lệnh (HH:MM)</label>
+                  <input
+                    name="order_time"
+                    className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm"
+                    defaultValue={selectedOrder.order_time}
+                    placeholder="Ví dụ: 11:03 (Để trống sẽ lấy giờ hiện tại)"
+                    type="text"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-8 space-y-2">
+              <button
+                type="submit"
+                className="w-full bg-[#6b4eff] text-white font-semibold py-2.5 rounded-lg text-sm hover:bg-opacity-95 transition-opacity"
+              >
+                Lưu lệnh
+              </button>
+              {selectedOrder.id && (
+                <button
+                  type="button"
+                  onClick={() => handleDeleteOrder(selectedOrder.id!)}
+                  className="w-full bg-red-500 text-white font-semibold py-2.5 rounded-lg text-sm hover:bg-opacity-95 transition-opacity"
+                >
+                  Hủy đặt lệnh
+                </button>
+              )}
+              <button
+                type="button"
+                className="w-full border-2 border-slate-300 text-slate-600 font-semibold py-2.5 rounded-lg text-sm hover:bg-slate-50 transition-colors"
+                onClick={() => setModalOpen(false)}
+              >
+                Thoát
+              </button>
+            </div>
+          </form>
+        </div>
+      )}
     </div>
   );
 }

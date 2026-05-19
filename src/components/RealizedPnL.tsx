@@ -1,10 +1,117 @@
-import { ChevronLeft, Search, ArrowRight, ChevronUp, Home, TrendingUp, Wallet } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { ChevronLeft, Search, ArrowRight, ChevronDown, Plus } from 'lucide-react';
+import { pnlService } from '../services/pnlService';
+import type { RealizedPnLRow } from '../types/database';
 
 interface RealizedPnLProps {
   onNavigate: (screen: 'home' | 'portfolio' | 'orderbook' | 'pnl' | 'utilities') => void;
 }
 
+const defaultNewPnL: Partial<RealizedPnLRow> = {
+  symbol: '',
+  sell_date: '',
+  pnl_amount: 0,
+  pnl_percent: 0,
+};
+
 export default function RealizedPnL({ onNavigate }: RealizedPnLProps) {
+  const [pnls, setPnls] = useState<RealizedPnLRow[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [selectedPnL, setSelectedPnL] = useState<Partial<RealizedPnLRow> | null>(null);
+  const [searchQuery, setSearchQuery] = useState('');
+
+  const loadPnls = async () => {
+    try {
+      setLoading(true);
+      const data = await pnlService.getAll(1);
+      setPnls(data);
+    } catch (error) {
+      console.error('Lỗi khi tải lãi lỗ thực hiện:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    loadPnls();
+  }, []);
+
+  const handleSavePnL = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const symbol = (formData.get('symbol') as string).toUpperCase().trim();
+    if (!symbol) return;
+
+    const sell_date = formData.get('sell_date') as string || new Date().toISOString().split('T')[0];
+    const pnl_amount = parseFloat(formData.get('pnl_amount') as string) || 0;
+    const pnl_percent = parseFloat(formData.get('pnl_percent') as string) || 0;
+
+    const payload = {
+      symbol,
+      sell_date,
+      pnl_amount,
+      pnl_percent,
+      account_id: 1
+    };
+
+    try {
+      if (selectedPnL?.id) {
+        await pnlService.update(selectedPnL.id, payload);
+      } else {
+        await pnlService.create(payload);
+      }
+      setModalOpen(false);
+      loadPnls();
+    } catch (error) {
+      console.error('Lỗi khi lưu lãi/lỗ:', error);
+      alert('Không thể lưu thông tin. Vui lòng kiểm tra lại!');
+    }
+  };
+
+  const handleDeletePnL = async (id: string) => {
+    if (!window.confirm('Bạn có chắc chắn muốn xóa bản ghi này?')) return;
+    try {
+      await pnlService.delete(id);
+      setModalOpen(false);
+      loadPnls();
+    } catch (error) {
+      console.error('Lỗi khi xóa bản ghi:', error);
+      alert('Không thể xóa bản ghi!');
+    }
+  };
+
+  const openAddModal = () => {
+    setSelectedPnL(defaultNewPnL);
+    setModalOpen(true);
+  };
+
+  const openEditModal = (pnl: RealizedPnLRow) => {
+    setSelectedPnL(pnl);
+    setModalOpen(true);
+  };
+
+  // Tính toán lãi lỗ tổng cộng một cách chính xác
+  let totalCost = 0;
+  let totalPnLAmount = 0;
+
+  pnls.forEach((item) => {
+    totalPnLAmount += Number(item.pnl_amount);
+    if (item.pnl_percent !== 0) {
+      totalCost += Number(item.pnl_amount) / (Number(item.pnl_percent) / 100);
+    }
+  });
+
+  const totalPnLPercent = totalCost > 0 ? (totalPnLAmount / totalCost) * 100 : 0;
+  const isPnLPositive = totalPnLAmount >= 0;
+
+  const totalPnLAmountFormatted = `${isPnLPositive ? '+' : ''}${Math.round(totalPnLAmount).toLocaleString()}`;
+  const totalPnLPercentFormatted = `${isPnLPositive ? '+' : ''}${totalPnLPercent.toFixed(2)}%`;
+
+  const filteredPnls = pnls.filter((pnl) =>
+    pnl.symbol.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
   return (
     <div className="w-full min-h-screen bg-[#f8f8fb] relative flex flex-col shadow-xl overflow-hidden pb-16">
       {/* Header */}
@@ -25,7 +132,7 @@ export default function RealizedPnL({ onNavigate }: RealizedPnLProps) {
       </header>
 
       {/* Main Content */}
-      <main className="flex-1 overflow-y-auto px-4 py-3 space-y-4">
+      <main className="flex-1 overflow-y-auto px-4 py-3 space-y-4 pb-24">
         {/* Filters */}
         <section className="space-y-3">
           {/* Date Range Buttons */}
@@ -40,15 +147,26 @@ export default function RealizedPnL({ onNavigate }: RealizedPnLProps) {
             </button>
           </div>
 
-          {/* Search Bar */}
-          <div className="relative">
-            <input
-              className="w-full py-2.5 pl-4 pr-10 bg-white border border-[#e2e8f0] rounded-lg text-sm outline-none focus:border-[#6b21a8] focus:ring-1 focus:ring-[#6b21a8] transition-colors"
-              placeholder="Mã CK"
-              type="text"
-            />
-            <button className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400">
-              <Search className="w-5 h-5" />
+          {/* Search Bar & Add Button */}
+          <div className="flex gap-2">
+            <div className="relative flex-1">
+              <input
+                className="w-full py-2.5 pl-4 pr-10 bg-white border border-[#e2e8f0] rounded-lg text-sm outline-none focus:border-[#6b21a8] focus:ring-1 focus:ring-[#6b21a8] transition-colors text-gray-800 placeholder-gray-300"
+                placeholder="Mã CK"
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
+              <button className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400">
+                <Search className="w-5 h-5" />
+              </button>
+            </div>
+            <button
+              onClick={openAddModal}
+              className="px-4 py-2.5 bg-[#6b21a8] text-white rounded-lg text-sm font-semibold flex items-center gap-1 hover:bg-opacity-90 active:scale-95 transition-all shadow-sm shrink-0"
+            >
+              <Plus className="w-4 h-4" />
+              Thêm lãi/lỗ
             </button>
           </div>
         </section>
@@ -57,206 +175,164 @@ export default function RealizedPnL({ onNavigate }: RealizedPnLProps) {
         <section className="bg-white rounded-xl p-4 flex justify-between items-center border border-[#e2e8f0]" style={{ boxShadow: '0 2px 8px -2px rgba(0, 0, 0, 0.05), 0 4px 6px -4px rgba(0, 0, 0, 0.02)' }}>
           <span className="font-bold text-[#1e293b] text-base">Tổng cộng</span>
           <div className="text-right flex items-center space-x-3">
-            <span className="font-bold text-[#dc2626] text-base">-7,707,359</span>
-            <span className="font-bold text-[#dc2626] text-sm">-6.73%</span>
+            <span className={`font-bold text-base ${isPnLPositive ? 'text-[#16a34a]' : 'text-[#dc2626]'}`}>
+              {totalPnLAmountFormatted}
+            </span>
+            <span className={`font-bold text-sm ${isPnLPositive ? 'text-[#16a34a]' : 'text-[#dc2626]'}`}>
+              {totalPnLPercentFormatted}
+            </span>
           </div>
         </section>
 
         {/* Transaction List */}
         <section className="space-y-2">
-          {/* Transaction Item: Profit */}
-          <article className="bg-white rounded-xl p-3 border border-[#e2e8f0]" style={{ boxShadow: '0 2px 8px -2px rgba(0, 0, 0, 0.05), 0 4px 6px -4px rgba(0, 0, 0, 0.02)' }}>
-            <div className="flex justify-between items-center w-full">
-              <div className="w-1/4 text-center">
-                <div className="text-xs text-[#64748b] mb-1 font-medium">Ngày</div>
-                <div className="text-sm text-[#1e293b]">11/03/2026</div>
-              </div>
-              <div className="w-1/4 text-center">
-                <div className="text-xs text-[#64748b] mb-1 font-medium">Mã CK</div>
-                <div className="text-sm font-bold text-[#1e293b]">MSR</div>
-              </div>
-              <div className="w-1/4 text-center">
-                <div className="text-xs text-[#64748b] mb-1 font-medium">Lãi/lỗ</div>
-                <div className="text-sm font-bold text-[#16a34a]">912,400</div>
-              </div>
-              <div className="w-1/4 text-center flex flex-col items-center relative">
-                <div className="text-xs text-[#64748b] mb-1 font-medium">%lãi/lỗ</div>
-                <div className="text-sm font-bold text-[#16a34a]">10.34%</div>
-                <button className="absolute -right-1 top-1/2 -translate-y-1/2 text-gray-400 p-1">
-                  <ChevronUp className="w-2.5 h-2.5" />
-                </button>
-              </div>
-            </div>
-          </article>
+          {loading ? (
+            <div className="text-center py-10 text-gray-400 text-sm">Đang tải lịch sử lãi lỗ...</div>
+          ) : filteredPnls.length === 0 ? (
+            <div className="text-center py-10 text-gray-400 text-sm">Không tìm thấy bản ghi nào.</div>
+          ) : (
+            filteredPnls.map((pnl) => {
+              const dateObj = new Date(pnl.sell_date);
+              const formattedDate = `${String(dateObj.getDate()).padStart(2, '0')}/${String(dateObj.getMonth() + 1).padStart(2, '0')}/${dateObj.getFullYear()}`;
+              const isProfit = Number(pnl.pnl_amount) >= 0;
+              const formattedAmount = Math.round(Number(pnl.pnl_amount)).toLocaleString();
+              const formattedPercent = `${isProfit ? '+' : ''}${Number(pnl.pnl_percent).toFixed(2)}%`;
 
-          {/* Transaction Item: Loss */}
-          <article className="bg-white rounded-xl p-3 border border-[#e2e8f0]" style={{ boxShadow: '0 2px 8px -2px rgba(0, 0, 0, 0.05), 0 4px 6px -4px rgba(0, 0, 0, 0.02)' }}>
-            <div className="flex justify-between items-center w-full">
-              <div className="w-1/4 text-center">
-                <div className="text-xs text-[#64748b] mb-1 font-medium">Ngày</div>
-                <div className="text-sm text-[#1e293b]">17/03/2026</div>
-              </div>
-              <div className="w-1/4 text-center">
-                <div className="text-xs text-[#64748b] mb-1 font-medium">Mã CK</div>
-                <div className="text-sm font-bold text-[#1e293b]">BSR</div>
-              </div>
-              <div className="w-1/4 text-center">
-                <div className="text-xs text-[#64748b] mb-1 font-medium">Lãi/lỗ</div>
-                <div className="text-sm font-bold text-[#dc2626]">-2,041,749</div>
-              </div>
-              <div className="w-1/4 text-center flex flex-col items-center relative">
-                <div className="text-xs text-[#64748b] mb-1 font-medium">%lãi/lỗ</div>
-                <div className="text-sm font-bold text-[#dc2626]">-13.88%</div>
-                <button className="absolute -right-1 top-1/2 -translate-y-1/2 text-gray-400 p-1">
-                  <ChevronUp className="w-2.5 h-2.5" />
-                </button>
-              </div>
-            </div>
-          </article>
-
-          {/* Transaction Item: Loss */}
-          <article className="bg-white rounded-xl p-3 border border-[#e2e8f0]" style={{ boxShadow: '0 2px 8px -2px rgba(0, 0, 0, 0.05), 0 4px 6px -4px rgba(0, 0, 0, 0.02)' }}>
-            <div className="flex justify-between items-center w-full">
-              <div className="w-1/4 text-center">
-                <div className="text-xs text-[#64748b] mb-1 font-medium">Ngày</div>
-                <div className="text-sm text-[#1e293b]">17/03/2026</div>
-              </div>
-              <div className="w-1/4 text-center">
-                <div className="text-xs text-[#64748b] mb-1 font-medium">Mã CK</div>
-                <div className="text-sm font-bold text-[#1e293b]">BSR</div>
-              </div>
-              <div className="w-1/4 text-center">
-                <div className="text-xs text-[#64748b] mb-1 font-medium">Lãi/lỗ</div>
-                <div className="text-sm font-bold text-[#dc2626]">-4,755,250</div>
-              </div>
-              <div className="w-1/4 text-center flex flex-col items-center relative">
-                <div className="text-xs text-[#64748b] mb-1 font-medium">%lãi/lỗ</div>
-                <div className="text-sm font-bold text-[#dc2626]">-12.93%</div>
-                <button className="absolute -right-1 top-1/2 -translate-y-1/2 text-gray-400 p-1">
-                  <ChevronUp className="w-2.5 h-2.5" />
-                </button>
-              </div>
-            </div>
-          </article>
-
-          {/* Transaction Item: Loss */}
-          <article className="bg-white rounded-xl p-3 border border-[#e2e8f0]" style={{ boxShadow: '0 2px 8px -2px rgba(0, 0, 0, 0.05), 0 4px 6px -4px rgba(0, 0, 0, 0.02)' }}>
-            <div className="flex justify-between items-center w-full">
-              <div className="w-1/4 text-center">
-                <div className="text-xs text-[#64748b] mb-1 font-medium">Ngày</div>
-                <div className="text-sm text-[#1e293b]">17/03/2026</div>
-              </div>
-              <div className="w-1/4 text-center">
-                <div className="text-xs text-[#64748b] mb-1 font-medium">Mã CK</div>
-                <div className="text-sm font-bold text-[#1e293b]">PC1</div>
-              </div>
-              <div className="w-1/4 text-center">
-                <div className="text-xs text-[#64748b] mb-1 font-medium">Lãi/lỗ</div>
-                <div className="text-sm font-bold text-[#dc2626]">-361,475</div>
-              </div>
-              <div className="w-1/4 text-center flex flex-col items-center relative">
-                <div className="text-xs text-[#64748b] mb-1 font-medium">%lãi/lỗ</div>
-                <div className="text-sm font-bold text-[#dc2626]">-6.48%</div>
-                <button className="absolute -right-1 top-1/2 -translate-y-1/2 text-gray-400 p-1">
-                  <ChevronUp className="w-2.5 h-2.5" />
-                </button>
-              </div>
-            </div>
-          </article>
-
-          {/* Transaction Item: Loss */}
-          <article className="bg-white rounded-xl p-3 border border-[#e2e8f0]" style={{ boxShadow: '0 2px 8px -2px rgba(0, 0, 0, 0.05), 0 4px 6px -4px rgba(0, 0, 0, 0.02)' }}>
-            <div className="flex justify-between items-center w-full">
-              <div className="w-1/4 text-center">
-                <div className="text-xs text-[#64748b] mb-1 font-medium">Ngày</div>
-                <div className="text-sm text-[#1e293b]">19/03/2026</div>
-              </div>
-              <div className="w-1/4 text-center">
-                <div className="text-xs text-[#64748b] mb-1 font-medium">Mã CK</div>
-                <div className="text-sm font-bold text-[#1e293b]">BSR</div>
-              </div>
-              <div className="w-1/4 text-center">
-                <div className="text-xs text-[#64748b] mb-1 font-medium">Lãi/lỗ</div>
-                <div className="text-sm font-bold text-[#dc2626]">-44,724</div>
-              </div>
-              <div className="w-1/4 text-center flex flex-col items-center relative">
-                <div className="text-xs text-[#64748b] mb-1 font-medium">%lãi/lỗ</div>
-                <div className="text-sm font-bold text-[#dc2626]">-2.85%</div>
-                <button className="absolute -right-1 top-1/2 -translate-y-1/2 text-gray-400 p-1">
-                  <ChevronUp className="w-2.5 h-2.5" />
-                </button>
-              </div>
-            </div>
-          </article>
-
-          {/* Transaction Item: Loss */}
-          <article className="bg-white rounded-xl p-3 border border-[#e2e8f0]" style={{ boxShadow: '0 2px 8px -2px rgba(0, 0, 0, 0.05), 0 4px 6px -4px rgba(0, 0, 0, 0.02)' }}>
-            <div className="flex justify-between items-center w-full">
-              <div className="w-1/4 text-center">
-                <div className="text-xs text-[#64748b] mb-1 font-medium">Ngày</div>
-                <div className="text-sm text-[#1e293b]">19/03/2026</div>
-              </div>
-              <div className="w-1/4 text-center">
-                <div className="text-xs text-[#64748b] mb-1 font-medium">Mã CK</div>
-                <div className="text-sm font-bold text-[#1e293b]">BSR</div>
-              </div>
-              <div className="w-1/4 text-center">
-                <div className="text-xs text-[#64748b] mb-1 font-medium">Lãi/lỗ</div>
-                <div className="text-sm font-bold text-[#dc2626]">-1,416,561</div>
-              </div>
-              <div className="w-1/4 text-center flex flex-col items-center relative">
-                <div className="text-xs text-[#64748b] mb-1 font-medium">%lãi/lỗ</div>
-                <div className="text-sm font-bold text-[#dc2626]">-3.01%</div>
-                <button className="absolute -right-1 top-1/2 -translate-y-1/2 text-gray-400 p-1">
-                  <ChevronUp className="w-2.5 h-2.5" />
-                </button>
-              </div>
-            </div>
-          </article>
+              return (
+                <article
+                  key={pnl.id}
+                  onClick={() => openEditModal(pnl)}
+                  className="bg-white rounded-xl p-3 border border-[#e2e8f0] cursor-pointer hover:bg-slate-50 transition-colors"
+                  style={{ boxShadow: '0 2px 8px -2px rgba(0, 0, 0, 0.05), 0 4px 6px -4px rgba(0, 0, 0, 0.02)' }}
+                >
+                  <div className="flex justify-between items-center w-full">
+                    <div className="w-1/4 text-center">
+                      <div className="text-xs text-[#64748b] mb-1 font-medium">Ngày</div>
+                      <div className="text-sm text-[#1e293b]">{formattedDate}</div>
+                    </div>
+                    <div className="w-1/4 text-center">
+                      <div className="text-xs text-[#64748b] mb-1 font-medium">Mã CK</div>
+                      <div className="text-sm font-bold text-[#1e293b]">{pnl.symbol}</div>
+                    </div>
+                    <div className="w-1/4 text-center">
+                      <div className="text-xs text-[#64748b] mb-1 font-medium">Lãi/lỗ</div>
+                      <div className={`text-sm font-bold ${isProfit ? 'text-[#16a34a]' : 'text-[#dc2626]'}`}>
+                        {formattedAmount}
+                      </div>
+                    </div>
+                    <div className="w-1/4 text-center flex flex-col items-center relative">
+                      <div className="text-xs text-[#64748b] mb-1 font-medium">%lãi/lỗ</div>
+                      <div className={`text-sm font-bold ${isProfit ? 'text-[#16a34a]' : 'text-[#dc2626]'}`}>
+                        {formattedPercent}
+                      </div>
+                      <button className="absolute -right-1 top-1/2 -translate-y-1/2 text-gray-400 p-1">
+                        <ChevronDown className="w-2.5 h-2.5" />
+                      </button>
+                    </div>
+                  </div>
+                </article>
+              );
+            })
+          )}
         </section>
-
-        <div className="h-4"></div>
       </main>
 
-      {/* Bottom Navigation */}
-      <nav className="absolute bottom-0 w-full bg-white border-t border-[#e2e8f0] pb-6 pt-2 px-2 z-30" style={{ boxShadow: '0 -4px 12px -4px rgba(0, 0, 0, 0.05)' }}>
-        <ul className="flex justify-between items-center text-[10px] font-medium text-[#64748b] pb-2">
-          <li className="flex-1">
-            <a className="flex flex-col items-center space-y-1 hover:text-[#6b21a8] transition-colors" href="#">
-              <Home className="w-5 h-5 mb-0.5" />
-              <span>Trang chủ</span>
-            </a>
-          </li>
-          <li className="flex-1">
-            <a className="flex flex-col items-center space-y-1 hover:text-[#6b21a8] transition-colors" href="#">
-              <TrendingUp className="w-5 h-5 mb-0.5" />
-              <span>Thị trường</span>
-            </a>
-          </li>
-          <li className="flex-1">
-            <a className="flex flex-col items-center space-y-1 hover:text-[#6b21a8] transition-colors" href="#">
-              <svg className="w-5 h-5 mb-0.5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                <path d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" strokeLinecap="round" strokeLinejoin="round"></path>
-              </svg>
-              <span>Giao dịch</span>
-            </a>
-          </li>
-          <li className="flex-1">
-            <a className="flex flex-col items-center space-y-1 text-[#6b21a8]" href="#">
-              <Wallet className="w-5 h-5 mb-0.5" />
-              <span>Tài sản</span>
-            </a>
-          </li>
-          <li className="flex-1">
-            <a className="flex flex-col items-center space-y-1 hover:text-[#6b21a8] transition-colors" href="#">
-              <svg className="w-5 h-5 mb-0.5" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
-                <path d="M4 6h16M4 12h16M4 18h7" strokeLinecap="round" strokeLinejoin="round"></path>
-              </svg>
-              <span>Tất cả</span>
-            </a>
-          </li>
-        </ul>
-      </nav>
+      {/* Add / Edit PnL Modal */}
+      {modalOpen && selectedPnL && (
+        <div
+          className="fixed inset-0 z-[60] bg-black/40 flex items-stretch justify-center"
+          onClick={() => setModalOpen(false)}
+        >
+          <form
+            key={selectedPnL.id || 'new_pnl'}
+            onSubmit={handleSavePnL}
+            className="w-full h-full bg-white p-4 shadow-xl overflow-y-auto flex flex-col justify-between"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <div className="space-y-4">
+              <h2 className="text-lg font-bold text-gray-900 border-b pb-2">
+                {selectedPnL.id ? 'Sửa chốt Lãi/Lỗ' : 'Thêm chốt Lãi/Lỗ'}
+              </h2>
+              
+              <div className="space-y-3">
+                <div className="space-y-1">
+                  <label className="text-xs font-semibold text-slate-700">Mã CK</label>
+                  <input
+                    name="symbol"
+                    className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm uppercase"
+                    defaultValue={selectedPnL.symbol}
+                    placeholder="Ví dụ: MSR, BSR..."
+                    required
+                    type="text"
+                  />
+                </div>
+
+                <div className="space-y-1">
+                  <label className="text-xs font-semibold text-slate-700">Ngày Bán</label>
+                  <input
+                    name="sell_date"
+                    className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm"
+                    defaultValue={selectedPnL.sell_date ? selectedPnL.sell_date.split('T')[0] : new Date().toISOString().split('T')[0]}
+                    type="date"
+                    required
+                  />
+                </div>
+
+                <div className="space-y-1">
+                  <label className="text-xs font-semibold text-slate-700">Số tiền Lãi/Lỗ (VND)</label>
+                  <input
+                    name="pnl_amount"
+                    className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm"
+                    defaultValue={selectedPnL.pnl_amount}
+                    placeholder="Ví dụ: -2041749 hoặc 912400"
+                    type="number"
+                    step="0.01"
+                    required
+                  />
+                </div>
+
+                <div className="space-y-1">
+                  <label className="text-xs font-semibold text-slate-700">% Lãi/Lỗ</label>
+                  <input
+                    name="pnl_percent"
+                    className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm"
+                    defaultValue={selectedPnL.pnl_percent}
+                    placeholder="Ví dụ: -13.88 hoặc 10.34"
+                    type="number"
+                    step="0.01"
+                    required
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-8 space-y-2">
+              <button
+                type="submit"
+                className="w-full bg-[#6b21a8] text-white font-semibold py-2.5 rounded-lg text-sm hover:bg-opacity-95 transition-opacity"
+              >
+                Lưu
+              </button>
+              {selectedPnL.id && (
+                <button
+                  type="button"
+                  onClick={() => handleDeletePnL(selectedPnL.id!)}
+                  className="w-full bg-red-500 text-white font-semibold py-2.5 rounded-lg text-sm hover:bg-opacity-95 transition-opacity"
+                >
+                  Xóa bản ghi
+                </button>
+              )}
+              <button
+                type="button"
+                className="w-full border-2 border-slate-300 text-slate-600 font-semibold py-2.5 rounded-lg text-sm hover:bg-slate-50 transition-colors"
+                onClick={() => setModalOpen(false)}
+              >
+                Thoát
+              </button>
+            </div>
+          </form>
+        </div>
+      )}
     </div>
   );
 }
