@@ -39,7 +39,7 @@ export default function StockPortfolio({ onNavigate }: StockPortfolioProps) {
       {/* Main Scrollable Content */}
       <main className="flex-1 overflow-y-auto pb-48 bg-white">
         {/* Asset Summary Card */}
-        <section className="p-4 bg-white">
+        <section className="p-4 pb-[180px] bg-white">
           <div className="bg-[#EFE7FF] rounded-2xl">
             <div className="rounded-2xl p-4 text-white shadow-md relative overflow-hidden" style={{ background: 'linear-gradient(135deg, #7146FF 0%, #9F62FF 100%)' }}>
               <div className="absolute right-0 bottom-0 opacity-10">
@@ -108,10 +108,10 @@ export default function StockPortfolio({ onNavigate }: StockPortfolioProps) {
           </div>
         </section>
 
-        <div className="h-2 bg-[#F6F6F6] w-full"></div>
+        <div className="h-2 bg-[#F6F6F6] w-full border-t border-slate-200"></div>
 
         {/* Portfolio Detail Section */}
-        <section className="bg-white rounded-t-3xl pt-2 pb-6">
+        <section className="bg-white rounded-t-3xl pt-2 pb-6 border-t border-slate-200 shadow-[0_-6px_14px_-12px_rgba(0,0,0,0.35)]">
           <div className="flex justify-center pt-2 pb-4">
             <div className="w-10 h-1 bg-slate-300 rounded-full"></div>
           </div>

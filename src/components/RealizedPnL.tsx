@@ -12,7 +12,12 @@ export default function RealizedPnL({ onNavigate }: RealizedPnLProps) {
         <button onClick={() => onNavigate('home')} className="w-8 h-8 flex items-center justify-center text-[#1e293b]">
           <ChevronLeft className="w-5 h-5" />
         </button>
-        <h1 className="text-[17px] font-semibold text-[#1e293b]">Lãi lỗ đã thực hiện</h1>
+        <h1
+          className="font-semibold text-[#1e293b]"
+          style={{ margin: 0, fontSize: '18px', lineHeight: '1.2' }}
+        >
+          Lãi lỗ đã thực hiện
+        </h1>
         <button className="flex items-center space-x-1 border border-gray-300 rounded-full px-3 py-1 bg-white text-sm font-medium">
           <span>TK</span>
           <span className="w-5 h-5 rounded-full bg-gray-500 text-white flex items-center justify-center text-xs">1</span>
