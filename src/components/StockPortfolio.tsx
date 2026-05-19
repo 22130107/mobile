@@ -74,9 +74,14 @@ interface StockPortfolioProps {
 
 export default function StockPortfolio({ onNavigate }: StockPortfolioProps) {
   const [expandedStock, setExpandedStock] = useState<string | null>(null);
+  const [buyModalStock, setBuyModalStock] = useState<StockData | null>(null);
 
   const toggleStock = (symbol: string) => {
     setExpandedStock(expandedStock === symbol ? null : symbol);
+  };
+
+  const closeBuyModal = () => {
+    setBuyModalStock(null);
   };
 
   return (
@@ -200,37 +205,37 @@ export default function StockPortfolio({ onNavigate }: StockPortfolioProps) {
               <div className="bg-[#F6F5F8] rounded-[24px] p-5 space-y-4">
                 <div className="flex justify-between items-center">
                   <div className="flex items-center text-slate-700">
-                    <span className="text-[15px] font-medium">Lãi lỗ danh mục</span>
+                    <span className="text-[13px] font-medium">Lãi lỗ danh mục</span>
                     <EyeOff className="w-5 h-5 text-slate-400 ml-1.5" />
                   </div>
                   <div className="flex items-center gap-1">
-                    <span className="font-bold text-[17px] text-[#13A849]">+12,039</span>
-                    <span className="bg-[#13A849]/10 text-[#13A849] text-[12px] px-1.5 py-0.5 rounded-full font-bold">+11.14%</span>
+                    <span className="font-bold text-[15px] text-[#13A849]">+12,039</span>
+                    <span className="bg-[#13A849]/10 text-[#13A849] text-[11px] px-1.5 py-0.5 rounded-full font-bold">+11.14%</span>
                   </div>
                 </div>
                 <div className="flex justify-between items-center">
                   <div className="flex items-center text-slate-700">
-                    <span className="text-[15px] font-medium">Lãi/Lỗ hôm nay</span>
+                    <span className="text-[13px] font-medium">Lãi/Lỗ hôm nay</span>
                     <svg className="w-5 h-5 text-slate-400 ml-1.5" fill="currentColor" viewBox="0 0 24 24">
                       <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"></path>
                     </svg>
                   </div>
-                  <span className="font-bold text-[17px] text-slate-900">0</span>
+                  <span className="font-bold text-[15px] text-slate-900">0</span>
                 </div>
                 <div className="flex justify-between items-center">
                   <div className="flex items-center text-slate-700">
-                    <span className="text-[15px] font-medium">Tổng vốn</span>
+                    <span className="text-[13px] font-medium">Tổng vốn</span>
                     <svg className="w-5 h-5 text-slate-400 ml-1.5" fill="currentColor" viewBox="0 0 24 24">
                       <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"></path>
                     </svg>
                   </div>
-                  <span className="font-bold text-[17px] text-slate-900">108,061</span>
+                  <span className="font-bold text-[15px] text-slate-900">108,061</span>
                 </div>
                 <div className="flex justify-between items-center">
                   <div className="flex items-center text-slate-700">
-                    <span className="text-[15px] font-medium">Tổng giá trị thị trường</span>
+                    <span className="text-[13px] font-medium">Tổng giá trị thị trường</span>
                   </div>
-                  <span className="font-bold text-[17px] text-slate-900">120,100</span>
+                  <span className="font-bold text-[15px] text-slate-900">120,100</span>
                 </div>
               </div>
 
@@ -366,7 +371,10 @@ export default function StockPortfolio({ onNavigate }: StockPortfolioProps) {
 
                                 {/* Action Buttons */}
                                 <div className="grid grid-cols-3 gap-2 pt-1">
-                                  <button className="border-2 border-[#13A849] text-[#13A849] font-semibold py-2.5 rounded-full text-[14px]">
+                                  <button
+                                    className="border-2 border-[#13A849] text-[#13A849] font-semibold py-2.5 rounded-full text-[14px]"
+                                    onClick={() => setBuyModalStock(stock)}
+                                  >
                                     Mua
                                   </button>
                                   <button className="border-2 border-[#DF3C40] text-[#DF3C40] font-semibold py-2.5 rounded-full text-[14px]">
@@ -433,6 +441,136 @@ export default function StockPortfolio({ onNavigate }: StockPortfolioProps) {
           </div>
         </nav>
       </div>
+
+      {buyModalStock && (
+        <div
+          className="fixed inset-0 z-[60] bg-black/40 flex items-stretch justify-center"
+          onClick={closeBuyModal}
+        >
+          <div
+            className="w-full h-full bg-white p-4 shadow-xl overflow-y-auto"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <div className="grid grid-cols-2 gap-3">
+              <div className="space-y-1">
+                <label className="text-[12px] font-semibold text-slate-700">Mã CP</label>
+                <input
+                  className="w-full rounded-lg border border-slate-300 px-3 py-2 text-[13px]"
+                  defaultValue={buyModalStock.symbol}
+                  type="text"
+                />
+              </div>
+              <div className="space-y-1">
+                <label className="text-[12px] font-semibold text-slate-700">Giá vốn</label>
+                <input
+                  className="w-full rounded-lg border border-slate-300 px-3 py-2 text-[13px]"
+                  defaultValue={buyModalStock.costPrice}
+                  type="text"
+                />
+              </div>
+              <div className="space-y-1">
+                <label className="text-[12px] font-semibold text-slate-700">Giá TT</label>
+                <input
+                  className="w-full rounded-lg border border-slate-300 px-3 py-2 text-[13px]"
+                  defaultValue={buyModalStock.marketPrice}
+                  type="text"
+                />
+              </div>
+              <div className="space-y-1">
+                <label className="text-[12px] font-semibold text-slate-700">Tổng KL</label>
+                <input
+                  className="w-full rounded-lg border border-slate-300 px-3 py-2 text-[13px]"
+                  defaultValue={buyModalStock.totalQty}
+                  type="text"
+                />
+              </div>
+              <div className="space-y-1">
+                <label className="text-[12px] font-semibold text-slate-700">KL thường</label>
+                <input
+                  className="w-full rounded-lg border border-slate-300 px-3 py-2 text-[13px]"
+                  defaultValue={buyModalStock.normalQty}
+                  type="text"
+                />
+              </div>
+              <div className="space-y-1">
+                <label className="text-[12px] font-semibold text-slate-700">KL FS</label>
+                <input
+                  className="w-full rounded-lg border border-slate-300 px-3 py-2 text-[13px]"
+                  defaultValue={buyModalStock.fsQty}
+                  type="text"
+                />
+              </div>
+              <div className="space-y-1">
+                <label className="text-[12px] font-semibold text-slate-700">KL có thể bán</label>
+                <input
+                  className="w-full rounded-lg border border-slate-300 px-3 py-2 text-[13px]"
+                  defaultValue={buyModalStock.sellableQty}
+                  type="text"
+                />
+              </div>
+              <div className="space-y-1">
+                <label className="text-[12px] font-semibold text-slate-700">Outroom</label>
+                <input
+                  className="w-full rounded-lg border border-slate-300 px-3 py-2 text-[13px]"
+                  defaultValue={buyModalStock.outroom}
+                  type="text"
+                />
+              </div>
+              <div className="space-y-1">
+                <label className="text-[12px] font-semibold text-slate-700">KL khác</label>
+                <input
+                  className="w-full rounded-lg border border-slate-300 px-3 py-2 text-[13px]"
+                  defaultValue={buyModalStock.otherQty}
+                  type="text"
+                />
+              </div>
+              <div className="space-y-1">
+                <label className="text-[12px] font-semibold text-slate-700">CPCT/Thưởng</label>
+                <input
+                  className="w-full rounded-lg border border-slate-300 px-3 py-2 text-[13px]"
+                  defaultValue={buyModalStock.cpctBonus}
+                  type="text"
+                />
+              </div>
+              <div className="space-y-1">
+                <label className="text-[12px] font-semibold text-slate-700">T0</label>
+                <input
+                  className="w-full rounded-lg border border-slate-300 px-3 py-2 text-[13px]"
+                  defaultValue={buyModalStock.t0}
+                  type="text"
+                />
+              </div>
+              <div className="space-y-1">
+                <label className="text-[12px] font-semibold text-slate-700">T1</label>
+                <input
+                  className="w-full rounded-lg border border-slate-300 px-3 py-2 text-[13px]"
+                  defaultValue={buyModalStock.t1}
+                  type="text"
+                />
+              </div>
+              <div className="space-y-1 col-span-2">
+                <label className="text-[12px] font-semibold text-slate-700">T2</label>
+                <input
+                  className="w-full rounded-lg border border-slate-300 px-3 py-2 text-[13px]"
+                  defaultValue={buyModalStock.t2}
+                  type="text"
+                />
+              </div>
+            </div>
+            <div className="mt-4 space-y-2">
+              <button className="w-full border-2 border-slate-400 text-slate-800 font-semibold py-2 rounded-lg text-[14px]">
+                Luu
+              </button>
+              <button
+                className="w-full border-2 border-slate-400 text-slate-800 font-semibold py-2 rounded-lg text-[14px]"
+                onClick={closeBuyModal}
+              >
+                Thoat
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
