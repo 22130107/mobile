@@ -175,8 +175,8 @@ export default function StockPortfolio({ onNavigate }: StockPortfolioProps) {
                   <thead className="bg-slate-50">
                     <tr>
                       <th className="py-2 text-[12px] font-medium text-slate-500 uppercase">Mã CP</th>
-                      <th className="py-2 text-[12px] font-medium text-slate-500 uppercase text-right">GIÁ VỐN</th>
-                      <th className="py-2 text-[12px] font-medium text-slate-500 uppercase text-right">GIÁ TT</th>
+                      <th className="py-2 text-[12px] font-medium text-slate-500 uppercase text-left">GIÁ VỐN</th>
+                      <th className="py-2 text-[12px] font-medium text-slate-500 uppercase text-left">GIÁ TT</th>
                       <th className="py-2 text-[12px] font-medium text-slate-500 uppercase text-right">
                         <div className="flex items-center justify-end">
                           KL
@@ -198,8 +198,8 @@ export default function StockPortfolio({ onNavigate }: StockPortfolioProps) {
                           </svg>
                         </div>
                       </td>
-                      <td className="py-4 text-right font-bold text-slate-900">27.94</td>
-                      <td className="py-4 text-right font-bold text-slate-900">27.10</td>
+                      <td className="py-4 text-left font-bold text-slate-900">27.94</td>
+                      <td className="py-4 text-left font-bold text-slate-900">27.10</td>
                       <td className="py-4 text-right font-bold text-slate-900">1</td>
                       <td className="py-4 text-right font-bold text-[#DF3C40]">-3.01%</td>
                     </tr>
@@ -212,8 +212,8 @@ export default function StockPortfolio({ onNavigate }: StockPortfolioProps) {
                           </svg>
                         </div>
                       </td>
-                      <td className="py-4 text-right font-bold text-slate-900">80.12</td>
-                      <td className="py-4 text-right font-bold text-slate-900">93.00</td>
+                      <td className="py-4 text-left font-bold text-slate-900">80.12</td>
+                      <td className="py-4 text-left font-bold text-slate-900">93.00</td>
                       <td className="py-4 text-right font-bold text-slate-900">1</td>
                       <td className="py-4 text-right font-bold text-[#13A849]">+16.08%</td>
                     </tr>
