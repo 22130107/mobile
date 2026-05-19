@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { Fragment, useState } from 'react';
 import { ChevronLeft, Search, ChevronRight, EyeOff, BookOpen, Menu, ChevronUp, ChevronDown, Info } from 'lucide-react';
 
 interface StockData {
@@ -73,11 +73,15 @@ interface StockPortfolioProps {
 }
 
 export default function StockPortfolio({ onNavigate }: StockPortfolioProps) {
-  const [expandedStock, setExpandedStock] = useState<string | null>(null);
+  const [expandedStocks, setExpandedStocks] = useState<string[]>([]);
   const [buyModalStock, setBuyModalStock] = useState<StockData | null>(null);
 
   const toggleStock = (symbol: string) => {
-    setExpandedStock(expandedStock === symbol ? null : symbol);
+    setExpandedStocks((current) => (
+      current.includes(symbol)
+        ? current.filter((item) => item !== symbol)
+        : [...current, symbol]
+    ));
   };
 
   const closeBuyModal = () => {
@@ -269,16 +273,15 @@ export default function StockPortfolio({ onNavigate }: StockPortfolioProps) {
                   </thead>
                   <tbody className="divide-y divide-slate-100">
                     {stocksData.map((stock) => (
-                      <>
+                      <Fragment key={stock.symbol}>
                         <tr
-                          key={stock.symbol}
                           className="cursor-pointer active:bg-slate-50"
                           onClick={() => toggleStock(stock.symbol)}
                         >
                           <td className="py-4">
                             <div className={`flex items-center font-bold text-[15px] ${stock.isPositive ? 'text-[#13A849]' : 'text-[#DF3C40]'}`}>
                               {stock.symbol}
-                              {expandedStock === stock.symbol ? (
+                              {expandedStocks.includes(stock.symbol) ? (
                                 <ChevronUp className="w-4 h-4 ml-0.5" />
                               ) : (
                                 <ChevronDown className="w-4 h-4 ml-0.5" />
@@ -290,12 +293,12 @@ export default function StockPortfolio({ onNavigate }: StockPortfolioProps) {
                           <td className="py-4 text-right font-bold text-slate-900">{stock.quantity}</td>
                           <td className={`py-4 text-right font-bold ${stock.isPositive ? 'text-[#13A849]' : 'text-[#DF3C40]'}`}>{stock.pnlPercent}</td>
                         </tr>
-                        {expandedStock === stock.symbol && (
-                          <tr key={`${stock.symbol}-detail`}>
+                        {expandedStocks.includes(stock.symbol) && (
+                          <tr>
                             <td colSpan={5} className="p-0">
                               <div className="bg-white px-4 py-4 space-y-4">
                                 {/* Summary Row */}
-                                <div className="grid grid-cols-3 gap-2 bg-[#F3F4F6] rounded-lg p-3 border border-slate-200">
+                                <div className="grid grid-cols-3 gap-2 bg-[#F8F9FB] rounded-lg p-3 border border-slate-100">
                                   <div className="text-center">
                                     <div className="text-[11px] text-slate-500 mb-1">Tổng vốn</div>
                                     <div className="text-[14px] font-bold text-slate-900">{stock.totalCapital}</div>
@@ -313,7 +316,7 @@ export default function StockPortfolio({ onNavigate }: StockPortfolioProps) {
                                 {/* Detail Grid */}
                                 <div className="grid grid-cols-2 gap-3">
                                   {/* Left Column */}
-                                  <div className="bg-[#F3F4F6] rounded-lg p-3 border border-slate-200 space-y-2.5">
+                                  <div className="bg-[#F8F9FB] rounded-lg p-3 border border-slate-100 space-y-2.5">
                                     <div className="flex justify-between">
                                       <span className="text-[13px] text-slate-600">Tổng KL</span>
                                       <span className="text-[13px] font-semibold text-slate-900">{stock.totalQty}</span>
@@ -337,7 +340,7 @@ export default function StockPortfolio({ onNavigate }: StockPortfolioProps) {
                                   </div>
 
                                   {/* Right Column */}
-                                  <div className="bg-[#F3F4F6] rounded-lg p-3 border border-slate-200 space-y-2.5">
+                                  <div className="bg-[#F8F9FB] rounded-lg p-3 border border-slate-100 space-y-2.5">
                                     <div className="flex justify-between items-center">
                                       <div className="flex items-center gap-1">
                                         <span className="text-[13px] text-slate-600">KL Khác</span>
@@ -388,7 +391,7 @@ export default function StockPortfolio({ onNavigate }: StockPortfolioProps) {
                             </td>
                           </tr>
                         )}
-                      </>
+                      </Fragment>
                     ))}
                   </tbody>
                 </table>
@@ -455,7 +458,7 @@ export default function StockPortfolio({ onNavigate }: StockPortfolioProps) {
               <div className="space-y-1">
                 <label className="text-[12px] font-semibold text-slate-700">Mã CP</label>
                 <input
-                  className="w-full rounded-lg border border-slate-300 px-3 py-2 text-[13px]"
+                  className="w-full rounded-lg border border-slate-300 px-3 py-2 text-[16px] sm:text-[13px]"
                   defaultValue={buyModalStock.symbol}
                   type="text"
                 />
@@ -463,7 +466,7 @@ export default function StockPortfolio({ onNavigate }: StockPortfolioProps) {
               <div className="space-y-1">
                 <label className="text-[12px] font-semibold text-slate-700">Giá vốn</label>
                 <input
-                  className="w-full rounded-lg border border-slate-300 px-3 py-2 text-[13px]"
+                  className="w-full rounded-lg border border-slate-300 px-3 py-2 text-[16px] sm:text-[13px]"
                   defaultValue={buyModalStock.costPrice}
                   type="text"
                 />
@@ -471,7 +474,7 @@ export default function StockPortfolio({ onNavigate }: StockPortfolioProps) {
               <div className="space-y-1">
                 <label className="text-[12px] font-semibold text-slate-700">Giá TT</label>
                 <input
-                  className="w-full rounded-lg border border-slate-300 px-3 py-2 text-[13px]"
+                  className="w-full rounded-lg border border-slate-300 px-3 py-2 text-[16px] sm:text-[13px]"
                   defaultValue={buyModalStock.marketPrice}
                   type="text"
                 />
@@ -479,7 +482,7 @@ export default function StockPortfolio({ onNavigate }: StockPortfolioProps) {
               <div className="space-y-1">
                 <label className="text-[12px] font-semibold text-slate-700">Tổng KL</label>
                 <input
-                  className="w-full rounded-lg border border-slate-300 px-3 py-2 text-[13px]"
+                  className="w-full rounded-lg border border-slate-300 px-3 py-2 text-[16px] sm:text-[13px]"
                   defaultValue={buyModalStock.totalQty}
                   type="text"
                 />
@@ -487,7 +490,7 @@ export default function StockPortfolio({ onNavigate }: StockPortfolioProps) {
               <div className="space-y-1">
                 <label className="text-[12px] font-semibold text-slate-700">KL thường</label>
                 <input
-                  className="w-full rounded-lg border border-slate-300 px-3 py-2 text-[13px]"
+                  className="w-full rounded-lg border border-slate-300 px-3 py-2 text-[16px] sm:text-[13px]"
                   defaultValue={buyModalStock.normalQty}
                   type="text"
                 />
@@ -495,7 +498,7 @@ export default function StockPortfolio({ onNavigate }: StockPortfolioProps) {
               <div className="space-y-1">
                 <label className="text-[12px] font-semibold text-slate-700">KL FS</label>
                 <input
-                  className="w-full rounded-lg border border-slate-300 px-3 py-2 text-[13px]"
+                  className="w-full rounded-lg border border-slate-300 px-3 py-2 text-[16px] sm:text-[13px]"
                   defaultValue={buyModalStock.fsQty}
                   type="text"
                 />
@@ -503,7 +506,7 @@ export default function StockPortfolio({ onNavigate }: StockPortfolioProps) {
               <div className="space-y-1">
                 <label className="text-[12px] font-semibold text-slate-700">KL có thể bán</label>
                 <input
-                  className="w-full rounded-lg border border-slate-300 px-3 py-2 text-[13px]"
+                  className="w-full rounded-lg border border-slate-300 px-3 py-2 text-[16px] sm:text-[13px]"
                   defaultValue={buyModalStock.sellableQty}
                   type="text"
                 />
@@ -511,7 +514,7 @@ export default function StockPortfolio({ onNavigate }: StockPortfolioProps) {
               <div className="space-y-1">
                 <label className="text-[12px] font-semibold text-slate-700">Outroom</label>
                 <input
-                  className="w-full rounded-lg border border-slate-300 px-3 py-2 text-[13px]"
+                  className="w-full rounded-lg border border-slate-300 px-3 py-2 text-[16px] sm:text-[13px]"
                   defaultValue={buyModalStock.outroom}
                   type="text"
                 />
@@ -519,7 +522,7 @@ export default function StockPortfolio({ onNavigate }: StockPortfolioProps) {
               <div className="space-y-1">
                 <label className="text-[12px] font-semibold text-slate-700">KL khác</label>
                 <input
-                  className="w-full rounded-lg border border-slate-300 px-3 py-2 text-[13px]"
+                  className="w-full rounded-lg border border-slate-300 px-3 py-2 text-[16px] sm:text-[13px]"
                   defaultValue={buyModalStock.otherQty}
                   type="text"
                 />
@@ -527,7 +530,7 @@ export default function StockPortfolio({ onNavigate }: StockPortfolioProps) {
               <div className="space-y-1">
                 <label className="text-[12px] font-semibold text-slate-700">CPCT/Thưởng</label>
                 <input
-                  className="w-full rounded-lg border border-slate-300 px-3 py-2 text-[13px]"
+                  className="w-full rounded-lg border border-slate-300 px-3 py-2 text-[16px] sm:text-[13px]"
                   defaultValue={buyModalStock.cpctBonus}
                   type="text"
                 />
@@ -535,7 +538,7 @@ export default function StockPortfolio({ onNavigate }: StockPortfolioProps) {
               <div className="space-y-1">
                 <label className="text-[12px] font-semibold text-slate-700">T0</label>
                 <input
-                  className="w-full rounded-lg border border-slate-300 px-3 py-2 text-[13px]"
+                  className="w-full rounded-lg border border-slate-300 px-3 py-2 text-[16px] sm:text-[13px]"
                   defaultValue={buyModalStock.t0}
                   type="text"
                 />
@@ -543,7 +546,7 @@ export default function StockPortfolio({ onNavigate }: StockPortfolioProps) {
               <div className="space-y-1">
                 <label className="text-[12px] font-semibold text-slate-700">T1</label>
                 <input
-                  className="w-full rounded-lg border border-slate-300 px-3 py-2 text-[13px]"
+                  className="w-full rounded-lg border border-slate-300 px-3 py-2 text-[16px] sm:text-[13px]"
                   defaultValue={buyModalStock.t1}
                   type="text"
                 />
@@ -551,7 +554,7 @@ export default function StockPortfolio({ onNavigate }: StockPortfolioProps) {
               <div className="space-y-1 col-span-2">
                 <label className="text-[12px] font-semibold text-slate-700">T2</label>
                 <input
-                  className="w-full rounded-lg border border-slate-300 px-3 py-2 text-[13px]"
+                  className="w-full rounded-lg border border-slate-300 px-3 py-2 text-[16px] sm:text-[13px]"
                   defaultValue={buyModalStock.t2}
                   type="text"
                 />
