@@ -8,47 +8,47 @@ export default function HomeScreen({ onNavigate }: HomeScreenProps) {
   return (
     <div className="bg-white min-h-screen shadow-lg flex flex-col relative">
       {/* Header & Search */}
-      <header className="px-4 py-2 flex items-center space-x-3">
-        <div className="flex-1 bg-white border border-gray-200 rounded-lg flex items-center px-3 py-2 shadow-sm">
-          <Search className="w-5 h-5 text-gray-400" />
+      <header className="px-4 py-2 flex items-center space-x-2">
+        <div className="flex-1 bg-white border border-gray-200 rounded-lg flex items-center px-3 py-1.5 shadow-sm">
+          <Search className="w-4 h-4 text-gray-400" />
           <input
-            className="ml-2 bg-transparent border-none focus:ring-0 text-sm w-full outline-none"
+            className="ml-2 bg-transparent border-none focus:ring-0 text-xs w-full outline-none"
             placeholder="Tìm kiếm"
             type="text"
           />
         </div>
-        <div className="flex space-x-4 text-gray-700">
+        <div className="flex space-x-3 text-gray-700">
           <button className="p-1">
-            <LifeBuoy className="w-7 h-7" strokeWidth={1.5} />
+            <LifeBuoy className="w-6 h-6" strokeWidth={1.5} />
           </button>
           <button className="p-1 relative">
-            <Bell className="w-7 h-7" strokeWidth={1.5} />
-            <span className="absolute top-1 right-1 w-2.5 h-2.5 bg-red-500 border-2 border-white rounded-full"></span>
+            <Bell className="w-6 h-6" strokeWidth={1.5} />
+            <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 border-2 border-white rounded-full"></span>
           </button>
         </div>
       </header>
 
       {/* Profile Section */}
-      <section className="px-4 py-4 flex items-center justify-between">
+      <section className="px-4 py-3 flex items-center justify-between">
         <div className="flex items-center space-x-3">
-          <div className="w-14 h-14 rounded-full bg-purple-700 flex flex-col items-center justify-center text-white text-lg font-bold border-2 border-purple-200">
+          <div className="w-12 h-12 rounded-full bg-purple-700 flex flex-col items-center justify-center text-white text-base font-bold border-2 border-purple-200">
             <span>HH</span>
             <span className="text-[10px] opacity-70">...</span>
           </div>
           <div>
-            <h2 className="text-gray-500 text-sm">Tài khoản</h2>
-            <p className="font-bold text-lg">***625</p>
+            <h2 className="text-gray-500 text-xs">Tài khoản</h2>
+            <p className="font-bold text-base">***625</p>
           </div>
         </div>
         <div className="text-right">
           <div className="flex items-center justify-end space-x-2">
-            <span className="text-lg font-bold">******</span>
-            <svg className="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <span className="text-base font-bold">******</span>
+            <svg className="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"></path>
               <path d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"></path>
             </svg>
           </div>
-          <p className="text-sm text-gray-500 font-medium">*** (*%)</p>
+          <p className="text-xs text-gray-500 font-medium">*** (*%)</p>
         </div>
       </section>
 
@@ -101,35 +101,35 @@ export default function HomeScreen({ onNavigate }: HomeScreenProps) {
             {/* Stocks */}
             <button
               onClick={() => onNavigate('portfolio')}
-              className="p-8 flex flex-col items-center justify-center cursor-pointer hover:bg-white/10 transition-colors"
+              className="p-4 flex flex-col items-center justify-center cursor-pointer hover:bg-white/10 transition-colors"
               style={{ borderRight: '0.5px solid rgba(255, 255, 255, 0.2)', borderBottom: '0.5px solid rgba(255, 255, 255, 0.2)' }}
             >
-              <div className="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center mb-2 backdrop-blur-sm">
+              <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center mb-2 backdrop-blur-sm">
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"></path>
                 </svg>
               </div>
-              <span className="font-bold text-lg">Cổ phiếu</span>
+              <span className="font-bold text-base">Cổ phiếu</span>
             </button>
             {/* Derivatives */}
-            <div className="p-8 flex flex-col items-center justify-center" style={{ borderBottom: '0.5px solid rgba(255, 255, 255, 0.2)' }}>
-              <div className="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center mb-2 backdrop-blur-sm">
+            <div className="p-4 flex flex-col items-center justify-center" style={{ borderBottom: '0.5px solid rgba(255, 255, 255, 0.2)' }}>
+              <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center mb-2 backdrop-blur-sm">
                 <TrendingUp className="w-6 h-6" strokeWidth={2} />
               </div>
-              <span className="font-bold text-lg">Phái sinh</span>
+              <span className="font-bold text-base">Phái sinh</span>
             </div>
             {/* Recommendation */}
-            <div className="p-8 flex flex-col items-center justify-center" style={{ borderRight: '0.5px solid rgba(255, 255, 255, 0.2)' }}>
-              <div className="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center mb-2 backdrop-blur-sm">
+            <div className="p-4 flex flex-col items-center justify-center" style={{ borderRight: '0.5px solid rgba(255, 255, 255, 0.2)' }}>
+              <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center mb-2 backdrop-blur-sm">
                 <Play className="w-6 h-6" strokeWidth={2} />
               </div>
-              <span className="font-bold text-lg">Khuyến nghị</span>
+              <span className="font-bold text-base">Khuyến nghị</span>
             </div>
             {/* Add More */}
-            <div className="p-8 flex flex-col items-center justify-center">
-              <button className="bg-white/20 backdrop-blur-sm border border-white/30 rounded-full px-4 py-1.5 flex items-center space-x-1">
-                <span className="text-xl font-light">+</span>
-                <span className="text-sm font-semibold">Thêm</span>
+            <div className="p-4 flex flex-col items-center justify-center">
+              <button className="bg-white/20 backdrop-blur-sm border border-white/30 rounded-full px-3 py-1 flex items-center space-x-1">
+                <span className="text-lg font-light">+</span>
+                <span className="text-xs font-semibold">Thêm</span>
               </button>
             </div>
           </div>
@@ -137,7 +137,7 @@ export default function HomeScreen({ onNavigate }: HomeScreenProps) {
       </main>
 
       {/* Market Indices */}
-      <section className="mt-6 mb-20">
+      <section className="mt-6 mb-20 pb-[200px]">
         <div className="px-4 flex items-center justify-between mb-4">
           <h3 className="text-xl font-bold">Chỉ số</h3>
           <button className="text-purple-600 font-semibold text-sm">Xem tất cả</button>
