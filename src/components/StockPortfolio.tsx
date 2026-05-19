@@ -71,15 +71,15 @@ export default function StockPortfolio({ onNavigate }: StockPortfolioProps) {
             <div className="grid grid-cols-4 gap-2 pt-3 pb-3 px-2 rounded-b-2xl">
               <button
                 onClick={() => onNavigate('orderbook')}
-                className="flex flex-col items-center cursor-pointer hover:bg-purple-50 rounded-lg p-2 transition-colors"
+                className="flex flex-col items-center justify-center text-center gap-1 rounded-lg p-2 hover:bg-purple-50 transition-colors"
               >
-                <div className="w-10 h-10 flex items-center justify-center mb-1">
+                <div className="w-10 h-10 flex items-center justify-center">
                   <BookOpen className="w-6 h-6 text-slate-800" strokeWidth={1.5} />
                 </div>
                 <span className="text-xs font-medium text-slate-800">Sổ lệnh</span>
               </button>
-              <div className="flex flex-col items-center">
-                <div className="w-10 h-10 flex items-center justify-center mb-1">
+              <div className="flex flex-col items-center justify-center text-center gap-1 rounded-lg p-2">
+                <div className="w-10 h-10 flex items-center justify-center">
                   <svg className="w-6 h-6 text-slate-800" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
                     <circle cx="12" cy="12" r="9"></circle>
                     <path d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
@@ -87,8 +87,8 @@ export default function StockPortfolio({ onNavigate }: StockPortfolioProps) {
                 </div>
                 <span className="text-xs font-medium text-slate-800">Ứng tiền</span>
               </div>
-              <div className="flex flex-col items-center">
-                <div className="w-10 h-10 flex items-center justify-center mb-1">
+              <div className="flex flex-col items-center justify-center text-center gap-1 rounded-lg p-2">
+                <div className="w-10 h-10 flex items-center justify-center">
                   <div className="border-[1.5px] border-slate-800 rounded p-1 flex items-center justify-center w-6 h-6">
                     <span className="text-[14px] font-semibold text-slate-800 leading-none pb-0.5">$</span>
                   </div>
@@ -97,9 +97,9 @@ export default function StockPortfolio({ onNavigate }: StockPortfolioProps) {
               </div>
               <button
                 onClick={() => onNavigate('utilities')}
-                className="flex flex-col items-center cursor-pointer hover:bg-purple-50 rounded-lg p-2 transition-colors"
+                className="flex flex-col items-center justify-center text-center gap-1 rounded-lg p-2 hover:bg-purple-50 transition-colors"
               >
-                <div className="w-10 h-10 flex items-center justify-center mb-1">
+                <div className="w-10 h-10 flex items-center justify-center">
                   <Menu className="w-6 h-6 text-slate-800" strokeWidth={1.5} />
                 </div>
                 <span className="text-xs font-medium text-slate-800">Xem thêm</span>
@@ -116,9 +116,11 @@ export default function StockPortfolio({ onNavigate }: StockPortfolioProps) {
             <div className="w-10 h-1 bg-slate-300 rounded-full"></div>
           </div>
           <div className="px-4">
-            <div className="flex items-center space-x-4 mb-6">
-              <h2 className="text-[17px] font-bold border-b-[3px] border-slate-800 pb-1.5 text-slate-900">Danh mục nắm giữ</h2>
-              <h2 className="text-[17px] font-medium text-slate-500 pb-1.5">Cơ cấu danh mục</h2>
+            <div className="flex items-center gap-4 mb-4">
+              <h2 className="text-[16px] font-semibold text-slate-900 m-0">
+                Danh mục nắm giữ
+              </h2>
+              <h2 className="text-[16px] font-medium text-gray-400 m-0">Cơ cấu danh mục</h2>
             </div>
             <div className="space-y-4">
               <div className="bg-[#F6F5F8] rounded-[24px] p-5 space-y-4">
