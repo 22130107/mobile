@@ -288,9 +288,9 @@ export default function StockPortfolio({ onNavigate }: StockPortfolioProps) {
                         {expandedStock === stock.symbol && (
                           <tr key={`${stock.symbol}-detail`}>
                             <td colSpan={5} className="p-0">
-                              <div className="bg-[#F9F9FB] px-4 py-4 space-y-4">
+                              <div className="bg-white px-4 py-4 space-y-4">
                                 {/* Summary Row */}
-                                <div className="grid grid-cols-3 gap-2 bg-white rounded-lg p-3 border border-slate-100">
+                                <div className="grid grid-cols-3 gap-2 bg-[#F3F4F6] rounded-lg p-3 border border-slate-200">
                                   <div className="text-center">
                                     <div className="text-[11px] text-slate-500 mb-1">Tổng vốn</div>
                                     <div className="text-[14px] font-bold text-slate-900">{stock.totalCapital}</div>
@@ -308,7 +308,7 @@ export default function StockPortfolio({ onNavigate }: StockPortfolioProps) {
                                 {/* Detail Grid */}
                                 <div className="grid grid-cols-2 gap-3">
                                   {/* Left Column */}
-                                  <div className="bg-white rounded-lg p-3 border border-slate-100 space-y-2.5">
+                                  <div className="bg-[#F3F4F6] rounded-lg p-3 border border-slate-200 space-y-2.5">
                                     <div className="flex justify-between">
                                       <span className="text-[13px] text-slate-600">Tổng KL</span>
                                       <span className="text-[13px] font-semibold text-slate-900">{stock.totalQty}</span>
@@ -332,7 +332,7 @@ export default function StockPortfolio({ onNavigate }: StockPortfolioProps) {
                                   </div>
 
                                   {/* Right Column */}
-                                  <div className="bg-white rounded-lg p-3 border border-slate-100 space-y-2.5">
+                                  <div className="bg-[#F3F4F6] rounded-lg p-3 border border-slate-200 space-y-2.5">
                                     <div className="flex justify-between items-center">
                                       <div className="flex items-center gap-1">
                                         <span className="text-[13px] text-slate-600">KL Khác</span>
