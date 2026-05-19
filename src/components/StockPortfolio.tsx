@@ -1,4 +1,4 @@
-import { ChevronLeft, Search, ChevronRight, Eye, EyeOff, BookOpen, DollarSign, Menu } from 'lucide-react';
+import { ChevronLeft, Search, ChevronRight, EyeOff, BookOpen, Menu } from 'lucide-react';
 
 interface StockPortfolioProps {
   onNavigate: (screen: 'home' | 'portfolio' | 'orderbook' | 'pnl' | 'utilities') => void;
