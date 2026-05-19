@@ -8,26 +8,26 @@ export default function StockPortfolio({ onNavigate }: StockPortfolioProps) {
   return (
     <div className="flex flex-col min-h-screen text-slate-900 bg-white font-sans">
       {/* Navigation Header */}
-      <header className="flex items-center justify-between px-4 py-3 bg-white mt-8">
+      <header className="flex items-center justify-between px-3 py-2 bg-white mt-6">
         <button onClick={() => onNavigate('home')} className="p-1 text-slate-800">
-          <ChevronLeft className="w-6 h-6" strokeWidth={2.5} />
+          <ChevronLeft className="w-5 h-5" strokeWidth={2.5} />
         </button>
-        <h1 className="text-xl font-bold text-slate-900">Cổ phiếu</h1>
+        <h1 className="text-base font-bold text-slate-900">Cổ phiếu</h1>
         <button className="p-1 text-slate-800">
-          <Search className="w-6 h-6" strokeWidth={2.5} />
+          <Search className="w-5 h-5" strokeWidth={2.5} />
         </button>
       </header>
 
       {/* Account Tabs */}
-      <nav className="bg-white border-b border-slate-200 flex overflow-x-auto pt-2" style={{ msOverflowStyle: 'none', scrollbarWidth: 'none' }}>
-        <div className="flex-1 text-center pb-2 relative font-semibold text-slate-900 border-b-[3px] border-[#8438FF] flex items-center justify-center gap-1">
-          Tài khoản <span className="bg-[#8438FF] text-white text-[10px] w-4 h-4 flex items-center justify-center rounded-full leading-none">1</span>
+      <nav className="bg-white border-b border-slate-200 flex overflow-x-auto pt-1" style={{ msOverflowStyle: 'none', scrollbarWidth: 'none' }}>
+        <div className="flex-1 text-center pb-1.5 relative text-[13px] font-semibold text-slate-900 border-b-[2px] border-[#8438FF] flex items-center justify-center gap-1">
+          Tài khoản <span className="bg-[#8438FF] text-white text-[9px] w-3.5 h-3.5 flex items-center justify-center rounded-full leading-none">1</span>
         </div>
-        <div className="flex-1 text-center pb-2 text-slate-500 font-semibold flex items-center justify-center gap-1">
-          Tài khoản <span className="bg-slate-400 text-white text-[10px] w-4 h-4 flex items-center justify-center rounded-full leading-none">3</span>
+        <div className="flex-1 text-center pb-1.5 text-[13px] text-slate-500 font-semibold flex items-center justify-center gap-1">
+          Tài khoản <span className="bg-slate-400 text-white text-[9px] w-3.5 h-3.5 flex items-center justify-center rounded-full leading-none">3</span>
         </div>
-        <div className="flex-1 text-center pb-2 text-slate-500 font-semibold flex items-center justify-center gap-1">
-          Tài khoản <span className="bg-slate-400 text-white text-[10px] w-4 h-4 flex items-center justify-center rounded-full leading-none">6</span>
+        <div className="flex-1 text-center pb-1.5 text-[13px] text-slate-500 font-semibold flex items-center justify-center gap-1">
+          Tài khoản <span className="bg-slate-400 text-white text-[9px] w-3.5 h-3.5 flex items-center justify-center rounded-full leading-none">6</span>
         </div>
       </nav>
 

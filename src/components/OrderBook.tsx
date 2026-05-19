@@ -6,7 +6,7 @@ interface OrderBookProps {
 
 export default function OrderBook({ onNavigate }: OrderBookProps) {
   return (
-    <div className="flex flex-col h-screen max-w-md mx-auto relative overflow-hidden font-sans bg-white">
+    <div className="flex flex-col h-screen relative overflow-hidden font-sans bg-white">
       {/* Main Header */}
       <nav className="flex items-center justify-between px-4 py-3 border-b border-gray-100">
         <button onClick={() => onNavigate('portfolio')} className="p-1 -ml-1 text-gray-800">

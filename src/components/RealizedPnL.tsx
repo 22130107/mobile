@@ -6,7 +6,7 @@ interface RealizedPnLProps {
 
 export default function RealizedPnL({ onNavigate }: RealizedPnLProps) {
   return (
-    <div className="w-full max-w-[421px] min-h-[613px] bg-[#f8f8fb] relative flex flex-col shadow-xl overflow-hidden pb-16 mx-auto">
+    <div className="w-full min-h-[613px] bg-[#f8f8fb] relative flex flex-col shadow-xl overflow-hidden pb-16">
       {/* Header */}
       <header className="bg-white flex items-center justify-between px-4 py-3 sticky top-0 z-20 shadow-sm border-b border-[#e2e8f0]">
         <button onClick={() => onNavigate('home')} className="w-8 h-8 flex items-center justify-center text-[#1e293b]">
