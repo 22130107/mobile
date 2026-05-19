@@ -275,13 +275,13 @@ export default function StockPortfolio({ onNavigate }: StockPortfolioProps) {
               </div>
 
               <div className="overflow-x-auto">
-                <table className="w-full text-left">
+                <table className="w-full text-left table-fixed">
                   <thead className="bg-slate-50">
                     <tr>
-                      <th className="py-2 text-[12px] font-medium text-slate-500 uppercase">Mã CP</th>
-                      <th className="py-2 text-[12px] font-medium text-slate-500 uppercase text-left">GIÁ VỐN</th>
-                      <th className="py-2 text-[12px] font-medium text-slate-500 uppercase text-left">GIÁ TT</th>
-                      <th className="py-2 text-[12px] font-medium text-slate-500 uppercase text-right">
+                      <th className="py-1.5 text-[11px] font-medium text-slate-500 uppercase w-[22%]">Mã CP</th>
+                      <th className="py-1.5 text-[11px] font-medium text-slate-500 uppercase text-left w-[15%]">GIÁ VỐN</th>
+                      <th className="py-1.5 text-[11px] font-medium text-slate-500 uppercase text-left w-[15%]">GIÁ TT</th>
+                      <th className="py-1.5 text-[11px] font-medium text-slate-500 uppercase text-right w-[24%]">
                         <div className="flex items-center justify-end">
                           KL
                           <svg className="w-3.5 h-3.5 ml-0.5" fill="currentColor" viewBox="0 0 24 24">
@@ -289,7 +289,7 @@ export default function StockPortfolio({ onNavigate }: StockPortfolioProps) {
                           </svg>
                         </div>
                       </th>
-                      <th className="py-2 text-[12px] font-medium text-slate-500 uppercase text-right">LÃI/LỖ</th>
+                      <th className="py-1.5 text-[11px] font-medium text-slate-500 uppercase text-right w-[24%]">LÃI/LỖ</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-slate-100">
@@ -299,20 +299,20 @@ export default function StockPortfolio({ onNavigate }: StockPortfolioProps) {
                           className="cursor-pointer active:bg-slate-50"
                           onClick={() => toggleStock(stock.symbol)}
                         >
-                          <td className="py-4">
-                            <div className={`flex items-center font-bold text-[15px] ${stock.isPositive ? 'text-[#13A849]' : 'text-[#DF3C40]'}`}>
+                          <td className="py-2.5">
+                            <div className={`flex items-center font-bold text-[13px] ${stock.isPositive ? 'text-[#13A849]' : 'text-[#DF3C40]'}`}>
                               {stock.symbol}
                               {expandedStocks.includes(stock.symbol) ? (
-                                <ChevronUp className="w-4 h-4 ml-1.5 text-slate-400" />
+                                <ChevronUp className="w-3.5 h-3.5 ml-1 text-slate-400" />
                               ) : (
-                                <ChevronDown className="w-4 h-4 ml-1.5 text-slate-400" />
+                                <ChevronDown className="w-3.5 h-3.5 ml-1 text-slate-400" />
                               )}
                             </div>
                           </td>
-                          <td className="py-4 text-left font-bold text-slate-900">{stock.costPrice}</td>
-                          <td className="py-4 text-left font-bold text-slate-900">{stock.marketPrice}</td>
-                          <td className="py-4 text-right font-bold text-slate-900">{stock.quantity}</td>
-                          <td className={`py-4 text-right font-bold ${stock.isPositive ? 'text-[#13A849]' : 'text-[#DF3C40]'}`}>{stock.pnlPercent}</td>
+                          <td className="py-2.5 text-left font-bold text-slate-900 text-[13px]">{stock.costPrice}</td>
+                          <td className="py-2.5 text-left font-bold text-slate-900 text-[13px]">{stock.marketPrice}</td>
+                          <td className="py-2.5 text-right font-bold text-slate-900 text-[13px]">{stock.quantity}</td>
+                          <td className={`py-2.5 text-right font-bold text-[13px] ${stock.isPositive ? 'text-[#13A849]' : 'text-[#DF3C40]'}`}>{stock.pnlPercent}</td>
                         </tr>
                         {expandedStocks.includes(stock.symbol) && (
                           <tr>
