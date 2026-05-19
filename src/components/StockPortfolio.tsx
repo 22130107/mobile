@@ -1,10 +1,84 @@
-import { ChevronLeft, Search, ChevronRight, EyeOff, BookOpen, Menu } from 'lucide-react';
+import { useState } from 'react';
+import { ChevronLeft, Search, ChevronRight, EyeOff, BookOpen, Menu, ChevronUp, ChevronDown, Info } from 'lucide-react';
+
+interface StockData {
+  symbol: string;
+  costPrice: string;
+  marketPrice: string;
+  quantity: string;
+  pnlPercent: string;
+  isPositive: boolean;
+  totalCapital: string;
+  marketValue: string;
+  pnlAmount: string;
+  totalQty: string;
+  normalQty: string;
+  fsQty: string;
+  sellableQty: string;
+  outroom: string;
+  otherQty: string;
+  cpctBonus: string;
+  t0: string;
+  t1: string;
+  t2: string;
+}
+
+const stocksData: StockData[] = [
+  {
+    symbol: 'FTS',
+    costPrice: '27.94',
+    marketPrice: '27.10',
+    quantity: '1',
+    pnlPercent: '-3.01%',
+    isPositive: false,
+    totalCapital: '27,940',
+    marketValue: '27,100',
+    pnlAmount: '-840',
+    totalQty: '1',
+    normalQty: '1',
+    fsQty: '0',
+    sellableQty: '1',
+    outroom: '0',
+    otherQty: '0',
+    cpctBonus: '0',
+    t0: '0',
+    t1: '0',
+    t2: '0',
+  },
+  {
+    symbol: 'GAS',
+    costPrice: '80.12',
+    marketPrice: '93.00',
+    quantity: '1',
+    pnlPercent: '+16.08%',
+    isPositive: true,
+    totalCapital: '80,120',
+    marketValue: '93,000',
+    pnlAmount: '+12,880',
+    totalQty: '1',
+    normalQty: '1',
+    fsQty: '0',
+    sellableQty: '1',
+    outroom: '0',
+    otherQty: '0',
+    cpctBonus: '0',
+    t0: '0',
+    t1: '0',
+    t2: '0',
+  },
+];
 
 interface StockPortfolioProps {
   onNavigate: (screen: 'home' | 'portfolio' | 'orderbook' | 'pnl' | 'utilities') => void;
 }
 
 export default function StockPortfolio({ onNavigate }: StockPortfolioProps) {
+  const [expandedStock, setExpandedStock] = useState<string | null>(null);
+
+  const toggleStock = (symbol: string) => {
+    setExpandedStock(expandedStock === symbol ? null : symbol);
+  };
+
   return (
     <div className="flex flex-col min-h-screen text-slate-900 bg-white font-sans">
       {/* Navigation Header */}
@@ -189,34 +263,125 @@ export default function StockPortfolio({ onNavigate }: StockPortfolioProps) {
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-slate-100">
-                    <tr>
-                      <td className="py-4">
-                        <div className="flex items-center text-[#DF3C40] font-bold text-[15px]">
-                          FTS
-                          <svg className="w-4 h-4 ml-0.5" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M7 10l5 5 5-5z"></path>
-                          </svg>
-                        </div>
-                      </td>
-                      <td className="py-4 text-left font-bold text-slate-900">27.94</td>
-                      <td className="py-4 text-left font-bold text-slate-900">27.10</td>
-                      <td className="py-4 text-right font-bold text-slate-900">1</td>
-                      <td className="py-4 text-right font-bold text-[#DF3C40]">-3.01%</td>
-                    </tr>
-                    <tr>
-                      <td className="py-4">
-                        <div className="flex items-center text-[#13A849] font-bold text-[15px]">
-                          GAS
-                          <svg className="w-4 h-4 ml-0.5" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M7 10l5 5 5-5z"></path>
-                          </svg>
-                        </div>
-                      </td>
-                      <td className="py-4 text-left font-bold text-slate-900">80.12</td>
-                      <td className="py-4 text-left font-bold text-slate-900">93.00</td>
-                      <td className="py-4 text-right font-bold text-slate-900">1</td>
-                      <td className="py-4 text-right font-bold text-[#13A849]">+16.08%</td>
-                    </tr>
+                    {stocksData.map((stock) => (
+                      <>
+                        <tr
+                          key={stock.symbol}
+                          className="cursor-pointer active:bg-slate-50"
+                          onClick={() => toggleStock(stock.symbol)}
+                        >
+                          <td className="py-4">
+                            <div className={`flex items-center font-bold text-[15px] ${stock.isPositive ? 'text-[#13A849]' : 'text-[#DF3C40]'}`}>
+                              {stock.symbol}
+                              {expandedStock === stock.symbol ? (
+                                <ChevronUp className="w-4 h-4 ml-0.5" />
+                              ) : (
+                                <ChevronDown className="w-4 h-4 ml-0.5" />
+                              )}
+                            </div>
+                          </td>
+                          <td className="py-4 text-left font-bold text-slate-900">{stock.costPrice}</td>
+                          <td className="py-4 text-left font-bold text-slate-900">{stock.marketPrice}</td>
+                          <td className="py-4 text-right font-bold text-slate-900">{stock.quantity}</td>
+                          <td className={`py-4 text-right font-bold ${stock.isPositive ? 'text-[#13A849]' : 'text-[#DF3C40]'}`}>{stock.pnlPercent}</td>
+                        </tr>
+                        {expandedStock === stock.symbol && (
+                          <tr key={`${stock.symbol}-detail`}>
+                            <td colSpan={5} className="p-0">
+                              <div className="bg-[#F9F9FB] px-4 py-4 space-y-4">
+                                {/* Summary Row */}
+                                <div className="grid grid-cols-3 gap-2 bg-white rounded-lg p-3 border border-slate-100">
+                                  <div className="text-center">
+                                    <div className="text-[11px] text-slate-500 mb-1">Tổng vốn</div>
+                                    <div className="text-[14px] font-bold text-slate-900">{stock.totalCapital}</div>
+                                  </div>
+                                  <div className="text-center">
+                                    <div className="text-[11px] text-slate-500 mb-1">Giá trị thị trường</div>
+                                    <div className="text-[14px] font-bold text-slate-900">{stock.marketValue}</div>
+                                  </div>
+                                  <div className="text-center">
+                                    <div className="text-[11px] text-slate-500 mb-1">Lãi / Lỗ</div>
+                                    <div className={`text-[14px] font-bold ${stock.isPositive ? 'text-[#13A849]' : 'text-[#DF3C40]'}`}>{stock.pnlAmount}</div>
+                                  </div>
+                                </div>
+
+                                {/* Detail Grid */}
+                                <div className="grid grid-cols-2 gap-3">
+                                  {/* Left Column */}
+                                  <div className="bg-white rounded-lg p-3 border border-slate-100 space-y-2.5">
+                                    <div className="flex justify-between">
+                                      <span className="text-[13px] text-slate-600">Tổng KL</span>
+                                      <span className="text-[13px] font-semibold text-slate-900">{stock.totalQty}</span>
+                                    </div>
+                                    <div className="flex justify-between">
+                                      <span className="text-[13px] text-slate-600">KL thường</span>
+                                      <span className="text-[13px] font-semibold text-slate-900">{stock.normalQty}</span>
+                                    </div>
+                                    <div className="flex justify-between">
+                                      <span className="text-[13px] text-slate-600">KL FS</span>
+                                      <span className="text-[13px] font-semibold text-slate-900">{stock.fsQty}</span>
+                                    </div>
+                                    <div className="flex justify-between">
+                                      <span className="text-[13px] text-slate-600">KL có thể bán</span>
+                                      <span className="text-[13px] font-semibold text-slate-900">{stock.sellableQty}</span>
+                                    </div>
+                                    <div className="flex justify-between">
+                                      <span className="text-[13px] text-slate-600">Outroom</span>
+                                      <span className="text-[13px] font-semibold text-slate-900">{stock.outroom}</span>
+                                    </div>
+                                  </div>
+
+                                  {/* Right Column */}
+                                  <div className="bg-white rounded-lg p-3 border border-slate-100 space-y-2.5">
+                                    <div className="flex justify-between items-center">
+                                      <div className="flex items-center gap-1">
+                                        <span className="text-[13px] text-slate-600">KL Khác</span>
+                                        <Info className="w-3.5 h-3.5 text-slate-400" />
+                                      </div>
+                                      <span className="text-[13px] font-semibold text-slate-900">{stock.otherQty}</span>
+                                    </div>
+                                    <div className="flex justify-between">
+                                      <span className="text-[13px] text-slate-600">CPCT/Thưởng</span>
+                                      <span className="text-[13px] font-semibold text-slate-900">{stock.cpctBonus}</span>
+                                    </div>
+                                    <div className="mt-2 pt-2 border-t border-slate-100">
+                                      <div className="text-[13px] font-semibold text-slate-900 mb-2">KL mua chờ về</div>
+                                      <div className="space-y-1.5">
+                                        <div className="flex justify-between">
+                                          <span className="text-[13px] text-slate-600">KL T0</span>
+                                          <span className="text-[13px] font-semibold text-slate-900">{stock.t0}</span>
+                                        </div>
+                                        <div className="flex justify-between">
+                                          <span className="text-[13px] text-slate-600">KL T1</span>
+                                          <span className="text-[13px] font-semibold text-slate-900">{stock.t1}</span>
+                                        </div>
+                                        <div className="flex justify-between">
+                                          <span className="text-[13px] text-slate-600">KL T2</span>
+                                          <span className="text-[13px] font-semibold text-slate-900">{stock.t2}</span>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+
+                                {/* Action Buttons */}
+                                <div className="grid grid-cols-3 gap-2 pt-1">
+                                  <button className="border-2 border-[#13A849] text-[#13A849] font-semibold py-2.5 rounded-full text-[14px]">
+                                    Mua
+                                  </button>
+                                  <button className="border-2 border-[#DF3C40] text-[#DF3C40] font-semibold py-2.5 rounded-full text-[14px]">
+                                    Bán
+                                  </button>
+                                  <button className="border-2 border-slate-300 text-slate-700 font-semibold py-2.5 rounded-full text-[14px]">
+                                    Thông tin mã
+                                  </button>
+                                </div>
+                              </div>
+                            </td>
+                          </tr>
+                        )}
+                      </>
+                    ))}
                   </tbody>
                 </table>
               </div>
