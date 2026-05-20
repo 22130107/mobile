@@ -226,7 +226,7 @@ export default function OrderBook({ onNavigate }: OrderBookProps) {
             const remaining = Math.max(0, order.qty - order.matched_qty);
             
             // Màu sắc trạng thái
-            let statusBulletColor = 'bg-[#129A43]';
+            let statusBulletColor = 'bg-[#0EB15D]';
             if (order.status === 'Chờ khớp') statusBulletColor = 'bg-yellow-500';
             if (order.status === 'Đã hủy') statusBulletColor = 'bg-gray-400';
 
@@ -241,17 +241,17 @@ export default function OrderBook({ onNavigate }: OrderBookProps) {
                     <span className="text-[13px] text-gray-400 mt-0.5">{formattedTime}</span>
                   </div>
                   <div className="flex flex-col items-start">
-                    <span className={`font-medium text-[15px] ${isBuy ? 'text-[#129A43]' : 'text-[#DF3C40]'}`}>
+                    <span className={`font-bold text-[16px] ${isBuy ? 'text-[#0EB15D]' : 'text-[#DF3C40]'}`}>
                       {isBuy ? 'Mua' : 'Bán'}
                     </span>
-                    <span className="text-[13px] text-gray-400 mt-0.5">{order.order_type}</span>
+                    <span className="text-[13px] text-gray-600 mt-0.5 font-semibold">{order.order_type}</span>
                   </div>
                   <div className="flex flex-col items-end">
-                    <span className="font-medium text-gray-900 text-[15px]">{order.qty.toLocaleString()}</span>
+                    <span className="font-bold text-gray-900 text-[14px]">{order.qty.toLocaleString()}</span>
                     <span className="text-[13px] text-gray-400 mt-0.5">{order.price.toFixed(1)}</span>
                   </div>
                   <div className="flex flex-col items-end">
-                    <span className="font-medium text-gray-900 text-[15px]">{order.matched_qty.toLocaleString()}</span>
+                    <span className="font-bold text-gray-900 text-[14px]">{order.matched_qty.toLocaleString()}</span>
                     <span className="text-[13px] text-gray-400 mt-0.5">
                       {order.matched_price ? order.matched_price.toFixed(2) : '0.00'}
                     </span>
@@ -262,8 +262,8 @@ export default function OrderBook({ onNavigate }: OrderBookProps) {
                     ) : (
                       <span className="text-xs text-transparent select-none pr-1">0</span>
                     )}
-                    <div className="bg-gray-100 text-gray-700 px-2 py-1 rounded flex items-center text-[12px] font-medium whitespace-nowrap">
-                      <span className={`w-2 h-2 rounded-full mr-1.5 ${statusBulletColor}`}></span>
+                    <div className="bg-gray-100 text-gray-700 px-2 py-1 rounded flex items-center text-sm font-semibold whitespace-nowrap">
+                      <span className={`w-3 h-3 rounded-full mr-2 ${statusBulletColor}`}></span>
                       {order.status}
                     </div>
                   </div>
