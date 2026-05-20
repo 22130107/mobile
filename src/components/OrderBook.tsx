@@ -117,7 +117,12 @@ export default function OrderBook({ onNavigate }: OrderBookProps) {
   };
 
   const openAddModal = () => {
-    setSelectedOrder(defaultNewOrder);
+    const now = new Date();
+    const currentTime = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
+    setSelectedOrder({
+      ...defaultNewOrder,
+      order_time: currentTime
+    });
     setModalOpen(true);
   };
 
@@ -302,7 +307,7 @@ export default function OrderBook({ onNavigate }: OrderBookProps) {
                   <label className="text-xs font-semibold text-slate-700">Mã CK</label>
                   <input
                     name="symbol"
-                    className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm uppercase"
+                    className="w-full rounded-lg border border-slate-300 px-3 py-2 text-[16px] sm:text-[13px] uppercase"
                     defaultValue={selectedOrder.symbol}
                     placeholder="VGI, MBS..."
                     required
@@ -314,7 +319,7 @@ export default function OrderBook({ onNavigate }: OrderBookProps) {
                   <label className="text-xs font-semibold text-slate-700">Loại Giao Dịch</label>
                   <select
                     name="side"
-                    className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm bg-white"
+                    className="w-full rounded-lg border border-slate-300 px-3 py-2 text-[16px] sm:text-[13px] bg-white"
                     defaultValue={selectedOrder.side}
                   >
                     <option value="BUY">Mua</option>
@@ -326,7 +331,7 @@ export default function OrderBook({ onNavigate }: OrderBookProps) {
                   <label className="text-xs font-semibold text-slate-700">Loại Lệnh</label>
                   <input
                     name="order_type"
-                    className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm"
+                    className="w-full rounded-lg border border-slate-300 px-3 py-2 text-[16px] sm:text-[13px]"
                     defaultValue={selectedOrder.order_type}
                     placeholder="Thường, Điều kiện..."
                     type="text"
@@ -337,7 +342,7 @@ export default function OrderBook({ onNavigate }: OrderBookProps) {
                   <label className="text-xs font-semibold text-slate-700">Trạng Thái</label>
                   <select
                     name="status"
-                    className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm bg-white"
+                    className="w-full rounded-lg border border-slate-300 px-3 py-2 text-[16px] sm:text-[13px] bg-white"
                     defaultValue={selectedOrder.status}
                   >
                     <option value="Đã khớp">Đã khớp</option>
@@ -350,7 +355,7 @@ export default function OrderBook({ onNavigate }: OrderBookProps) {
                   <label className="text-xs font-semibold text-slate-700">Khối Lượng Đặt</label>
                   <input
                     name="qty"
-                    className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm"
+                    className="w-full rounded-lg border border-slate-300 px-3 py-2 text-[16px] sm:text-[13px]"
                     defaultValue={selectedOrder.qty}
                     type="number"
                     required
@@ -361,7 +366,7 @@ export default function OrderBook({ onNavigate }: OrderBookProps) {
                   <label className="text-xs font-semibold text-slate-700">Giá Đặt</label>
                   <input
                     name="price"
-                    className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm"
+                    className="w-full rounded-lg border border-slate-300 px-3 py-2 text-[16px] sm:text-[13px]"
                     defaultValue={selectedOrder.price}
                     type="number"
                     step="any"
@@ -373,7 +378,7 @@ export default function OrderBook({ onNavigate }: OrderBookProps) {
                   <label className="text-xs font-semibold text-slate-700">Khối Lượng Khớp</label>
                   <input
                     name="matched_qty"
-                    className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm"
+                    className="w-full rounded-lg border border-slate-300 px-3 py-2 text-[16px] sm:text-[13px]"
                     defaultValue={selectedOrder.matched_qty}
                     type="number"
                   />
@@ -383,7 +388,7 @@ export default function OrderBook({ onNavigate }: OrderBookProps) {
                   <label className="text-xs font-semibold text-slate-700">Giá Khớp</label>
                   <input
                     name="matched_price"
-                    className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm"
+                    className="w-full rounded-lg border border-slate-300 px-3 py-2 text-[16px] sm:text-[13px]"
                     defaultValue={selectedOrder.matched_price || 0}
                     type="number"
                     step="any"
@@ -391,13 +396,13 @@ export default function OrderBook({ onNavigate }: OrderBookProps) {
                 </div>
 
                 <div className="space-y-1 col-span-2">
-                  <label className="text-xs font-semibold text-slate-700">Giờ đặt lệnh (HH:MM)</label>
+                  <label className="text-xs font-semibold text-slate-700">Giờ đặt lệnh</label>
                   <input
                     name="order_time"
-                    className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm"
+                    className="w-full rounded-lg border border-slate-300 px-3 py-2 text-[16px] sm:text-[13px]"
                     defaultValue={selectedOrder.order_time}
-                    placeholder="Ví dụ: 11:03 (Để trống sẽ lấy giờ hiện tại)"
-                    type="text"
+                    type="time"
+                    required
                   />
                 </div>
               </div>

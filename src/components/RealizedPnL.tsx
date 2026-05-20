@@ -14,12 +14,23 @@ const defaultNewPnL: Partial<RealizedPnLRow> = {
   pnl_percent: 0,
 };
 
+const formatDateToDisplay = (dateStr: string) => {
+  if (!dateStr) return '';
+  const parts = dateStr.split('-');
+  if (parts.length !== 3) return dateStr;
+  const [year, month, day] = parts;
+  return `${day}/${month}/${year}`;
+};
+
 export default function RealizedPnL({ onNavigate }: RealizedPnLProps) {
   const [pnls, setPnls] = useState<RealizedPnLRow[]>([]);
   const [loading, setLoading] = useState(true);
   const [modalOpen, setModalOpen] = useState(false);
   const [selectedPnL, setSelectedPnL] = useState<Partial<RealizedPnLRow> | null>(null);
   const [searchQuery, setSearchQuery] = useState('');
+  const [dateModalOpen, setDateModalOpen] = useState(false);
+  const [startDate, setStartDate] = useState<string>('2026-03-01');
+  const [endDate, setEndDate] = useState<string>('2026-04-30');
 
   const loadPnls = async () => {
     try {
@@ -91,26 +102,33 @@ export default function RealizedPnL({ onNavigate }: RealizedPnLProps) {
     setModalOpen(true);
   };
 
-  // Tính toán lãi lỗ tổng cộng một cách chính xác
+  const filteredPnls = pnls.filter((pnl) => {
+    const matchesSearch = pnl.symbol.toLowerCase().includes(searchQuery.toLowerCase());
+    if (!matchesSearch) return false;
+    
+    if (pnl.sell_date) {
+      const pnlDateStr = pnl.sell_date.split('T')[0];
+      return pnlDateStr >= startDate && pnlDateStr <= endDate;
+    }
+    return true;
+  });
+
+  // Tính toán lãi lỗ tổng cộng từ các bản ghi đã lọc
   let totalCost = 0;
   let totalPnLAmount = 0;
 
-  pnls.forEach((item) => {
+  filteredPnls.forEach((item) => {
     totalPnLAmount += Number(item.pnl_amount);
     if (item.pnl_percent !== 0) {
       totalCost += Number(item.pnl_amount) / (Number(item.pnl_percent) / 100);
     }
   });
 
-  const totalPnLPercent = totalCost > 0 ? (totalPnLAmount / totalCost) * 100 : 0;
+  const totalPnLPercent = totalCost !== 0 ? (totalPnLAmount / totalCost) * 100 : 0;
   const isPnLPositive = totalPnLAmount >= 0;
 
   const totalPnLAmountFormatted = `${isPnLPositive ? '+' : ''}${Math.round(totalPnLAmount).toLocaleString()}`;
   const totalPnLPercentFormatted = `${isPnLPositive ? '+' : ''}${totalPnLPercent.toFixed(2)}%`;
-
-  const filteredPnls = pnls.filter((pnl) =>
-    pnl.symbol.toLowerCase().includes(searchQuery.toLowerCase())
-  );
 
   return (
     <div className="w-full min-h-screen bg-[#f8f8fb] relative flex flex-col shadow-xl overflow-hidden pb-16">
@@ -120,7 +138,7 @@ export default function RealizedPnL({ onNavigate }: RealizedPnLProps) {
           <ChevronLeft className="w-5 h-5" />
         </button>
         <h1
-          className="font-semibold text-[#1e293b]"
+          className="font-bold tracking-wider text-[#1e293b]"
           style={{ margin: 0, fontSize: '18px', lineHeight: '1.2' }}
         >
           Lãi lỗ đã thực hiện
@@ -140,13 +158,27 @@ export default function RealizedPnL({ onNavigate }: RealizedPnLProps) {
         <section className="space-y-3">
           {/* Date Range Buttons */}
           <div className="flex space-x-2">
-            <button className="flex-1 py-2 bg-white border border-[#e2e8f0] rounded-lg text-sm font-medium text-[#1e293b] hover:bg-gray-50 outline-none">
+            <button
+              onClick={() => {
+                const todayStr = new Date().toISOString().split('T')[0];
+                setStartDate(todayStr);
+                setEndDate(todayStr);
+              }}
+              className={`flex-1 py-2 rounded-lg text-sm font-medium transition-colors outline-none border ${
+                startDate === new Date().toISOString().split('T')[0] && endDate === new Date().toISOString().split('T')[0]
+                  ? 'bg-[#6b21a8] text-white border-[#6b21a8]'
+                  : 'bg-white text-[#1e293b] border-[#e2e8f0] hover:bg-gray-50'
+              }`}
+            >
               Hôm nay
             </button>
-            <button className="flex-[2] py-2 bg-white border border-[#6b21a8] rounded-lg text-sm font-medium text-[#6b21a8] flex items-center justify-center space-x-2 hover:bg-[#e9d5ff] outline-none">
-              <span>01/03/2026</span>
+            <button
+              onClick={() => setDateModalOpen(true)}
+              className="flex-[2] py-2 bg-white border border-[#6b21a8] rounded-lg text-sm font-medium text-[#6b21a8] flex items-center justify-center space-x-2 hover:bg-[#e9d5ff] outline-none transition-colors"
+            >
+              <span>{formatDateToDisplay(startDate)}</span>
               <ArrowRight className="w-3 h-3" />
-              <span>30/04/2026</span>
+              <span>{formatDateToDisplay(endDate)}</span>
             </button>
           </div>
 
@@ -253,7 +285,7 @@ export default function RealizedPnL({ onNavigate }: RealizedPnLProps) {
                   <label className="text-xs font-semibold text-slate-700">Mã CK</label>
                   <input
                     name="symbol"
-                    className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm uppercase"
+                    className="w-full rounded-lg border border-slate-300 px-3 py-2 text-[16px] sm:text-[13px] uppercase"
                     defaultValue={selectedPnL.symbol}
                     placeholder="Ví dụ: MSR, BSR..."
                     required
@@ -265,7 +297,7 @@ export default function RealizedPnL({ onNavigate }: RealizedPnLProps) {
                   <label className="text-xs font-semibold text-slate-700">Ngày Bán</label>
                   <input
                     name="sell_date"
-                    className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm"
+                    className="w-full rounded-lg border border-slate-300 px-3 py-2 text-[16px] sm:text-[13px]"
                     defaultValue={selectedPnL.sell_date ? selectedPnL.sell_date.split('T')[0] : new Date().toISOString().split('T')[0]}
                     type="date"
                     required
@@ -276,7 +308,7 @@ export default function RealizedPnL({ onNavigate }: RealizedPnLProps) {
                   <label className="text-xs font-semibold text-slate-700">Số tiền Lãi/Lỗ (VND)</label>
                   <input
                     name="pnl_amount"
-                    className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm"
+                    className="w-full rounded-lg border border-slate-300 px-3 py-2 text-[16px] sm:text-[13px]"
                     defaultValue={selectedPnL.pnl_amount}
                     placeholder="Ví dụ: -2041749 hoặc 912400"
                     type="number"
@@ -289,7 +321,7 @@ export default function RealizedPnL({ onNavigate }: RealizedPnLProps) {
                   <label className="text-xs font-semibold text-slate-700">% Lãi/Lỗ</label>
                   <input
                     name="pnl_percent"
-                    className="w-full rounded-lg border border-slate-300 px-3 py-2 text-sm"
+                    className="w-full rounded-lg border border-slate-300 px-3 py-2 text-[16px] sm:text-[13px]"
                     defaultValue={selectedPnL.pnl_percent}
                     placeholder="Ví dụ: -13.88 hoặc 10.34"
                     type="number"
@@ -325,6 +357,69 @@ export default function RealizedPnL({ onNavigate }: RealizedPnLProps) {
               </button>
             </div>
           </form>
+        </div>
+      )}
+
+      {/* Date Filter Modal */}
+      {dateModalOpen && (
+        <div
+          className="fixed inset-0 z-[60] bg-black/40 flex items-stretch justify-center"
+          onClick={() => setDateModalOpen(false)}
+        >
+          <div
+            className="w-full h-full bg-white p-4 shadow-xl flex flex-col justify-between"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <div className="space-y-4">
+              <h2 className="text-lg font-bold text-gray-900 border-b pb-2">
+                Chọn khoảng thời gian
+              </h2>
+              
+              <div className="space-y-4">
+                <div className="space-y-1">
+                  <label className="text-xs font-semibold text-slate-700">Từ ngày</label>
+                  <input
+                    type="date"
+                    className="w-full rounded-lg border border-slate-300 px-3 py-2 text-[16px] sm:text-[13px]"
+                    value={startDate}
+                    onChange={(e) => setStartDate(e.target.value)}
+                  />
+                </div>
+
+                <div className="space-y-1">
+                  <label className="text-xs font-semibold text-slate-700">Đến ngày</label>
+                  <input
+                    type="date"
+                    className="w-full rounded-lg border border-slate-300 px-3 py-2 text-[16px] sm:text-[13px]"
+                    value={endDate}
+                    onChange={(e) => setEndDate(e.target.value)}
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div className="mt-8 space-y-2">
+              <button
+                type="button"
+                onClick={() => setDateModalOpen(false)}
+                className="w-full bg-[#6b21a8] text-white font-semibold py-2.5 rounded-lg text-sm hover:bg-opacity-95 transition-opacity"
+              >
+                Xác nhận
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  const todayStr = new Date().toISOString().split('T')[0];
+                  setStartDate('2026-03-01');
+                  setEndDate(todayStr);
+                  setDateModalOpen(false);
+                }}
+                className="w-full border-2 border-slate-300 text-slate-600 font-semibold py-2.5 rounded-lg text-sm hover:bg-slate-50 transition-colors"
+              >
+                Đặt lại (01/03/2026 - Nay)
+              </button>
+            </div>
+          </div>
         </div>
       )}
     </div>
