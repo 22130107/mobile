@@ -148,7 +148,7 @@ export default function RealizedPnL({ onNavigate }: RealizedPnLProps) {
           className="flex items-center space-x-1 border border-gray-300 rounded-full px-3 py-1 bg-white text-sm font-medium hover:bg-gray-50 active:scale-95 transition-all"
         >
           <span>TK</span>
-          <span className="w-5 h-5 rounded-full bg-gray-500 text-white flex items-center justify-center text-xs">1</span>
+          <span className="w-5 h-5 rounded-full bg-gray-500 text-white flex items-center justify-center text-xs">6</span>
         </button>
       </header>
 
@@ -177,7 +177,7 @@ export default function RealizedPnL({ onNavigate }: RealizedPnLProps) {
               className="flex-[2] py-2 bg-white border border-[#6b21a8] rounded-lg text-sm font-medium text-[#6b21a8] flex items-center justify-center space-x-2 hover:bg-[#e9d5ff] outline-none transition-colors"
             >
               <span>{formatDateToDisplay(startDate)}</span>
-              <ArrowRight className="w-3 h-3" />
+              <ArrowRight className="w-3 h-3 mx-4" />
               <span>{formatDateToDisplay(endDate)}</span>
             </button>
           </div>
