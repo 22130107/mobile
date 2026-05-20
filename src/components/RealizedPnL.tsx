@@ -133,7 +133,7 @@ export default function RealizedPnL({ onNavigate }: RealizedPnLProps) {
   return (
     <div className="w-full min-h-screen bg-[rgba(240,239,244,1)] relative flex flex-col shadow-xl overflow-hidden pb-16">
       {/* Header */}
-      <header className="bg-white flex items-center justify-between px-4 py-3 sticky top-0 z-20 shadow-sm border-b border-[#e2e8f0]">
+      <header className="bg-white flex items-center justify-between px-4 pt-4 pb-3 sticky top-0 z-20 shadow-sm border-b border-[#e2e8f0]">
         <button onClick={() => onNavigate('home')} className="w-8 h-8 flex items-center justify-center text-[#1e293b]">
           <ChevronLeft className="w-5 h-5" />
         </button>
@@ -228,26 +228,26 @@ export default function RealizedPnL({ onNavigate }: RealizedPnLProps) {
                 <article
                   key={pnl.id}
                   onClick={() => openEditModal(pnl)}
-                  className="bg-white rounded-xl p-3 border border-[#e2e8f0] cursor-pointer hover:bg-slate-50 transition-colors"
+                  className="bg-white rounded-xl px-0 pt-2 pb-0 border border-[#e2e8f0] cursor-pointer hover:bg-slate-50 transition-colors"
                   style={{ boxShadow: '0 2px 8px -2px rgba(0, 0, 0, 0.05), 0 4px 6px -4px rgba(0, 0, 0, 0.02)' }}
                 >
                   <div className="flex justify-between items-center w-full">
                     <div className="w-1/4 text-center">
-                      <div className="text-xs text-[rgba(197,165,167,1)] mb-[7px] font-medium">Ngày</div>
+                      <div className="text-xs text-[rgba(197,165,167,1)] mb-[14px] font-medium">Ngày</div>
                       <div className="text-sm text-[#1e293b]">{formattedDate}</div>
                     </div>
                     <div className="w-1/4 text-center">
-                      <div className="text-xs text-[rgba(197,165,167,1)] mb-[7px] font-medium">Mã CK</div>
+                      <div className="text-xs text-[rgba(197,165,167,1)] mb-[14px] font-medium">Mã CK</div>
                       <div className="text-sm font-extrabold text-[#1e293b]">{pnl.symbol}</div>
                     </div>
                     <div className="w-1/4 text-center">
-                      <div className="text-xs text-[rgba(197,165,167,1)] mb-[7px] font-medium">Lãi/lỗ</div>
+                      <div className="text-xs text-[rgba(197,165,167,1)] mb-[14px] font-medium">Lãi/lỗ</div>
                       <div className={`text-[11px] font-extrabold ${isProfit ? 'text-[#16a34a]' : 'text-[#dc2626]'}`}>
                         {formattedAmount}
                       </div>
                     </div>
                     <div className="w-1/4 text-center flex flex-col items-center relative">
-                      <div className="text-xs text-[rgba(197,165,167,1)] mb-[7px] font-medium">%lãi/lỗ</div>
+                      <div className="text-xs text-[rgba(197,165,167,1)] mb-[14px] font-medium">%lãi/lỗ</div>
                       <div className={`text-[11px] font-extrabold ${isProfit ? 'text-[#16a34a]' : 'text-[#dc2626]'}`}>
                         {formattedPercent}
                       </div>
