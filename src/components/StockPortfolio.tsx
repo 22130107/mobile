@@ -1,5 +1,5 @@
 import { Fragment, useState, useEffect } from 'react';
-import { ChevronLeft, Search, ChevronRight, EyeOff, BookOpen, Menu, ChevronUp, ChevronDown, Info } from 'lucide-react';
+import { ChevronLeft, Search, ChevronRight, EyeOff, ChevronUp, ChevronDown, Info } from 'lucide-react';
 import { stockService } from '../services/stockService';
 
 interface StockData {
@@ -200,7 +200,7 @@ export default function StockPortfolio({ onNavigate }: StockPortfolioProps) {
         {/* Asset Summary Card */}
         <section className="p-4 pb-[180px] bg-white">
           <div className="bg-[#EFE7FF] rounded-2xl">
-            <div className="rounded-2xl p-4 text-white shadow-md relative overflow-hidden" style={{ background: 'linear-gradient(135deg, #7146FF 0%, #9F62FF 100%)' }}>
+            <div className="rounded-2xl p-4 text-white shadow-md relative overflow-hidden" style={{ background: 'linear-gradient(135deg, #431896 0%, #5b21b6 50%, #7c3aed 100%)' }}>
               <div className="absolute right-0 bottom-0 opacity-10">
                 <svg fill="currentColor" height="120" viewBox="0 0 100 100" width="120">
                   <rect height="60" rx="10" transform="rotate(45 50 50)" width="60" x="20" y="20"></rect>
@@ -233,24 +233,32 @@ export default function StockPortfolio({ onNavigate }: StockPortfolioProps) {
                 className="flex flex-col items-center justify-center text-center gap-1 rounded-lg p-2 hover:bg-purple-50 transition-colors"
               >
                 <div className="w-10 h-10 flex items-center justify-center">
-                  <BookOpen className="w-6 h-6 text-slate-800" strokeWidth={1.5} />
+                  <svg className="w-6 h-6 text-slate-800" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
+                    <rect x="6" y="4" width="12" height="16" rx="1.5" />
+                    <rect x="9" y="8" width="6" height="4" rx="0.5" />
+                    <line x1="9" y1="15" x2="15" y2="15" />
+                  </svg>
                 </div>
                 <span className="text-xs font-medium text-slate-800">Sổ lệnh</span>
               </button>
               <div className="flex flex-col items-center justify-center text-center gap-1 rounded-lg p-2">
                 <div className="w-10 h-10 flex items-center justify-center">
-                  <svg className="w-6 h-6 text-slate-800" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
-                    <circle cx="12" cy="12" r="9"></circle>
-                    <path d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
+                  <svg className="w-6 h-6 text-slate-800" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
+                    <circle cx="12" cy="9" r="6" />
+                    <path d="M12 6.5v5M10.5 7.8h3a1.2 1.2 0 0 1 0 2.4h-3a1.2 1.2 0 0 0 0 2.4h3" />
+                    <path d="M6 13.5a7.5 7.5 0 0 0 12 0" />
+                    <path d="M15 13.5h3.5v-3.5" />
                   </svg>
                 </div>
                 <span className="text-xs font-medium text-slate-800">Ứng tiền</span>
               </div>
               <div className="flex flex-col items-center justify-center text-center gap-1 rounded-lg p-2">
                 <div className="w-10 h-10 flex items-center justify-center">
-                  <div className="border-[1.5px] border-slate-800 rounded p-1 flex items-center justify-center w-6 h-6">
-                    <span className="text-[14px] font-semibold text-slate-800 leading-none pb-0.5">$</span>
-                  </div>
+                  <svg className="w-6 h-6 text-slate-800" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
+                    <rect x="6" y="3" width="12" height="18" rx="2" />
+                    <rect x="9" y="6" width="6" height="12" rx="1" />
+                    <path d="M12 8.5v7M10.5 9.8h3a1 1 0 0 1 0 2h-3a1 1 0 0 0 0 2h3" />
+                  </svg>
                 </div>
                 <span className="text-xs font-medium text-slate-800">Margin</span>
               </div>
@@ -259,7 +267,14 @@ export default function StockPortfolio({ onNavigate }: StockPortfolioProps) {
                 className="flex flex-col items-center justify-center text-center gap-1 rounded-lg p-2 hover:bg-purple-50 transition-colors"
               >
                 <div className="w-10 h-10 flex items-center justify-center">
-                  <Menu className="w-6 h-6 text-slate-800" strokeWidth={1.5} />
+                  <svg className="w-6 h-6 text-slate-800" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
+                    <circle cx="6" cy="7" r="1" fill="currentColor" />
+                    <circle cx="6" cy="12" r="1" fill="currentColor" />
+                    <circle cx="6" cy="17" r="1" fill="currentColor" />
+                    <line x1="11" y1="7" x2="19" y2="7" />
+                    <line x1="11" y1="12" x2="19" y2="12" />
+                    <line x1="11" y1="17" x2="19" y2="17" />
+                  </svg>
                 </div>
                 <span className="text-xs font-medium text-slate-800">Xem thêm</span>
               </button>
@@ -342,10 +357,10 @@ export default function StockPortfolio({ onNavigate }: StockPortfolioProps) {
                   <table className="w-full text-left table-fixed">
                     <thead className="bg-slate-50">
                       <tr>
-                        <th className="py-1.5 text-[11px] font-medium text-slate-500 uppercase w-[22%]">Mã CP</th>
-                        <th className="py-1.5 text-[11px] font-medium text-slate-500 uppercase text-left w-[15%]">GIÁ VỐN</th>
-                        <th className="py-1.5 text-[11px] font-medium text-slate-500 uppercase text-left w-[15%]">GIÁ TT</th>
-                        <th className="py-1.5 text-[11px] font-medium text-slate-500 uppercase text-right w-[24%]">
+                        <th className="py-1.5 text-[11px] font-medium text-slate-500 uppercase w-[15%]">Mã CP</th>
+                        <th className="py-1.5 text-[11px] font-medium text-slate-500 uppercase text-left w-[16%]">GIÁ VỐN</th>
+                        <th className="py-1.5 text-[11px] font-medium text-slate-500 uppercase text-left w-[16%]">GIÁ TT</th>
+                        <th className="py-1.5 text-[11px] font-medium text-slate-500 uppercase text-right w-[26%]">
                           <div className="flex items-center justify-end">
                             KL
                             <svg className="w-3.5 h-3.5 ml-0.5" fill="currentColor" viewBox="0 0 24 24">
@@ -353,7 +368,7 @@ export default function StockPortfolio({ onNavigate }: StockPortfolioProps) {
                             </svg>
                           </div>
                         </th>
-                        <th className="py-1.5 text-[11px] font-medium text-slate-500 uppercase text-right w-[24%]">LÃI/LỖ</th>
+                        <th className="py-1.5 text-[11px] font-medium text-slate-500 uppercase text-right w-[27%]">LÃI/LỖ</th>
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-slate-100">
