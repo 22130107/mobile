@@ -233,21 +233,21 @@ export default function RealizedPnL({ onNavigate }: RealizedPnLProps) {
                 >
                   <div className="flex justify-between items-center w-full">
                     <div className="w-1/4 text-center">
-                      <div className="text-xs text-[#64748b] mb-[7px] font-medium">Ngày</div>
+                      <div className="text-xs text-[rgba(197,165,167,1)] mb-[7px] font-medium">Ngày</div>
                       <div className="text-sm text-[#1e293b]">{formattedDate}</div>
                     </div>
                     <div className="w-1/4 text-center">
-                      <div className="text-xs text-[#64748b] mb-[7px] font-medium">Mã CK</div>
+                      <div className="text-xs text-[rgba(197,165,167,1)] mb-[7px] font-medium">Mã CK</div>
                       <div className="text-sm font-extrabold text-[#1e293b]">{pnl.symbol}</div>
                     </div>
                     <div className="w-1/4 text-center">
-                      <div className="text-xs text-[#64748b] mb-[7px] font-medium">Lãi/lỗ</div>
+                      <div className="text-xs text-[rgba(197,165,167,1)] mb-[7px] font-medium">Lãi/lỗ</div>
                       <div className={`text-[11px] font-extrabold ${isProfit ? 'text-[#16a34a]' : 'text-[#dc2626]'}`}>
                         {formattedAmount}
                       </div>
                     </div>
                     <div className="w-1/4 text-center flex flex-col items-center relative">
-                      <div className="text-xs text-[#64748b] mb-[7px] font-medium">%lãi/lỗ</div>
+                      <div className="text-xs text-[rgba(197,165,167,1)] mb-[7px] font-medium">%lãi/lỗ</div>
                       <div className={`text-[11px] font-extrabold ${isProfit ? 'text-[#16a34a]' : 'text-[#dc2626]'}`}>
                         {formattedPercent}
                       </div>

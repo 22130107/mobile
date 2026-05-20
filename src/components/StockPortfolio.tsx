@@ -342,19 +342,19 @@ export default function StockPortfolio({ onNavigate }: StockPortfolioProps) {
                   <span className="font-bold text-[15px] text-slate-900">0</span>
                 </div>
                 <div className="flex justify-between items-center">
-                  <div className="flex items-center text-slate-700">
-                    <span className="text-[13px] font-medium">Tổng vốn</span>
+                  <div className="flex items-center text-slate-500">
+                    <span className="text-[13px] font-normal">Tổng vốn</span>
                     <svg className="w-5 h-5 text-slate-400 ml-1.5" fill="currentColor" viewBox="0 0 24 24">
                       <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"></path>
                     </svg>
                   </div>
-                  <span className="font-bold text-[15px] text-slate-900">{totalCapitalFormatted}</span>
+                  <span className="font-semibold text-[15px] text-slate-900">{totalCapitalFormatted}</span>
                 </div>
                 <div className="flex justify-between items-center">
-                  <div className="flex items-center text-slate-700">
-                    <span className="text-[13px] font-medium">Tổng giá trị thị trường</span>
+                  <div className="flex items-center text-slate-500">
+                    <span className="text-[13px] font-normal">Tổng giá trị thị trường</span>
                   </div>
-                  <span className="font-bold text-[15px] text-slate-900">{totalMarketValueFormatted}</span>
+                  <span className="font-semibold text-[15px] text-slate-900">{totalMarketValueFormatted}</span>
                 </div>
               </div>
 
@@ -431,11 +431,11 @@ export default function StockPortfolio({ onNavigate }: StockPortfolioProps) {
                                   <div className="grid grid-cols-3 gap-2 bg-[#f6f5fb] rounded-xl p-2.5 py-2">
                                     <div className="text-center">
                                       <div className="text-[13px] text-[#828282] mb-0.5">Tổng vốn</div>
-                                      <div className="text-[13px] font-bold text-black">{stock.totalCapital}</div>
+                                      <div className="text-[13px] font-semibold text-black">{stock.totalCapital}</div>
                                     </div>
                                     <div className="text-center">
                                       <div className="text-[13px] text-[#828282] mb-0.5">Giá trị thị trường</div>
-                                      <div className="text-[13px] font-bold text-black">{stock.marketValue}</div>
+                                      <div className="text-[13px] font-semibold text-black">{stock.marketValue}</div>
                                     </div>
                                     <div className="text-center">
                                       <div className="text-[13px] text-[#828282] mb-0.5">Lãi / Lỗ</div>
@@ -449,23 +449,23 @@ export default function StockPortfolio({ onNavigate }: StockPortfolioProps) {
                                     <div className="bg-[#f6f5fb] rounded-xl p-2.5 py-2 flex flex-col justify-between h-full">
                                       <div className="flex justify-between items-center">
                                         <span className="text-[13px] text-[#828282]">Tổng KL</span>
-                                        <span className="text-[13px] font-medium text-black">{stock.totalQty}</span>
+                                        <span className="text-[13px] font-semibold text-black">{stock.totalQty}</span>
                                       </div>
                                       <div className="flex justify-between items-center">
                                         <span className="text-[13px] text-[#828282]">KL thường</span>
-                                        <span className="text-[13px] font-medium text-black">{stock.normalQty}</span>
+                                        <span className="text-[13px] font-semibold text-black">{stock.normalQty}</span>
                                       </div>
                                       <div className="flex justify-between items-center">
                                         <span className="text-[13px] text-[#828282]">KL FS</span>
-                                        <span className="text-[13px] font-medium text-black">{stock.fsQty}</span>
+                                        <span className="text-[13px] font-semibold text-black">{stock.fsQty}</span>
                                       </div>
                                       <div className="flex justify-between items-center">
                                         <span className="text-[13px] text-[#828282]">KL có thể bán</span>
-                                        <span className="text-[13px] font-medium text-black">{stock.sellableQty}</span>
+                                        <span className="text-[13px] font-semibold text-black">{stock.sellableQty}</span>
                                       </div>
                                       <div className="flex justify-between items-center">
                                         <span className="text-[13px] text-[#828282]">Outroom</span>
-                                        <span className="text-[13px] font-medium text-black">{stock.outroom}</span>
+                                        <span className="text-[13px] font-semibold text-black">{stock.outroom}</span>
                                       </div>
                                     </div>
    
@@ -478,11 +478,11 @@ export default function StockPortfolio({ onNavigate }: StockPortfolioProps) {
                                             <span className="text-[13px] text-[#828282]">KL Khác</span>
                                             <Info className="w-3.5 h-3.5 text-[#828282]" />
                                           </div>
-                                          <span className="text-[13px] font-bold text-black">{stock.otherQty}</span>
+                                          <span className="text-[13px] font-semibold text-black">{stock.otherQty}</span>
                                         </div>
                                         <div className="flex justify-between items-center">
                                           <span className="text-[13px] text-[#828282]">CPCT/Thưởng</span>
-                                          <span className="text-[13px] font-bold text-black">{stock.cpctBonus}</span>
+                                          <span className="text-[13px] font-semibold text-black">{stock.cpctBonus}</span>
                                         </div>
                                       </div>
  
@@ -491,15 +491,15 @@ export default function StockPortfolio({ onNavigate }: StockPortfolioProps) {
                                         <div className="text-[13px] font-medium text-black">KL mua chờ về</div>
                                         <div className="flex justify-between items-center">
                                           <span className="text-[13px] text-[#828282]">KL T0</span>
-                                          <span className="text-[13px] font-bold text-black">{stock.t0}</span>
+                                          <span className="text-[13px] font-semibold text-black">{stock.t0}</span>
                                         </div>
                                         <div className="flex justify-between items-center">
                                           <span className="text-[13px] text-[#828282]">KL T1</span>
-                                          <span className="text-[13px] font-bold text-black">{stock.t1}</span>
+                                          <span className="text-[13px] font-semibold text-black">{stock.t1}</span>
                                         </div>
                                         <div className="flex justify-between items-center">
                                           <span className="text-[13px] text-[#828282]">KL T2</span>
-                                          <span className="text-[13px] font-bold text-black">{stock.t2}</span>
+                                          <span className="text-[13px] font-semibold text-black">{stock.t2}</span>
                                         </div>
                                       </div>
                                     </div>
