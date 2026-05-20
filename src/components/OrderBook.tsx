@@ -166,7 +166,7 @@ export default function OrderBook({ onNavigate }: OrderBookProps) {
         {/* Stock Code Search */}
         <div className="relative w-full">
           <input
-            className="w-full border border-gray-200 rounded-lg py-[24px] px-4 text-[30px] outline-none focus:ring-1 focus:ring-[#6b4eff] pr-10 text-gray-800 placeholder-gray-300"
+            className="w-full border border-gray-200 rounded-lg py-[10px] px-4 text-[15px] outline-none focus:ring-1 focus:ring-[#6b4eff] pr-10 text-gray-800 placeholder-gray-300"
             placeholder="Mã CK"
             type="text"
           />
@@ -178,7 +178,7 @@ export default function OrderBook({ onNavigate }: OrderBookProps) {
         {/* Dropdown Filters */}
         <div className="flex gap-3">
           <div className="relative w-1/2">
-            <select className="appearance-none w-full border border-gray-200 rounded-lg py-[24px] px-3 text-[30px] outline-none bg-white pr-8 text-gray-600">
+            <select className="appearance-none w-full border border-gray-200 rounded-lg py-[10px] px-3 text-[15px] outline-none bg-white pr-8 text-gray-600">
               <option>Tất cả loại lệnh</option>
             </select>
             <div className="absolute right-3 top-3 text-gray-800 pointer-events-none">
@@ -186,7 +186,7 @@ export default function OrderBook({ onNavigate }: OrderBookProps) {
             </div>
           </div>
           <div className="relative w-1/2">
-            <select className="appearance-none w-full border border-gray-200 rounded-lg py-[24px] px-3 text-[30px] outline-none bg-white pr-8 text-gray-600">
+            <select className="appearance-none w-full border border-gray-200 rounded-lg py-[10px] px-3 text-[15px] outline-none bg-white pr-8 text-gray-600">
               <option>Tất cả trạng thái</option>
             </select>
             <div className="absolute right-3 top-3 text-gray-800 pointer-events-none">
@@ -197,7 +197,7 @@ export default function OrderBook({ onNavigate }: OrderBookProps) {
 
         {/* P/L Action */}
         <div className="flex justify-between items-center">
-          <button className="inline-flex items-center px-4 py-[24px] border border-[#6b4eff] rounded-full text-[#6b4eff] text-[25px] font-medium">
+          <button className="inline-flex items-center px-4 py-[9px] border border-[#6b4eff] rounded-full text-[#6b4eff] text-[13px] font-normal">
             Xem lãi lỗ dự tính
             <ChevronRight className="w-4 h-4 ml-1" strokeWidth={2} />
           </button>
@@ -205,7 +205,7 @@ export default function OrderBook({ onNavigate }: OrderBookProps) {
       </section>
 
       {/* Table Header */}
-      <div className="grid grid-cols-[16%_14%_15%_15%_40%] text-[30px] text-gray-500 font-medium px-4 py-[24px] border-b border-gray-100 bg-white">
+      <div className="grid grid-cols-[16%_14%_15%_15%_40%] text-[15px] text-gray-500 font-normal px-4 py-[10px] border-b border-gray-100 bg-white">
         <div className="text-left">Mã CK</div>
         <div className="text-left">M/B</div>
         <div className="text-right">Đặt</div>
