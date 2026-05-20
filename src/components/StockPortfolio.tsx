@@ -153,15 +153,15 @@ export default function StockPortfolio({ onNavigate }: StockPortfolioProps) {
   };
 
   // Tính toán các giá trị tổng hợp từ danh sách stocks hiện tại
-  const calcTotalCapital = stocks.reduce((sum, item) => sum + parseFloat(item.totalCapital.replace(/,/g, '')), 0);
-  const calcTotalMarketValue = stocks.reduce((sum, item) => sum + parseFloat(item.marketValue.replace(/,/g, '')), 0);
+  const calcTotalCapital = stocks.reduce((sum, item) => sum + parseFloat(item.totalCapital.replace(/[,.]/g, '')), 0);
+  const calcTotalMarketValue = stocks.reduce((sum, item) => sum + parseFloat(item.marketValue.replace(/[,.]/g, '')), 0);
   const totalPnLVal = calcTotalMarketValue - calcTotalCapital;
   const totalPnLPct = calcTotalCapital > 0 ? (totalPnLVal / calcTotalCapital) * 100 : 0;
   const isPnLPositive = totalPnLVal >= 0;
 
-  const totalCapitalFormatted = calcTotalCapital.toLocaleString();
-  const totalMarketValueFormatted = calcTotalMarketValue.toLocaleString();
-  const totalPnLAmountFormatted = `${isPnLPositive ? '+' : ''}${totalPnLVal.toLocaleString()}`;
+  const totalCapitalFormatted = calcTotalCapital.toLocaleString('en-US');
+  const totalMarketValueFormatted = calcTotalMarketValue.toLocaleString('en-US');
+  const totalPnLAmountFormatted = `${isPnLPositive ? '+' : ''}${totalPnLVal.toLocaleString('en-US')}`;
   const totalPnLPercentFormatted = `${isPnLPositive ? '+' : ''}${totalPnLPct.toFixed(2)}%`;
 
   return (
