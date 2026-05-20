@@ -127,7 +127,7 @@ export default function RealizedPnL({ onNavigate }: RealizedPnLProps) {
   const totalPnLPercent = totalCost !== 0 ? (totalPnLAmount / totalCost) * 100 : 0;
   const isPnLPositive = totalPnLAmount >= 0;
 
-  const totalPnLAmountFormatted = `${isPnLPositive ? '+' : ''}${Math.round(totalPnLAmount).toLocaleString('en-US')}`;
+  const totalPnLAmountFormatted = `${isPnLPositive ? '+' : ''}${Math.round(totalPnLAmount).toLocaleString()}`;
   const totalPnLPercentFormatted = `${isPnLPositive ? '+' : ''}${totalPnLPercent.toFixed(2)}%`;
 
   return (
@@ -201,10 +201,10 @@ export default function RealizedPnL({ onNavigate }: RealizedPnLProps) {
         <section className="bg-white rounded-xl p-4 flex justify-between items-center border border-[#e2e8f0]" style={{ boxShadow: '0 2px 8px -2px rgba(0, 0, 0, 0.05), 0 4px 6px -4px rgba(0, 0, 0, 0.02)' }}>
           <span className="font-bold text-[#1e293b] text-base">Tổng cộng</span>
           <div className="text-right flex items-center space-x-3">
-            <span className={`font-bold text-lg ${isPnLPositive ? 'text-[#16a34a]' : 'text-[#dc2626]'}`}>
+            <span className={`font-bold text-base ${isPnLPositive ? 'text-[#16a34a]' : 'text-[#dc2626]'}`}>
               {totalPnLAmountFormatted}
             </span>
-            <span className={`font-bold text-base ${isPnLPositive ? 'text-[#16a34a]' : 'text-[#dc2626]'}`}>
+            <span className={`font-bold text-sm ${isPnLPositive ? 'text-[#16a34a]' : 'text-[#dc2626]'}`}>
               {totalPnLPercentFormatted}
             </span>
           </div>
@@ -221,7 +221,7 @@ export default function RealizedPnL({ onNavigate }: RealizedPnLProps) {
               const dateObj = new Date(pnl.sell_date);
               const formattedDate = `${String(dateObj.getDate()).padStart(2, '0')}/${String(dateObj.getMonth() + 1).padStart(2, '0')}/${dateObj.getFullYear()}`;
               const isProfit = Number(pnl.pnl_amount) >= 0;
-              const formattedAmount = Math.round(Number(pnl.pnl_amount)).toLocaleString('en-US');
+              const formattedAmount = Math.round(Number(pnl.pnl_amount)).toLocaleString();
               const formattedPercent = `${isProfit ? '+' : ''}${Number(pnl.pnl_percent).toFixed(2)}%`;
 
               return (
