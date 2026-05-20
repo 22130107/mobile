@@ -200,8 +200,8 @@ export default function StockPortfolio({ onNavigate }: StockPortfolioProps) {
         {/* Asset Summary Card */}
         <section className="p-4 pb-[180px] bg-white">
           <div className="bg-[#EFE7FF] rounded-2xl">
-            <div className="rounded-2xl p-4 text-white shadow-md relative overflow-hidden" style={{ background: 'linear-gradient(135deg, #431896 0%, #5b21b6 50%, #7c3aed 100%)' }}>
-              <div className="absolute right-0 bottom-0 opacity-10">
+            <div className="rounded-2xl p-4 text-white shadow-md relative overflow-hidden" style={{ background: 'linear-gradient(135deg, #182570 0%, #3e1b78 50%, #762391 100%)' }}>
+              <div className="absolute right-0 bottom-0 opacity-12">
                 <svg fill="currentColor" height="120" viewBox="0 0 100 100" width="120">
                   <rect height="60" rx="10" transform="rotate(45 50 50)" width="60" x="20" y="20"></rect>
                 </svg>

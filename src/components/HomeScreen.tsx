@@ -120,11 +120,11 @@ export default function HomeScreen({ onNavigate }: HomeScreenProps) {
       <main className="px-4 py-2">
         <div
           className="rounded-[24px] overflow-hidden shadow-lg text-white relative animate-fade-in"
-          style={{ background: 'linear-gradient(135deg, #431896 0%, #5b21b6 50%, #7c3aed 100%)' }}
+          style={{ background: 'linear-gradient(135deg, #182570 0%, #3e1b78 50%, #762391 100%)' }}
         >
 
           {/* Concentric Squares Watermark */}
-          <div className="absolute right-[-10px] bottom-[-20px] w-48 h-48 opacity-[0.06] pointer-events-none z-0 overflow-hidden">
+          <div className="absolute right-[-10px] bottom-[-20px] w-48 h-48 opacity-[0.12] pointer-events-none z-0 overflow-hidden">
             <svg className="w-full h-full text-white" viewBox="0 0 100 100" fill="none" stroke="currentColor" strokeWidth="1.5">
               <rect x="15" y="15" width="70" height="70" rx="16" transform="rotate(28 50 50)" />
               <rect x="25" y="25" width="50" height="50" rx="12" transform="rotate(28 50 50)" />
@@ -136,13 +136,25 @@ export default function HomeScreen({ onNavigate }: HomeScreenProps) {
           {/* Inset Divider Lines */}
           <div className="absolute inset-0 z-10 pointer-events-none">
             {/* Top vertical segment */}
-            <div className="absolute top-4 bottom-[calc(50%+10px)] left-1/2 w-[1px] bg-white/15"></div>
+            <div 
+              className="absolute top-4 bottom-[calc(50%+14px)] left-1/2 -translate-x-1/2 w-[1.5px]"
+              style={{ background: 'linear-gradient(to bottom, transparent 0%, rgba(255, 255, 255, 0.5) 30%, rgba(255, 255, 255, 0.5) 80%, transparent 100%)' }}
+            ></div>
             {/* Bottom vertical segment */}
-            <div className="absolute top-[calc(50%+10px)] bottom-4 left-1/2 w-[1px] bg-white/15"></div>
+            <div 
+              className="absolute top-[calc(50%+14px)] bottom-4 left-1/2 -translate-x-1/2 w-[1.5px]"
+              style={{ background: 'linear-gradient(to bottom, transparent 0%, rgba(255, 255, 255, 0.5) 20%, rgba(255, 255, 255, 0.5) 70%, transparent 100%)' }}
+            ></div>
             {/* Left horizontal segment */}
-            <div className="absolute left-4 right-[calc(50%+10px)] top-1/2 h-[1px] bg-white/15"></div>
+            <div 
+              className="absolute left-4 right-[calc(50%+14px)] top-1/2 -translate-y-1/2 h-[1.5px]"
+              style={{ background: 'linear-gradient(to right, transparent 0%, rgba(255, 255, 255, 0.5) 30%, rgba(255, 255, 255, 0.5) 80%, transparent 100%)' }}
+            ></div>
             {/* Right horizontal segment */}
-            <div className="absolute left-[calc(50%+10px)] right-4 top-1/2 h-[1px] bg-white/15"></div>
+            <div 
+              className="absolute left-[calc(50%+14px)] right-4 top-1/2 -translate-y-1/2 h-[1.5px]"
+              style={{ background: 'linear-gradient(to right, transparent 0%, rgba(255, 255, 255, 0.5) 20%, rgba(255, 255, 255, 0.5) 70%, transparent 100%)' }}
+            ></div>
           </div>
 
           <div className="grid grid-cols-2 relative z-20 w-full">
@@ -151,17 +163,27 @@ export default function HomeScreen({ onNavigate }: HomeScreenProps) {
               onClick={() => onNavigate('portfolio')}
               className="py-6 px-4 flex flex-col items-center justify-center cursor-pointer hover:bg-white/5 transition-colors focus:outline-none"
             >
-              <div className="w-12 h-12 rounded-full bg-white/10 border border-white/20 flex items-center justify-center mb-2 shadow-[0_2px_10px_rgba(255,255,255,0.03)] transition-transform duration-200 hover:scale-105">
-                <svg className="w-[22px] h-[22px] text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M12 8v8" />
-                  <path d="M14.5 9.5a2 2 0 0 0-2.5-1.8H11a1.8 1.8 0 0 0 0 3.6h2a1.8 1.8 0 0 1 0 3.6H11a2 2 0 0 1-2.5-1.8" />
-                  <path d="M17 9.5a6 6 0 0 0-10-3" />
-                  <path d="M14 6.5h3v3" />
-                  <path d="M7 14.5a6 6 0 0 0 10 3" />
-                  <path d="M10 17.5H7v-3" />
+              <div 
+                className="w-[52px] h-[52px] rounded-full bg-white/10 backdrop-blur-[2px] border border-white/20 flex items-center justify-center mb-2 shadow-[0_3px_10px_rgba(0,0,0,0.08)] hover:bg-white/15 transition-all duration-200 hover:scale-105"
+              >
+                <svg 
+                  className="w-6 h-6 text-white" 
+                  viewBox="0 0 24 24" 
+                  fill="none" 
+                  stroke="currentColor" 
+                  strokeWidth="2" 
+                  strokeLinecap="round" 
+                  strokeLinejoin="round"
+                >
+                  <path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
+                  <path d="M3 3v5h5" />
+                  <path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16" />
+                  <path d="M16 16h5v5" />
+                  <path d="M12 8v8" strokeWidth="2.2" />
+                  <path d="M9.5 10.5h3a1.5 1.5 0 0 1 0 3h-2a1.5 1.5 0 0 0 0 3h3" strokeWidth="2.2" />
                 </svg>
               </div>
-              <span className="font-semibold text-sm">Cổ phiếu</span>
+              <span className="font-medium text-sm text-white/90">Cổ phiếu</span>
             </button>
 
             {/* Derivatives */}
@@ -169,16 +191,28 @@ export default function HomeScreen({ onNavigate }: HomeScreenProps) {
               onClick={() => {}}
               className="py-6 px-4 flex flex-col items-center justify-center cursor-pointer hover:bg-white/5 transition-colors focus:outline-none"
             >
-              <div className="w-12 h-12 rounded-full bg-white/10 border border-white/20 flex items-center justify-center mb-2 shadow-[0_2px_10px_rgba(255,255,255,0.03)] transition-transform duration-200 hover:scale-105">
-                <svg className="w-[22px] h-[22px] text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M7 20v-5M12 20v-8M17 20v-11" />
-                  <path d="M7 12l5-4 5 3" />
-                  <circle cx="7" cy="12" r="1" fill="currentColor" />
-                  <circle cx="12" cy="8" r="1" fill="currentColor" />
-                  <circle cx="17" cy="11" r="1" fill="currentColor" />
+              <div 
+                className="w-[52px] h-[52px] rounded-full bg-white/10 backdrop-blur-[2px] border border-white/20 flex items-center justify-center mb-2 shadow-[0_3px_10px_rgba(0,0,0,0.08)] hover:bg-white/15 transition-all duration-200 hover:scale-105"
+              >
+                <svg 
+                  className="w-6 h-6 text-white" 
+                  viewBox="0 0 24 24" 
+                  fill="none" 
+                  stroke="currentColor" 
+                  strokeWidth="2" 
+                  strokeLinecap="round" 
+                  strokeLinejoin="round"
+                >
+                  <rect x="4" y="14" width="3" height="6" rx="0.5" />
+                  <rect x="10.5" y="12" width="3" height="8" rx="0.5" />
+                  <rect x="17" y="15" width="3" height="5" rx="0.5" />
+                  <path d="M5.5 8l6-3.5 7 3" />
+                  <circle cx="5.5" cy="8" r="1" fill="currentColor" />
+                  <circle cx="11.5" cy="4.5" r="1" fill="currentColor" />
+                  <circle cx="18.5" cy="7.5" r="1" fill="currentColor" />
                 </svg>
               </div>
-              <span className="font-semibold text-sm">Phái sinh</span>
+              <span className="font-medium text-sm text-white/90">Phái sinh</span>
             </button>
 
             {/* Recommendation */}
@@ -186,21 +220,31 @@ export default function HomeScreen({ onNavigate }: HomeScreenProps) {
               onClick={() => {}}
               className="py-6 px-4 flex flex-col items-center justify-center cursor-pointer hover:bg-white/5 transition-colors focus:outline-none"
             >
-              <div className="w-12 h-12 rounded-full bg-white/10 border border-white/20 flex items-center justify-center mb-2 shadow-[0_2px_10px_rgba(255,255,255,0.03)] transition-transform duration-200 hover:scale-105">
-                <svg className="w-[22px] h-[22px] text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <circle cx="12" cy="12" r="8" strokeWidth="1.8" />
-                  <circle cx="12" cy="12" r="5" strokeWidth="1.5" />
-                  <circle cx="12" cy="12" r="1.5" fill="currentColor" />
-                  <path d="M18 6l-4 4" />
-                  <path d="M19 5l-1 1M18.5 7.5L20 6" strokeWidth="1.5" />
+              <div 
+                className="w-[52px] h-[52px] rounded-full bg-white/10 backdrop-blur-[2px] border border-white/20 flex items-center justify-center mb-2 shadow-[0_3px_10px_rgba(0,0,0,0.08)] hover:bg-white/15 transition-all duration-200 hover:scale-105"
+              >
+                <svg 
+                  className="w-6 h-6 text-white" 
+                  viewBox="0 0 24 24" 
+                  fill="none" 
+                  stroke="currentColor" 
+                  strokeWidth="2" 
+                  strokeLinecap="round" 
+                  strokeLinejoin="round"
+                >
+                  <circle cx="11" cy="13" r="7" strokeWidth="2.2" />
+                  <circle cx="11" cy="13" r="4" strokeWidth="1.8" />
+                  <circle cx="11" cy="13" r="1.2" fill="currentColor" />
+                  <path d="M19 5l-5 5" strokeWidth="2.2" />
+                  <path d="M14 6l0 4l4 0" strokeWidth="2.2" />
                 </svg>
               </div>
-              <span className="font-semibold text-sm">Khuyến nghị</span>
+              <span className="font-medium text-sm text-white/90">Khuyến nghị</span>
             </button>
 
             {/* Add More */}
             <div className="py-6 px-4 flex items-center justify-center">
-              <button className="bg-black/20 hover:bg-black/30 active:scale-95 transition-all text-white rounded-full px-5 py-1.5 flex items-center justify-center text-xs font-semibold shadow-sm focus:outline-none">
+              <button className="bg-[#240f55]/60 hover:bg-[#240f55]/85 active:scale-95 transition-all text-white rounded-full px-5.5 py-1.8 flex items-center justify-center text-sm font-medium shadow-[0_2px_8px_rgba(0,0,0,0.15)] border border-white/10 focus:outline-none">
                 + Thêm
               </button>
             </div>
