@@ -247,18 +247,18 @@ export default function OrderBook({ onNavigate }: OrderBookProps) {
                     <span className="text-[13px] text-gray-400 mt-0.5 font-normal -ml-1.5">{order.order_type}</span>
                   </div>
                   <div className="flex flex-col items-center">
-                    <span className="text-center font-bold text-gray-900 text-[14px]">{order.qty.toLocaleString()}</span>
+                    <span className="text-center font-bold text-gray-900 text-[14px]">{order.qty.toLocaleString('de-DE')}</span>
                     <span className="text-center text-[13px] text-gray-400 mt-0.5">{order.price.toFixed(1)}</span>
                   </div>
                   <div className="flex flex-col items-end">
-                    <span className="font-bold text-gray-900 text-[14px]">{order.matched_qty.toLocaleString()}</span>
+                    <span className="font-bold text-gray-900 text-[14px]">{order.matched_qty.toLocaleString('de-DE')}</span>
                     <span className="text-[13px] text-gray-400 mt-0.5">
                       {order.matched_price ? order.matched_price.toFixed(2) : '0.00'}
                     </span>
                   </div>
                   <div className="flex flex-col items-end justify-end space-y-1">
                     {remaining > 0 ? (
-                      <span className="text-xs text-gray-600 font-medium pr-1">{remaining.toLocaleString()}</span>
+                      <span className="text-xs text-gray-600 font-medium pr-1">{remaining.toLocaleString('de-DE')}</span>
                     ) : (
                       <span className="text-xs text-transparent select-none pr-1">0</span>
                     )}

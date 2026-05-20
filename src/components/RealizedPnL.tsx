@@ -200,7 +200,7 @@ export default function RealizedPnL({ onNavigate }: RealizedPnLProps) {
         {/* Summary Banner */}
         <section className="bg-white rounded-xl p-4 flex justify-between items-center border border-[#e2e8f0]" style={{ boxShadow: '0 2px 8px -2px rgba(0, 0, 0, 0.05), 0 4px 6px -4px rgba(0, 0, 0, 0.02)' }}>
           <span className="font-bold text-[#1e293b] text-base">Tổng cộng</span>
-          <div className="text-right flex items-center space-x-3 mr-2">
+          <div className="text-right flex items-center space-x-3 mr-[8%]">
             <span className={`font-bold text-base ${isPnLPositive ? 'text-[#16a34a]' : 'text-[#dc2626]'}`}>
               {totalPnLAmountFormatted}
             </span>
