@@ -200,7 +200,7 @@ export default function OrderBook({ onNavigate }: OrderBookProps) {
       </section>
 
       {/* Table Header */}
-      <div className="grid grid-cols-[20%_16%_18%_20%_26%] text-xs text-gray-500 font-medium px-4 py-2 border-b border-gray-100 bg-white">
+      <div className="grid grid-cols-[16%_14%_15%_15%_40%] text-xs text-gray-500 font-medium px-4 py-2 border-b border-gray-100 bg-white">
         <div className="text-left">Mã CK</div>
         <div className="text-left">M/B</div>
         <div className="text-right">Đặt</div>
@@ -229,25 +229,25 @@ export default function OrderBook({ onNavigate }: OrderBookProps) {
               <div key={order.id}>
                 <div
                   onClick={() => openEditModal(order)}
-                  className="bg-white px-4 py-3 grid grid-cols-[20%_16%_18%_20%_26%] items-center cursor-pointer active:bg-slate-50 transition-colors"
+                  className="bg-white px-4 py-3 grid grid-cols-[16%_14%_15%_15%_40%] items-center cursor-pointer active:bg-slate-50 transition-colors"
                 >
                   <div className="flex flex-col">
                     <span className="font-bold text-gray-900 text-[16px]">{order.symbol}</span>
-                    <span className="text-xs text-gray-400 mt-0.5">{formattedTime}</span>
+                    <span className="text-[13px] text-gray-400 mt-0.5">{formattedTime}</span>
                   </div>
                   <div className="flex flex-col items-start">
                     <span className={`font-bold text-[16px] ${isBuy ? 'text-[#129A43]' : 'text-[#DF3C40]'}`}>
                       {isBuy ? 'Mua' : 'Bán'}
                     </span>
-                    <span className="text-xs text-gray-400 mt-0.5">{order.order_type}</span>
+                    <span className="text-[13px] text-gray-400 mt-0.5">{order.order_type}</span>
                   </div>
                   <div className="flex flex-col items-end">
                     <span className="font-bold text-gray-900 text-[16px]">{order.qty.toLocaleString()}</span>
-                    <span className="text-xs text-gray-400 mt-0.5">{order.price.toFixed(1)}</span>
+                    <span className="text-[13px] text-gray-400 mt-0.5">{order.price.toFixed(1)}</span>
                   </div>
                   <div className="flex flex-col items-end">
                     <span className="font-bold text-gray-900 text-[16px]">{order.matched_qty.toLocaleString()}</span>
-                    <span className="text-xs text-gray-400 mt-0.5">
+                    <span className="text-[13px] text-gray-400 mt-0.5">
                       {order.matched_price ? order.matched_price.toFixed(2) : '0.00'}
                     </span>
                   </div>
