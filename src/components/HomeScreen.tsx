@@ -116,7 +116,7 @@ export default function HomeScreen({ onNavigate }: HomeScreenProps) {
       {/* Service Main Card */}
       <main className="px-4 py-2">
         <div
-          className="rounded-[24px] overflow-hidden shadow-lg text-white relative min-h-[190px] flex flex-col justify-center animate-fade-in"
+          className="rounded-[24px] overflow-hidden shadow-lg text-white relative animate-fade-in"
           style={{ background: 'linear-gradient(135deg, #431896 0%, #5b21b6 50%, #7c3aed 100%)' }}
         >
 
@@ -130,7 +130,7 @@ export default function HomeScreen({ onNavigate }: HomeScreenProps) {
             <div className="absolute left-1/2 ml-4 right-4 top-1/2 h-[1px] bg-white/15"></div>
           </div>
 
-          <div className="grid grid-cols-2 relative z-20 w-full h-full">
+          <div className="grid grid-cols-2 relative z-20 w-full">
             {/* Stocks */}
             <button
               onClick={() => onNavigate('portfolio')}
