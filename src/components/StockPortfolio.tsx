@@ -405,7 +405,7 @@ export default function StockPortfolio({ onNavigate }: StockPortfolioProps) {
                             onClick={() => toggleStock(stock.symbol)}
                           >
                             <td className="py-2.5">
-                              <div className={`font-bold text-[13px] ${stock.isPositive ? 'text-[#129A43]' : 'text-[#d82034]'}`}>
+                              <div className={`font-medium text-[13px] ${stock.isPositive ? 'text-[#129A43]' : 'text-[#d82034]'}`}>
                                 {stock.symbol}
                               </div>
                             </td>

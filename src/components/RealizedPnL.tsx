@@ -183,7 +183,7 @@ export default function RealizedPnL({ onNavigate }: RealizedPnLProps) {
           </div>
 
           {/* Search Bar */}
-          <div className="relative w-full mb-16">
+          <div className="relative w-full mb-4">
             <input
               className="w-full py-2.5 pl-4 pr-10 bg-white border border-[#e2e8f0] rounded-lg text-sm outline-none focus:border-[#6b21a8] focus:ring-1 focus:ring-[#6b21a8] transition-colors text-gray-800 placeholder-gray-300"
               placeholder="Mã CK"
@@ -200,11 +200,11 @@ export default function RealizedPnL({ onNavigate }: RealizedPnLProps) {
         {/* Summary Banner */}
         <section className="bg-white rounded-xl p-4 flex justify-between items-center border border-[#e2e8f0]" style={{ boxShadow: '0 2px 8px -2px rgba(0, 0, 0, 0.05), 0 4px 6px -4px rgba(0, 0, 0, 0.02)' }}>
           <span className="font-bold text-[#1e293b] text-base">Tổng cộng</span>
-          <div className="text-right flex items-center space-x-3 mr-[8%]">
-            <span className={`${isPnLPositive ? 'font-bold text-[#16a34a]' : 'font-extrabold text-[#d82034]'}`}>
+          <div className="text-right flex items-center space-x-3">
+            <span className={`${isPnLPositive ? 'text-base font-bold text-[#16a34a]' : 'text-base font-extrabold text-[#d82034]'}`}>
               {totalPnLAmountFormatted}
             </span>
-            <span className={`text-sm ${isPnLPositive ? 'font-bold text-[#16a34a]' : 'font-extrabold text-[#d82034]'}`}>
+            <span className={`${isPnLPositive ? 'text-base font-bold text-[#16a34a]' : 'text-base font-extrabold text-[#d82034]'}`}>
               {totalPnLPercentFormatted}
             </span>
           </div>
@@ -217,7 +217,7 @@ export default function RealizedPnL({ onNavigate }: RealizedPnLProps) {
           ) : filteredPnls.length === 0 ? (
             <div className="text-center py-10 text-gray-400 text-sm">Không tìm thấy bản ghi nào.</div>
           ) : (
-            filteredPnls.map((pnl) => {
+            filteredPnls.map((pnl, index) => {
               const dateObj = new Date(pnl.sell_date);
               const formattedDate = `${String(dateObj.getDate()).padStart(2, '0')}/${String(dateObj.getMonth() + 1).padStart(2, '0')}/${dateObj.getFullYear()}`;
               const isProfit = Number(pnl.pnl_amount) >= 0;
@@ -228,30 +228,30 @@ export default function RealizedPnL({ onNavigate }: RealizedPnLProps) {
                 <article
                   key={pnl.id}
                   onClick={() => openEditModal(pnl)}
-                  className="bg-white rounded-xl px-0 pt-2 pb-0 border border-[#e2e8f0] cursor-pointer hover:bg-slate-50 transition-colors"
+                  className={`bg-white rounded-xl px-4 pt-4 pb-0 border border-[#e2e8f0] cursor-pointer hover:bg-slate-50 transition-colors ${index === 0 ? 'mt-2' : ''}`}
                   style={{ boxShadow: '0 2px 8px -2px rgba(0, 0, 0, 0.05), 0 4px 6px -4px rgba(0, 0, 0, 0.02)' }}
                 >
-                  <div className="flex justify-between items-center w-full">
-                    <div className="w-1/4 text-center">
-                      <div className="text-xs text-[rgba(197,165,167,1)] mb-[14px] font-medium">Ngày</div>
+                  <div className="grid grid-cols-[1.1fr_0.9fr_1fr_1fr] gap-2 items-start w-full">
+                    <div className="text-center">
+                      <div className="text-xs text-[rgba(197,165,167,1)] mb-3 font-medium">Ngày</div>
                       <div className="text-base text-[#1e293b]">{formattedDate}</div>
                     </div>
-                    <div className="w-1/4 text-center">
-                      <div className="text-xs text-[rgba(197,165,167,1)] mb-[14px] font-medium">Mã CK</div>
+                    <div className="text-center">
+                      <div className="text-xs text-[rgba(197,165,167,1)] mb-3 font-medium">Mã CK</div>
                       <div className="text-base font-extrabold text-[#1e293b]">{pnl.symbol}</div>
                     </div>
-                    <div className="w-[23%] text-right mr-2">
-                      <div className="text-xs text-[rgba(197,165,167,1)] mb-[14px] font-medium">Lãi/lỗ</div>
+                    <div className="text-right">
+                      <div className="text-xs text-[rgba(197,165,167,1)] mb-3 font-medium">Lãi/lỗ</div>
                       <div className={`text-base ${isProfit ? 'font-bold text-[#16a34a]' : 'font-extrabold text-[#d82034]'}`}>
                         {formattedAmount}
                       </div>
                     </div>
-                    <div className="w-1/4 text-center flex flex-col items-center relative">
-                      <div className="text-xs text-[rgba(197,165,167,1)] mb-[14px] font-medium">%lãi/lỗ</div>
+                    <div className="relative text-center">
+                      <div className="text-xs text-[rgba(197,165,167,1)] mb-3 font-medium">%lãi/lỗ</div>
                       <div className={`text-base ${isProfit ? 'font-bold text-[#16a34a]' : 'font-extrabold text-[#d82034]'}`}>
                         {formattedPercent}
                       </div>
-                      <button className="absolute -right-1 top-1/2 -translate-y-1/2 text-black p-1 rotate-180">
+                      <button className="absolute -right-2 top-1/2 -translate-y-1/2 text-black p-1 rotate-180">
                         <ChevronDown className="w-4 h-4" />
                       </button>
                     </div>
