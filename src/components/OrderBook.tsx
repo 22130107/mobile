@@ -205,7 +205,7 @@ export default function OrderBook({ onNavigate }: OrderBookProps) {
       </section>
 
       {/* Table Header */}
-      <div className="grid grid-cols-[16%_14%_15%_15%_40%] text-[15px] text-gray-500 font-normal px-4 py-[10px] border-b border-gray-100 bg-white">
+      <div className="grid grid-cols-[16%_14%_15%_15%_40%] text-[13px] text-gray-500 font-normal px-4 py-[8px] border-b border-gray-100 bg-white">
         <div className="text-left">Mã CK</div>
         <div className="text-left">M/B</div>
         <div className="text-right">Đặt</div>
