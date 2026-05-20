@@ -205,10 +205,10 @@ export default function OrderBook({ onNavigate }: OrderBookProps) {
       </section>
 
       {/* Table Header */}
-      <div className="grid grid-cols-[16%_14%_15%_15%_40%] text-[13px] text-gray-500 font-normal px-4 py-[8px] border-b border-gray-100 bg-white">
+      <div className="grid grid-cols-[16%_11%_20%_17%_36%] text-[13px] text-gray-500 font-normal px-4 py-[8px] border-b border-gray-100 bg-white">
         <div className="text-left">Mã CK</div>
         <div className="text-left">M/B</div>
-        <div className="text-right">Đặt</div>
+        <div className="text-center">Đặt</div>
         <div className="text-right">Khớp</div>
         <div className="text-right">Còn lại</div>
       </div>
@@ -234,21 +234,21 @@ export default function OrderBook({ onNavigate }: OrderBookProps) {
               <div key={order.id}>
                 <div
                   onClick={() => openEditModal(order)}
-                  className="bg-white px-4 py-5 grid grid-cols-[16%_14%_15%_15%_40%] items-center cursor-pointer active:bg-slate-50 transition-colors"
+                  className="bg-white px-4 py-5 grid grid-cols-[16%_11%_20%_17%_36%] items-center cursor-pointer active:bg-slate-50 transition-colors"
                 >
                   <div className="flex flex-col">
                     <span className="font-bold text-gray-900 text-[16px]">{order.symbol}</span>
                     <span className="text-[13px] text-gray-400 mt-0.5">{formattedTime}</span>
                   </div>
                   <div className="flex flex-col items-start">
-                    <span className={`font-bold text-[16px] ${isBuy ? 'text-[#0EB15D]' : 'text-[#DF3C40]'}`}>
+                    <span className={`font-bold text-[16px] ${isBuy ? 'text-[#0EB15D]' : 'text-[#B91C1C]'}`}>
                       {isBuy ? 'Mua' : 'Bán'}
                     </span>
-                    <span className="text-[13px] text-gray-600 mt-0.5 font-semibold">{order.order_type}</span>
+                    <span className="text-[13px] text-gray-600 mt-0.5 font-semibold -ml-1.5">{order.order_type}</span>
                   </div>
-                  <div className="flex flex-col items-end">
-                    <span className="font-bold text-gray-900 text-[14px]">{order.qty.toLocaleString()}</span>
-                    <span className="text-[13px] text-gray-400 mt-0.5">{order.price.toFixed(1)}</span>
+                  <div className="flex flex-col items-center">
+                    <span className="text-center font-bold text-gray-900 text-[14px]">{order.qty.toLocaleString()}</span>
+                    <span className="text-center text-[13px] text-gray-400 mt-0.5">{order.price.toFixed(1)}</span>
                   </div>
                   <div className="flex flex-col items-end">
                     <span className="font-bold text-gray-900 text-[14px]">{order.matched_qty.toLocaleString()}</span>
