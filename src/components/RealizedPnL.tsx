@@ -231,7 +231,7 @@ export default function RealizedPnL({ onNavigate }: RealizedPnLProps) {
                   className={`bg-white rounded-xl px-4 pt-4 pb-0 border border-slate-300 cursor-pointer hover:bg-slate-50 transition-colors ${index === 0 ? 'mt-2' : ''}`}
                   style={{ boxShadow: '0 2px 8px -2px rgba(0, 0, 0, 0.05), 0 4px 6px -4px rgba(0, 0, 0, 0.02)' }}
                 >
-                  <div className="grid grid-cols-[1.1fr_0.7fr_0.8fr_1.4fr] gap-2 items-start w-full">
+                  <div className="grid grid-cols-[1.1fr_0.7fr_1.0fr_1.2fr] gap-2 items-start w-full">
                     <div className="text-center">
                       <div className="text-xs text-[rgba(197,165,167,1)] mb-3 font-medium">Ngày</div>
                       <div className="text-base text-[#1e293b]">{formattedDate}</div>
@@ -241,8 +241,8 @@ export default function RealizedPnL({ onNavigate }: RealizedPnLProps) {
                       <div className="text-base font-extrabold text-[#1e293b]">{pnl.symbol}</div>
                     </div>
                     <div className="text-right">
-                      <div className="text-xs text-[rgba(197,165,167,1)] mb-3 font-medium">Lãi/lỗ</div>
-                      <div className={`text-base ${isProfit ? 'font-bold text-[#16a34a]' : 'font-extrabold text-[#d82034]'}`}>
+                      <div className="text-xs text-[rgba(197,165,167,1)] mb-3 font-medium text-right">Lãi/lỗ</div>
+                      <div className={`text-base ${isProfit ? 'font-bold text-[#16a34a]' : 'font-extrabold text-[#d82034]'} text-right`}>
                         {formattedAmount}
                       </div>
                     </div>

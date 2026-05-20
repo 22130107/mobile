@@ -384,8 +384,8 @@ export default function StockPortfolio({ onNavigate }: StockPortfolioProps) {
                       <tr>
                         <th className="py-1.5 text-[11px] font-medium text-slate-500 uppercase w-[10%]">Mã CP</th>
                         <th className="py-1.5 text-[11px] font-medium text-slate-500 uppercase text-left w-[5%]"></th>
-                        <th className="py-1.5 text-[11px] font-medium text-slate-500 uppercase text-left w-[17%] pl-3">GIÁ VỐN</th>
-                        <th className="py-1.5 text-[11px] font-medium text-slate-500 uppercase text-left w-[17%]">GIÁ TT</th>
+                        <th className="py-1.5 text-[11px] font-medium text-slate-500 uppercase text-right w-[17%] pr-6">GIÁ VỐN</th>
+                        <th className="py-1.5 text-[11px] font-medium text-slate-500 uppercase text-right w-[17%] pr-6">GIÁ TT</th>
                         <th className="py-1.5 text-[11px] font-medium text-slate-500 uppercase text-right w-[20%]">
                           <div className="flex items-center justify-end">
                             KL
@@ -416,8 +416,8 @@ export default function StockPortfolio({ onNavigate }: StockPortfolioProps) {
                                 <ChevronDown className="w-3.5 h-3.5 text-slate-400 inline-block" />
                               )}
                             </td>
-                            <td className="py-2.5 text-left font-bold text-slate-900 text-[13px] pl-3">{stock.costPrice}</td>
-                            <td className="py-2.5 text-left font-bold text-slate-900 text-[13px]">{stock.marketPrice}</td>
+                            <td className="py-2.5 text-right font-bold text-slate-900 text-[13px] pr-6">{stock.costPrice}</td>
+                            <td className="py-2.5 text-right font-bold text-slate-900 text-[13px] pr-6">{stock.marketPrice}</td>
                             <td className="py-2.5 text-right font-bold text-slate-900 text-[13px]">
                               {hideVolume ? '***' : stock.sellableQty}
                             </td>
