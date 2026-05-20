@@ -183,7 +183,7 @@ export default function RealizedPnL({ onNavigate }: RealizedPnLProps) {
           </div>
 
           {/* Search Bar */}
-          <div className="relative w-full mb-4">
+          <div className="relative w-full mb-8">
             <input
               className="w-full py-2.5 pl-4 pr-10 bg-white border border-[#e2e8f0] rounded-lg text-sm outline-none focus:border-[#6b21a8] focus:ring-1 focus:ring-[#6b21a8] transition-colors text-gray-800 placeholder-gray-300"
               placeholder="Mã CK"
@@ -198,7 +198,7 @@ export default function RealizedPnL({ onNavigate }: RealizedPnLProps) {
         </section>
 
         {/* Summary Banner */}
-        <section className="bg-white rounded-xl p-4 flex justify-between items-center border border-[#e2e8f0]" style={{ boxShadow: '0 2px 8px -2px rgba(0, 0, 0, 0.05), 0 4px 6px -4px rgba(0, 0, 0, 0.02)' }}>
+        <section className="bg-white rounded-xl px-4 py-3 flex justify-between items-center border border-[#e2e8f0]" style={{ boxShadow: '0 2px 8px -2px rgba(0, 0, 0, 0.05), 0 4px 6px -4px rgba(0, 0, 0, 0.02)' }}>
           <span className="font-bold text-[#1e293b] text-base">Tổng cộng</span>
           <div className="text-right flex items-center space-x-3">
             <span className={`${isPnLPositive ? 'text-base font-bold text-[#16a34a]' : 'text-base font-extrabold text-[#d82034]'}`}>
@@ -228,7 +228,7 @@ export default function RealizedPnL({ onNavigate }: RealizedPnLProps) {
                 <article
                   key={pnl.id}
                   onClick={() => openEditModal(pnl)}
-                  className={`bg-white rounded-xl px-4 pt-4 pb-0 border border-[#e2e8f0] cursor-pointer hover:bg-slate-50 transition-colors ${index === 0 ? 'mt-2' : ''}`}
+                  className={`bg-white rounded-xl px-4 pt-4 pb-0 border border-slate-200 cursor-pointer hover:bg-slate-50 transition-colors ${index === 0 ? 'mt-2' : ''}`}
                   style={{ boxShadow: '0 2px 8px -2px rgba(0, 0, 0, 0.05), 0 4px 6px -4px rgba(0, 0, 0, 0.02)' }}
                 >
                   <div className="grid grid-cols-[1.1fr_0.9fr_1fr_1fr] gap-2 items-start w-full">
