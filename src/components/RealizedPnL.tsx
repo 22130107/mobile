@@ -251,8 +251,8 @@ export default function RealizedPnL({ onNavigate }: RealizedPnLProps) {
                       <div className={`text-sm font-bold ${isProfit ? 'text-[#16a34a]' : 'text-[#dc2626]'}`}>
                         {formattedPercent}
                       </div>
-                      <button className="absolute -right-1 top-1/2 -translate-y-1/2 text-gray-400 p-1">
-                        <ChevronDown className="w-2.5 h-2.5" />
+                      <button className="absolute -right-1 top-1/2 -translate-y-1/2 text-black p-1 rotate-180">
+                        <ChevronDown className="w-4 h-4" />
                       </button>
                     </div>
                   </div>
