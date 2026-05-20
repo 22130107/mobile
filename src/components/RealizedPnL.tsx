@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { ChevronLeft, Search, ArrowRight, ChevronDown, Plus } from 'lucide-react';
+import { ChevronLeft, Search, ArrowRight, ChevronDown } from 'lucide-react';
 import { pnlService } from '../services/pnlService';
 import type { RealizedPnLRow } from '../types/database';
 
@@ -125,7 +125,10 @@ export default function RealizedPnL({ onNavigate }: RealizedPnLProps) {
         >
           Lãi lỗ đã thực hiện
         </h1>
-        <button className="flex items-center space-x-1 border border-gray-300 rounded-full px-3 py-1 bg-white text-sm font-medium">
+        <button
+          onClick={openAddModal}
+          className="flex items-center space-x-1 border border-gray-300 rounded-full px-3 py-1 bg-white text-sm font-medium hover:bg-gray-50 active:scale-95 transition-all"
+        >
           <span>TK</span>
           <span className="w-5 h-5 rounded-full bg-gray-500 text-white flex items-center justify-center text-xs">1</span>
         </button>
@@ -147,26 +150,17 @@ export default function RealizedPnL({ onNavigate }: RealizedPnLProps) {
             </button>
           </div>
 
-          {/* Search Bar & Add Button */}
-          <div className="flex gap-2">
-            <div className="relative flex-1">
-              <input
-                className="w-full py-2.5 pl-4 pr-10 bg-white border border-[#e2e8f0] rounded-lg text-sm outline-none focus:border-[#6b21a8] focus:ring-1 focus:ring-[#6b21a8] transition-colors text-gray-800 placeholder-gray-300"
-                placeholder="Mã CK"
-                type="text"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-              />
-              <button className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400">
-                <Search className="w-5 h-5" />
-              </button>
-            </div>
-            <button
-              onClick={openAddModal}
-              className="px-4 py-2.5 bg-[#6b21a8] text-white rounded-lg text-sm font-semibold flex items-center gap-1 hover:bg-opacity-90 active:scale-95 transition-all shadow-sm shrink-0"
-            >
-              <Plus className="w-4 h-4" />
-              Thêm lãi/lỗ
+          {/* Search Bar */}
+          <div className="relative w-full">
+            <input
+              className="w-full py-2.5 pl-4 pr-10 bg-white border border-[#e2e8f0] rounded-lg text-sm outline-none focus:border-[#6b21a8] focus:ring-1 focus:ring-[#6b21a8] transition-colors text-gray-800 placeholder-gray-300"
+              placeholder="Mã CK"
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+            <button className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400">
+              <Search className="w-5 h-5" />
             </button>
           </div>
         </section>

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { ChevronLeft, ChevronRight, Plus } from 'lucide-react';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { orderService } from '../services/orderService';
 import type { OrderRow } from '../types/database';
 
@@ -139,10 +139,13 @@ export default function OrderBook({ onNavigate }: OrderBookProps) {
         >
           Sổ lệnh
         </h1>
-        <div className="border border-gray-300 rounded-full px-2 py-0.5 text-xs font-semibold flex items-center gap-1 text-gray-700">
+        <button
+          onClick={openAddModal}
+          className="border border-gray-300 rounded-full px-2 py-0.5 text-xs font-semibold flex items-center gap-1 text-gray-700 hover:bg-gray-50 active:scale-95 transition-all"
+        >
           <span>TK</span>
           <span className="bg-gray-500 text-white rounded-full w-4 h-4 flex items-center justify-center text-[10px]">6</span>
-        </div>
+        </button>
       </nav>
 
       {/* Navigation Tabs */}
@@ -187,18 +190,11 @@ export default function OrderBook({ onNavigate }: OrderBookProps) {
           </div>
         </div>
 
-        {/* P/L Action & Add Button */}
+        {/* P/L Action */}
         <div className="flex justify-between items-center">
           <button className="inline-flex items-center px-4 py-1.5 border border-[#6b4eff] rounded-full text-[#6b4eff] text-xs font-medium">
             Xem lãi lỗ dự tính
             <ChevronRight className="w-4 h-4 ml-1" strokeWidth={2} />
-          </button>
-          <button
-            onClick={openAddModal}
-            className="inline-flex items-center gap-1 px-4 py-1.5 bg-[#6b4eff] rounded-full text-white text-xs font-semibold hover:bg-opacity-90 active:scale-95 transition-all shadow-sm"
-          >
-            <Plus className="w-4 h-4" />
-            Thêm lệnh
           </button>
         </div>
       </section>

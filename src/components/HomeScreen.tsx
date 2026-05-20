@@ -41,7 +41,10 @@ export default function HomeScreen({ onNavigate }: HomeScreenProps) {
       <section className="px-4 py-3 flex items-center justify-between select-none">
         <div className="flex items-center space-x-3">
           {/* Purple Circle Avatar */}
-          <div className="w-12 h-12 rounded-full bg-gradient-to-tr from-[#6D28D9] to-[#8B5CF6] flex flex-col items-center justify-center text-white text-[13px] font-bold border border-white/20 shadow-sm">
+          <div 
+            className="w-12 h-12 shrink-0 rounded-full flex flex-col items-center justify-center text-white text-[13px] font-bold border border-white/20 shadow-sm"
+            style={{ background: 'linear-gradient(135deg, #6D28D9 0%, #8B5CF6 100%)' }}
+          >
             <span>HH</span>
             <span className="text-[10px] tracking-widest leading-none -mt-[3px]">...</span>
           </div>
