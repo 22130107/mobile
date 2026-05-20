@@ -418,10 +418,10 @@ export default function StockPortfolio({ onNavigate }: StockPortfolioProps) {
                             </td>
                             <td className="py-2.5 text-left font-bold text-slate-900 text-[13px] pl-3">{stock.costPrice}</td>
                             <td className="py-2.5 text-left font-bold text-slate-900 text-[13px]">{stock.marketPrice}</td>
-                            <td className="py-2.5 text-center font-bold text-slate-900 text-[13px]">
+                            <td className="py-2.5 text-right font-bold text-slate-900 text-[13px]">
                               {hideVolume ? '***' : stock.sellableQty}
                             </td>
-                            <td className={`py-2.5 text-center font-bold text-[13px] ${stock.isPositive ? 'text-[#129A43]' : 'text-[#DF3C40]'}`}>{stock.pnlPercent}</td>
+                            <td className={`py-2.5 text-right font-bold text-[13px] ${stock.isPositive ? 'text-[#129A43]' : 'text-[#DF3C40]'}`}>{stock.pnlPercent}</td>
                           </tr>
                           {expandedStocks.includes(stock.symbol) && (
                             <tr>

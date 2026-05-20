@@ -241,10 +241,10 @@ export default function OrderBook({ onNavigate }: OrderBookProps) {
                     <span className="text-[13px] text-gray-400 mt-0.5">{formattedTime}</span>
                   </div>
                   <div className="flex flex-col items-start">
-                    <span className={`font-bold text-[16px] ${isBuy ? 'text-[#0EB15D]' : 'text-[#B91C1C]'}`}>
+                    <span className={`font-extrabold text-[16px] ${isBuy ? 'text-[#0EB15D]' : 'text-[#991B1B]'}`}>
                       {isBuy ? 'Mua' : 'Bán'}
                     </span>
-                    <span className="text-[13px] text-gray-600 mt-0.5 font-semibold -ml-1.5">{order.order_type}</span>
+                    <span className="text-[13px] text-gray-400 mt-0.5 font-normal -ml-1.5">{order.order_type}</span>
                   </div>
                   <div className="flex flex-col items-center">
                     <span className="text-center font-bold text-gray-900 text-[14px]">{order.qty.toLocaleString()}</span>
@@ -262,7 +262,7 @@ export default function OrderBook({ onNavigate }: OrderBookProps) {
                     ) : (
                       <span className="text-xs text-transparent select-none pr-1">0</span>
                     )}
-                    <div className="bg-gray-100 text-gray-700 px-2 py-1 rounded flex items-center text-sm font-semibold whitespace-nowrap">
+                    <div className="bg-gray-100 text-gray-700 px-2 py-1 rounded flex items-center text-[14px] font-semibold whitespace-nowrap">
                       <span className={`w-3 h-3 rounded-full mr-2 ${statusBulletColor}`}></span>
                       {order.status}
                     </div>
