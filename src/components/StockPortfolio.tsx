@@ -233,9 +233,9 @@ export default function StockPortfolio({ onNavigate }: StockPortfolioProps) {
                 className="flex flex-col items-center justify-center text-center gap-1 rounded-lg p-2 hover:bg-purple-50 transition-colors"
               >
                 <div className="w-10 h-10 flex items-center justify-center">
-                  <svg className="w-6 h-6 text-slate-800" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
-                    <rect x="6" y="4" width="12" height="16" rx="1.5" />
-                    <rect x="9" y="8" width="6" height="4" rx="0.5" />
+                  <svg className="w-[30px] h-[30px] text-slate-800" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
+                    <rect x="6" y="4" width="12" height="16" rx="1.5" fill="none" />
+                    <rect x="9" y="8" width="6" height="4" rx="0.5" strokeWidth="1.5" fill="none" />
                     <line x1="9" y1="15" x2="15" y2="15" />
                   </svg>
                 </div>
@@ -243,21 +243,29 @@ export default function StockPortfolio({ onNavigate }: StockPortfolioProps) {
               </button>
               <div className="flex flex-col items-center justify-center text-center gap-1 rounded-lg p-2">
                 <div className="w-10 h-10 flex items-center justify-center">
-                  <svg className="w-6 h-6 text-slate-800" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
-                    <circle cx="12" cy="9" r="6" />
-                    <path d="M12 6.5v5M10.5 7.8h3a1.2 1.2 0 0 1 0 2.4h-3a1.2 1.2 0 0 0 0 2.4h3" />
-                    <path d="M6 13.5a7.5 7.5 0 0 0 12 0" />
-                    <path d="M15 13.5h3.5v-3.5" />
+                  <svg className="w-[30px] h-[30px] text-slate-800" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
+                    {/* Spaced-out loop with center at (12, 10.5) and radius 6.5 */}
+                    <path d="M 6 15 A 6.5 6.5 0 1 1 18 15" fill="none" />
+                    {/* Bottom horizontal line at Y=19 */}
+                    <line x1="4.5" y1="19" x2="16.5" y2="19" />
+                    {/* Triangle arrowhead */}
+                    <polygon points="19.5,19 16,16.5 16,21.5" fill="currentColor" stroke="none" />
+                    {/* Dollar sign centered vertically and horizontally inside the loop */}
+                    <path d="M12 6.5v9" strokeWidth="1.8" fill="none" />
+                    <path d="M 13.5 9.5 A 1.5 1.5 0 0 0 12 8 A 1.5 1.5 0 0 0 10.5 9.5 C 10.5 11 13.5 11 13.5 12.5 A 1.5 1.5 0 0 1 12 14 A 1.5 1.5 0 0 1 10.5 12.5" strokeWidth="1.8" fill="none" />
                   </svg>
                 </div>
                 <span className="text-xs font-medium text-slate-800">Ứng tiền</span>
               </div>
               <div className="flex flex-col items-center justify-center text-center gap-1 rounded-lg p-2">
                 <div className="w-10 h-10 flex items-center justify-center">
-                  <svg className="w-6 h-6 text-slate-800" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
-                    <rect x="6" y="3" width="12" height="18" rx="2" />
-                    <rect x="9" y="6" width="6" height="12" rx="1" />
-                    <path d="M12 8.5v7M10.5 9.8h3a1 1 0 0 1 0 2h-3a1 1 0 0 0 0 2h3" />
+                  <svg className="w-[30px] h-[30px] text-slate-800" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
+                    {/* Single rounded rectangle */}
+                    <rect x="6" y="4" width="12" height="16" rx="1.5" fill="none" />
+                    {/* Dollar sign vertical line crossing top and bottom borders slightly */}
+                    <line x1="12" y1="2.8" x2="12" y2="21.2" />
+                    {/* Symmetric Dollar sign S-curve */}
+                    <path d="M 13.5 9.5 A 1.5 1.5 0 0 0 12 8 A 1.5 1.5 0 0 0 10.5 9.5 C 10.5 11 13.5 11 13.5 12.5 A 1.5 1.5 0 0 1 12 14 A 1.5 1.5 0 0 1 10.5 12.5" fill="none" />
                   </svg>
                 </div>
                 <span className="text-xs font-medium text-slate-800">Margin</span>
@@ -267,13 +275,13 @@ export default function StockPortfolio({ onNavigate }: StockPortfolioProps) {
                 className="flex flex-col items-center justify-center text-center gap-1 rounded-lg p-2 hover:bg-purple-50 transition-colors"
               >
                 <div className="w-10 h-10 flex items-center justify-center">
-                  <svg className="w-6 h-6 text-slate-800" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
-                    <circle cx="6" cy="7" r="1" fill="currentColor" />
-                    <circle cx="6" cy="12" r="1" fill="currentColor" />
-                    <circle cx="6" cy="17" r="1" fill="currentColor" />
-                    <line x1="11" y1="7" x2="19" y2="7" />
-                    <line x1="11" y1="12" x2="19" y2="12" />
-                    <line x1="11" y1="17" x2="19" y2="17" />
+                  <svg className="w-[30px] h-[30px] text-slate-800" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
+                    <circle cx="6" cy="7" r="1.2" fill="currentColor" />
+                    <circle cx="6" cy="12" r="1.2" fill="currentColor" />
+                    <circle cx="6" cy="17" r="1.2" fill="currentColor" />
+                    <line x1="11" y1="7" x2="18" y2="7" />
+                    <line x1="11" y1="12" x2="18" y2="12" />
+                    <line x1="11" y1="17" x2="18" y2="17" />
                   </svg>
                 </div>
                 <span className="text-xs font-medium text-slate-800">Xem thêm</span>
