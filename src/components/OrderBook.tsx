@@ -262,8 +262,8 @@ export default function OrderBook({ onNavigate }: OrderBookProps) {
                     ) : (
                       <span className="text-xs text-transparent select-none pr-1">0</span>
                     )}
-                    <div className="bg-gray-100 text-gray-700 px-1.5 py-0.5 rounded flex items-center text-[10px] font-medium whitespace-nowrap">
-                      <span className={`w-1.5 h-1.5 rounded-full mr-1.5 ${statusBulletColor}`}></span>
+                    <div className="bg-gray-100 text-gray-700 px-2 py-1 rounded flex items-center text-[12px] font-medium whitespace-nowrap">
+                      <span className={`w-2 h-2 rounded-full mr-1.5 ${statusBulletColor}`}></span>
                       {order.status}
                     </div>
                   </div>
