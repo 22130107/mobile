@@ -69,29 +69,30 @@ body {
   overflow-x: hidden;
 }
 
-h1,
-h2 {
-  font-family: var(--heading);
-  font-weight: 500;
-  color: var(--text-h);
-}
-
-h1 {
-  font-size: calc(56px * var(--ui-scale));
-  letter-spacing: calc(-1.68px * var(--ui-scale));
-  margin: 32px 0;
-  @media (max-width: 1024px) {
-    font-size: calc(36px * var(--ui-scale));
-    margin: 20px 0;
+@layer base {
+  h1,
+  h2 {
+    font-family: var(--heading);
+    font-weight: 500;
+    color: var(--text-h);
   }
-}
-h2 {
-  font-size: calc(24px * var(--ui-scale));
-  line-height: 118%;
-  letter-spacing: calc(-0.24px * var(--ui-scale));
-  margin: 0 0 8px;
-  @media (max-width: 1024px) {
-    font-size: calc(20px * var(--ui-scale));
+
+  h1 {
+    font-size: calc(56px * var(--ui-scale));
+    margin: 32px 0;
+    @media (max-width: 1024px) {
+      font-size: calc(36px * var(--ui-scale));
+      margin: 20px 0;
+    }
+  }
+
+  h2 {
+    font-size: calc(24px * var(--ui-scale));
+    line-height: 118%;
+    margin: 0 0 8px;
+    @media (max-width: 1024px) {
+      font-size: calc(20px * var(--ui-scale));
+    }
   }
 }
 p {
