@@ -234,7 +234,7 @@ export default function OrderBook({ onNavigate }: OrderBookProps) {
               <div key={order.id}>
                 <div
                   onClick={() => openEditModal(order)}
-                  className="bg-white px-4 py-3 grid grid-cols-[16%_14%_15%_15%_40%] items-center cursor-pointer active:bg-slate-50 transition-colors"
+                  className="bg-white px-4 py-5 grid grid-cols-[16%_14%_15%_15%_40%] items-center cursor-pointer active:bg-slate-50 transition-colors"
                 >
                   <div className="flex flex-col">
                     <span className="font-bold text-gray-900 text-[16px]">{order.symbol}</span>
@@ -268,7 +268,7 @@ export default function OrderBook({ onNavigate }: OrderBookProps) {
                     </div>
                   </div>
                 </div>
-                <div className="h-[10px] bg-[#f5f6fa] w-full"></div>
+                <div className="h-5 bg-[#f5f6fa] w-full"></div>
               </div>
             );
           })
