@@ -375,7 +375,7 @@ export default function StockPortfolio({ onNavigate }: StockPortfolioProps) {
                         <th className="py-1.5 text-[11px] font-medium text-slate-500 uppercase text-right w-[27%]">LÃI/LỖ</th>
                       </tr>
                     </thead>
-                    <tbody className="divide-y divide-slate-100">
+                    <tbody>
                       {stocks.map((stock) => (
                         <Fragment key={stock.symbol}>
                           <tr

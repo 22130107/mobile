@@ -70,8 +70,8 @@ export default function HomeScreen({ onNavigate }: HomeScreenProps) {
 
       {/* Lịch sử giao dịch divider line */}
       <div className="relative flex items-center justify-center my-3 px-4">
-        <div className="absolute w-[calc(100%-32px)] h-[1px] bg-purple-100 z-0"></div>
-        <button className="relative z-10 bg-white text-[#7526E6] text-xs font-semibold px-4 py-1.5 rounded-full border border-purple-200 shadow-[0_2px_4px_rgba(0,0,0,0.03)] hover:bg-purple-50 transition-colors">
+        <div className="absolute w-[calc(100%-32px)] h-[1px] bg-purple-200/80 z-0"></div>
+        <button className="relative z-10 bg-white text-[#7526E6] text-xs font-semibold px-4 py-1.5 rounded-full border border-purple-400/80 shadow-[0_2px_4px_rgba(0,0,0,0.03)] hover:bg-purple-50 transition-colors">
           Lịch sử giao dịch
         </button>
       </div>

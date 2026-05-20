@@ -199,65 +199,71 @@ export default function OrderBook({ onNavigate }: OrderBookProps) {
         </div>
       </section>
 
-      {/* Data List Content */}
-      <main className="flex-grow flex flex-col px-4 mt-2 overflow-y-auto pb-24">
-        {/* Table Header */}
-        <div className="grid grid-cols-5 text-xs text-gray-500 font-medium pb-2 border-b border-gray-50">
-          <div className="col-span-1">Mã CK</div>
-          <div className="col-span-1 text-center">M/B</div>
-          <div className="col-span-1 text-right">Đặt</div>
-          <div className="col-span-1 text-right">Khớp</div>
-          <div className="col-span-1 text-right">Còn lại</div>
-        </div>
+      {/* Table Header */}
+      <div className="grid grid-cols-[20%_16%_18%_20%_26%] text-xs text-gray-500 font-medium px-4 py-2 border-b border-gray-100 bg-white">
+        <div className="text-left">Mã CK</div>
+        <div className="text-left">M/B</div>
+        <div className="text-right">Đặt</div>
+        <div className="text-right">Khớp</div>
+        <div className="text-right">Còn lại</div>
+      </div>
 
+      {/* Data List Content */}
+      <main className="flex-grow flex flex-col overflow-y-auto pb-24 bg-white">
         {loading ? (
-          <div className="text-center py-10 text-gray-400 text-sm">Đang tải sổ lệnh...</div>
+          <div className="text-center py-10 text-gray-400 text-sm bg-white">Đang tải sổ lệnh...</div>
         ) : orders.length === 0 ? (
-          <div className="text-center py-10 text-gray-400 text-sm">Chưa có lệnh nào đặt trong ngày.</div>
+          <div className="text-center py-10 text-gray-400 text-sm bg-white">Chưa có lệnh nào đặt trong ngày.</div>
         ) : (
-          orders.map((order, idx) => {
+          orders.map((order) => {
             const formattedTime = order.order_time ? order.order_time.substring(0, 5) : '';
             const isBuy = order.side === 'BUY';
             const remaining = Math.max(0, order.qty - order.matched_qty);
             
             // Màu sắc trạng thái
-            let statusBulletColor = 'bg-green-500';
+            let statusBulletColor = 'bg-[#13A849]';
             if (order.status === 'Chờ khớp') statusBulletColor = 'bg-yellow-500';
             if (order.status === 'Đã hủy') statusBulletColor = 'bg-gray-400';
 
             return (
-              <div
-                key={order.id}
-                onClick={() => openEditModal(order)}
-                className={`py-3 border-b border-gray-50 grid grid-cols-5 items-center cursor-pointer hover:bg-slate-50 transition-colors ${idx % 2 === 1 ? 'bg-gray-50/30' : ''}`}
-              >
-                <div className="col-span-1 flex flex-col">
-                  <span className="font-bold text-gray-900 text-[15px]">{order.symbol}</span>
-                  <span className="text-xs text-gray-400 mt-0.5">{formattedTime}</span>
-                </div>
-                <div className="col-span-1 flex flex-col items-center">
-                  <span className={`font-bold text-sm ${isBuy ? 'text-green-500' : 'text-[#DF3C40]'}`}>
-                    {isBuy ? 'Mua' : 'Bán'}
-                  </span>
-                  <span className="text-xs text-gray-400 mt-0.5">{order.order_type}</span>
-                </div>
-                <div className="col-span-1 flex flex-col items-end">
-                  <span className="font-bold text-gray-900 text-sm">{order.qty.toLocaleString()}</span>
-                  <span className="text-xs text-gray-400 mt-0.5">{order.price.toFixed(1)}</span>
-                </div>
-                <div className="col-span-1 flex flex-col items-end">
-                  <span className="font-bold text-gray-900 text-sm">{order.matched_qty.toLocaleString()}</span>
-                  <span className="text-xs text-gray-400 mt-0.5">
-                    {order.matched_price ? order.matched_price.toFixed(2) : '0.00'}
-                  </span>
-                </div>
-                <div className="col-span-1 flex flex-col items-end justify-end space-y-1">
-                  <span className="text-xs text-gray-600 font-medium pr-1">{remaining.toLocaleString()}</span>
-                  <div className="bg-gray-100 text-gray-700 px-1.5 py-0.5 rounded flex items-center text-[10px] font-medium whitespace-nowrap">
-                    <span className={`w-1.5 h-1.5 rounded-full mr-1.5 ${statusBulletColor}`}></span>
-                    {order.status}
+              <div key={order.id}>
+                <div
+                  onClick={() => openEditModal(order)}
+                  className="bg-white px-4 py-3 grid grid-cols-[20%_16%_18%_20%_26%] items-center cursor-pointer active:bg-slate-50 transition-colors"
+                >
+                  <div className="flex flex-col">
+                    <span className="font-bold text-gray-900 text-[16px]">{order.symbol}</span>
+                    <span className="text-xs text-gray-400 mt-0.5">{formattedTime}</span>
+                  </div>
+                  <div className="flex flex-col items-start">
+                    <span className={`font-bold text-[16px] ${isBuy ? 'text-[#13A849]' : 'text-[#DF3C40]'}`}>
+                      {isBuy ? 'Mua' : 'Bán'}
+                    </span>
+                    <span className="text-xs text-gray-400 mt-0.5">{order.order_type}</span>
+                  </div>
+                  <div className="flex flex-col items-end">
+                    <span className="font-bold text-gray-900 text-[16px]">{order.qty.toLocaleString()}</span>
+                    <span className="text-xs text-gray-400 mt-0.5">{order.price.toFixed(1)}</span>
+                  </div>
+                  <div className="flex flex-col items-end">
+                    <span className="font-bold text-gray-900 text-[16px]">{order.matched_qty.toLocaleString()}</span>
+                    <span className="text-xs text-gray-400 mt-0.5">
+                      {order.matched_price ? order.matched_price.toFixed(2) : '0.00'}
+                    </span>
+                  </div>
+                  <div className="flex flex-col items-end justify-end space-y-1">
+                    {remaining > 0 ? (
+                      <span className="text-xs text-gray-600 font-medium pr-1">{remaining.toLocaleString()}</span>
+                    ) : (
+                      <span className="text-xs text-transparent select-none pr-1">0</span>
+                    )}
+                    <div className="bg-gray-100 text-gray-700 px-1.5 py-0.5 rounded flex items-center text-[10px] font-medium whitespace-nowrap">
+                      <span className={`w-1.5 h-1.5 rounded-full mr-1.5 ${statusBulletColor}`}></span>
+                      {order.status}
+                    </div>
                   </div>
                 </div>
+                <div className="h-[10px] bg-[#f5f6fa] w-full"></div>
               </div>
             );
           })
@@ -265,10 +271,10 @@ export default function OrderBook({ onNavigate }: OrderBookProps) {
       </main>
 
       {/* Floating Bottom Button */}
-      <footer className="p-6 flex justify-end absolute bottom-0 right-0 w-full pointer-events-none z-40">
+      <footer className="py-3 px-4 flex justify-end absolute bottom-0 left-0 right-0 bg-white border-t border-gray-100 z-40">
         <button
           onClick={handleCancelAll}
-          className="bg-[#5a6270] text-white px-6 py-3 rounded-full font-bold shadow-md text-sm active:bg-gray-700 transition-colors pointer-events-auto"
+          className="bg-[#5a6270] text-white px-6 py-2.5 rounded-full font-bold shadow-md text-sm active:bg-gray-700 transition-colors"
         >
           Hủy tất cả
         </button>
