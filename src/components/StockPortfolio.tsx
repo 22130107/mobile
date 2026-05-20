@@ -57,6 +57,7 @@ export default function StockPortfolio({ onNavigate }: StockPortfolioProps) {
   const [expandedStocks, setExpandedStocks] = useState<string[]>([]);
   const [buyModalStock, setBuyModalStock] = useState<StockData | null>(null);
   const [selectedAccount, setSelectedAccount] = useState<number>(1);
+  const [hideVolume, setHideVolume] = useState(false);
 
   const loadStocks = async (accId = selectedAccount) => {
     try {
@@ -359,7 +360,12 @@ export default function StockPortfolio({ onNavigate }: StockPortfolioProps) {
 
               <div className="flex justify-between items-center py-4">
                 <label className="flex items-center space-x-2">
-                  <input className="rounded border-slate-300 text-[#8438FF] focus:ring-[#8438FF] w-5 h-5 bg-slate-100" type="checkbox" />
+                  <input
+                    className="rounded border-slate-300 text-[#8438FF] focus:ring-[#8438FF] w-5 h-5 bg-slate-100"
+                    type="checkbox"
+                    checked={hideVolume}
+                    onChange={(e) => setHideVolume(e.target.checked)}
+                  />
                   <span className="text-[15px] text-slate-700">Ẩn khối lượng</span>
                 </label>
                 <button className="border border-[#DF3C40] text-[#DF3C40] text-[13px] px-4 py-1.5 rounded-full font-medium">
@@ -412,7 +418,9 @@ export default function StockPortfolio({ onNavigate }: StockPortfolioProps) {
                             </td>
                             <td className="py-2.5 text-left font-bold text-slate-900 text-[13px] pl-3">{stock.costPrice}</td>
                             <td className="py-2.5 text-left font-bold text-slate-900 text-[13px]">{stock.marketPrice}</td>
-                            <td className="py-2.5 text-right font-bold text-slate-900 text-[13px]">{stock.sellableQty}</td>
+                            <td className="py-2.5 text-right font-bold text-slate-900 text-[13px]">
+                              {hideVolume ? '***' : stock.sellableQty}
+                            </td>
                             <td className={`py-2.5 text-right font-bold text-[13px] ${stock.isPositive ? 'text-[#129A43]' : 'text-[#DF3C40]'}`}>{stock.pnlPercent}</td>
                           </tr>
                           {expandedStocks.includes(stock.symbol) && (
