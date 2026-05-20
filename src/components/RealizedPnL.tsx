@@ -231,7 +231,7 @@ export default function RealizedPnL({ onNavigate }: RealizedPnLProps) {
                   className={`bg-white rounded-xl px-4 pt-4 pb-0 border border-slate-300 cursor-pointer hover:bg-slate-50 transition-colors ${index === 0 ? 'mt-2' : ''}`}
                   style={{ boxShadow: '0 2px 8px -2px rgba(0, 0, 0, 0.05), 0 4px 6px -4px rgba(0, 0, 0, 0.02)' }}
                 >
-                  <div className="grid grid-cols-[1.1fr_0.9fr_1fr_1fr] gap-2 items-start w-full">
+                  <div className="grid grid-cols-[1.1fr_0.7fr_0.8fr_1.4fr] gap-2 items-start w-full">
                     <div className="text-center">
                       <div className="text-xs text-[rgba(197,165,167,1)] mb-3 font-medium">Ngày</div>
                       <div className="text-base text-[#1e293b]">{formattedDate}</div>
@@ -246,12 +246,12 @@ export default function RealizedPnL({ onNavigate }: RealizedPnLProps) {
                         {formattedAmount}
                       </div>
                     </div>
-                    <div className="relative text-center">
+                    <div className="relative text-right pr-5">
                       <div className="text-xs text-[rgba(197,165,167,1)] mb-3 font-medium">%lãi/lỗ</div>
                       <div className={`text-base ${isProfit ? 'font-bold text-[#16a34a]' : 'font-extrabold text-[#d82034]'}`}>
                         {formattedPercent}
                       </div>
-                      <button className="absolute -right-2 top-1/2 -translate-y-1/2 text-black p-1 rotate-180">
+                      <button className="absolute -right-1 top-1/2 -translate-y-1/2 text-black p-1 rotate-180">
                         <ChevronDown className="w-4 h-4" />
                       </button>
                     </div>
