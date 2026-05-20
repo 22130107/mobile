@@ -56,11 +56,12 @@ export default function StockPortfolio({ onNavigate }: StockPortfolioProps) {
   const [loading, setLoading] = useState(true);
   const [expandedStocks, setExpandedStocks] = useState<string[]>([]);
   const [buyModalStock, setBuyModalStock] = useState<StockData | null>(null);
+  const [selectedAccount, setSelectedAccount] = useState<number>(1);
 
-  const loadStocks = async () => {
+  const loadStocks = async (accId = selectedAccount) => {
     try {
       setLoading(true);
-      const data = await stockService.getAll(1);
+      const data = await stockService.getAll(accId);
       setStocks(data.map(stockService.computeDisplayData));
     } catch (error) {
       console.error('Lỗi khi tải danh sách cổ phiếu:', error);
@@ -70,8 +71,8 @@ export default function StockPortfolio({ onNavigate }: StockPortfolioProps) {
   };
 
   useEffect(() => {
-    loadStocks();
-  }, []);
+    loadStocks(selectedAccount);
+  }, [selectedAccount]);
 
   const toggleStock = (symbol: string) => {
     setExpandedStocks((current) => (
@@ -105,7 +106,7 @@ export default function StockPortfolio({ onNavigate }: StockPortfolioProps) {
     const t2 = parseInt(formData.get('t2') as string) || 0;
 
     try {
-      const existing = await stockService.getBySymbol(symbol, 1);
+      const existing = await stockService.getBySymbol(symbol, selectedAccount);
       
       const payload = {
         symbol,
@@ -121,7 +122,7 @@ export default function StockPortfolio({ onNavigate }: StockPortfolioProps) {
         t0,
         t1,
         t2,
-        account_id: 1
+        account_id: selectedAccount
       };
 
       if (existing) {
@@ -184,15 +185,29 @@ export default function StockPortfolio({ onNavigate }: StockPortfolioProps) {
 
       {/* Account Tabs */}
       <nav className="bg-white border-b border-slate-200 flex overflow-x-auto pt-1" style={{ msOverflowStyle: 'none', scrollbarWidth: 'none' }}>
-        <div className="flex-1 text-center pb-1.5 relative text-[13px] font-semibold text-slate-900 border-b-[2px] border-[#8438FF] flex items-center justify-center gap-1">
-          Tài khoản <span className="bg-[#8438FF] text-white text-[9px] w-3.5 h-3.5 flex items-center justify-center rounded-full leading-none">1</span>
-        </div>
-        <div className="flex-1 text-center pb-1.5 text-[13px] text-slate-500 font-semibold flex items-center justify-center gap-1">
-          Tài khoản <span className="bg-slate-400 text-white text-[9px] w-3.5 h-3.5 flex items-center justify-center rounded-full leading-none">3</span>
-        </div>
-        <div className="flex-1 text-center pb-1.5 text-[13px] text-slate-500 font-semibold flex items-center justify-center gap-1">
-          Tài khoản <span className="bg-slate-400 text-white text-[9px] w-3.5 h-3.5 flex items-center justify-center rounded-full leading-none">6</span>
-        </div>
+        {[1, 3, 6].map((accId) => {
+          const isActive = selectedAccount === accId;
+          return (
+            <button
+              key={accId}
+              onClick={() => setSelectedAccount(accId)}
+              className={`flex-1 text-center pb-1.5 text-[13px] font-semibold flex items-center justify-center gap-1 transition-all focus:outline-none ${
+                isActive
+                  ? 'text-slate-900 border-b-[2px] border-[#8438FF]'
+                  : 'text-slate-500'
+              }`}
+            >
+              Tài khoản{' '}
+              <span
+                className={`text-white text-[9px] w-3.5 h-3.5 flex items-center justify-center rounded-full leading-none transition-colors ${
+                  isActive ? 'bg-[#8438FF]' : 'bg-slate-400'
+                }`}
+              >
+                {accId}
+              </span>
+            </button>
+          );
+        })}
       </nav>
 
       {/* Main Scrollable Content */}
