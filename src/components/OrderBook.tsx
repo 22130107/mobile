@@ -166,7 +166,7 @@ export default function OrderBook({ onNavigate }: OrderBookProps) {
         {/* Stock Code Search */}
         <div className="relative w-full">
           <input
-            className="w-full border border-gray-200 rounded-lg py-2.5 px-4 text-sm outline-none focus:ring-1 focus:ring-[#6b4eff] pr-10 text-gray-800 placeholder-gray-300"
+            className="w-full border border-gray-200 rounded-lg py-[24px] px-4 text-[30px] outline-none focus:ring-1 focus:ring-[#6b4eff] pr-10 text-gray-800 placeholder-gray-300"
             placeholder="Mã CK"
             type="text"
           />
@@ -178,7 +178,7 @@ export default function OrderBook({ onNavigate }: OrderBookProps) {
         {/* Dropdown Filters */}
         <div className="flex gap-3">
           <div className="relative w-1/2">
-            <select className="appearance-none w-full border border-gray-200 rounded-lg py-2.5 px-3 text-sm outline-none bg-white pr-8 text-gray-600">
+            <select className="appearance-none w-full border border-gray-200 rounded-lg py-[24px] px-3 text-[30px] outline-none bg-white pr-8 text-gray-600">
               <option>Tất cả loại lệnh</option>
             </select>
             <div className="absolute right-3 top-3 text-gray-800 pointer-events-none">
@@ -186,7 +186,7 @@ export default function OrderBook({ onNavigate }: OrderBookProps) {
             </div>
           </div>
           <div className="relative w-1/2">
-            <select className="appearance-none w-full border border-gray-200 rounded-lg py-2.5 px-3 text-sm outline-none bg-white pr-8 text-gray-600">
+            <select className="appearance-none w-full border border-gray-200 rounded-lg py-[24px] px-3 text-[30px] outline-none bg-white pr-8 text-gray-600">
               <option>Tất cả trạng thái</option>
             </select>
             <div className="absolute right-3 top-3 text-gray-800 pointer-events-none">
@@ -197,7 +197,7 @@ export default function OrderBook({ onNavigate }: OrderBookProps) {
 
         {/* P/L Action */}
         <div className="flex justify-between items-center">
-          <button className="inline-flex items-center px-4 py-1.5 border border-[#6b4eff] rounded-full text-[#6b4eff] text-xs font-medium">
+          <button className="inline-flex items-center px-4 py-[24px] border border-[#6b4eff] rounded-full text-[#6b4eff] text-[25px] font-medium">
             Xem lãi lỗ dự tính
             <ChevronRight className="w-4 h-4 ml-1" strokeWidth={2} />
           </button>
@@ -205,7 +205,7 @@ export default function OrderBook({ onNavigate }: OrderBookProps) {
       </section>
 
       {/* Table Header */}
-      <div className="grid grid-cols-[16%_14%_15%_15%_40%] text-xs text-gray-500 font-medium px-4 py-2 border-b border-gray-100 bg-white">
+      <div className="grid grid-cols-[16%_14%_15%_15%_40%] text-[30px] text-gray-500 font-medium px-4 py-[24px] border-b border-gray-100 bg-white">
         <div className="text-left">Mã CK</div>
         <div className="text-left">M/B</div>
         <div className="text-right">Đặt</div>
@@ -241,17 +241,17 @@ export default function OrderBook({ onNavigate }: OrderBookProps) {
                     <span className="text-[13px] text-gray-400 mt-0.5">{formattedTime}</span>
                   </div>
                   <div className="flex flex-col items-start">
-                    <span className={`font-bold text-[16px] ${isBuy ? 'text-[#129A43]' : 'text-[#DF3C40]'}`}>
+                    <span className={`font-medium text-[15px] ${isBuy ? 'text-[#129A43]' : 'text-[#DF3C40]'}`}>
                       {isBuy ? 'Mua' : 'Bán'}
                     </span>
                     <span className="text-[13px] text-gray-400 mt-0.5">{order.order_type}</span>
                   </div>
                   <div className="flex flex-col items-end">
-                    <span className="font-bold text-gray-900 text-[16px]">{order.qty.toLocaleString()}</span>
+                    <span className="font-medium text-gray-900 text-[15px]">{order.qty.toLocaleString()}</span>
                     <span className="text-[13px] text-gray-400 mt-0.5">{order.price.toFixed(1)}</span>
                   </div>
                   <div className="flex flex-col items-end">
-                    <span className="font-bold text-gray-900 text-[16px]">{order.matched_qty.toLocaleString()}</span>
+                    <span className="font-medium text-gray-900 text-[15px]">{order.matched_qty.toLocaleString()}</span>
                     <span className="text-[13px] text-gray-400 mt-0.5">
                       {order.matched_price ? order.matched_price.toFixed(2) : '0.00'}
                     </span>

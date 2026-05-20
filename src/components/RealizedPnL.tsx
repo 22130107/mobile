@@ -127,7 +127,7 @@ export default function RealizedPnL({ onNavigate }: RealizedPnLProps) {
   const totalPnLPercent = totalCost !== 0 ? (totalPnLAmount / totalCost) * 100 : 0;
   const isPnLPositive = totalPnLAmount >= 0;
 
-  const totalPnLAmountFormatted = `${isPnLPositive ? '+' : ''}${Math.round(totalPnLAmount).toLocaleString()}`;
+  const totalPnLAmountFormatted = `${isPnLPositive ? '+' : ''}${Math.round(totalPnLAmount).toLocaleString('en-US')}`;
   const totalPnLPercentFormatted = `${isPnLPositive ? '+' : ''}${totalPnLPercent.toFixed(2)}%`;
 
   return (
@@ -221,7 +221,7 @@ export default function RealizedPnL({ onNavigate }: RealizedPnLProps) {
               const dateObj = new Date(pnl.sell_date);
               const formattedDate = `${String(dateObj.getDate()).padStart(2, '0')}/${String(dateObj.getMonth() + 1).padStart(2, '0')}/${dateObj.getFullYear()}`;
               const isProfit = Number(pnl.pnl_amount) >= 0;
-              const formattedAmount = Math.round(Number(pnl.pnl_amount)).toLocaleString();
+              const formattedAmount = Math.round(Number(pnl.pnl_amount)).toLocaleString('en-US');
               const formattedPercent = `${isProfit ? '+' : ''}${Number(pnl.pnl_percent).toFixed(2)}%`;
 
               return (
