@@ -421,7 +421,7 @@ export default function StockPortfolio({ onNavigate }: StockPortfolioProps) {
                             <td className="py-2.5 text-right font-bold text-slate-900 text-[13px]">
                               {hideVolume ? '***' : stock.sellableQty}
                             </td>
-                            <td className={`py-2.5 text-right font-bold text-[13px] ${stock.isPositive ? 'text-[#129A43]' : 'text-[#DF3C40]'}`}>{stock.pnlPercent}</td>
+                            <td className={`py-2.5 text-right text-[13px] ${stock.isPositive ? 'font-medium text-[#129A43]' : 'font-bold text-[#DF3C40]'}`}>{stock.pnlPercent}</td>
                           </tr>
                           {expandedStocks.includes(stock.symbol) && (
                             <tr>
@@ -439,7 +439,7 @@ export default function StockPortfolio({ onNavigate }: StockPortfolioProps) {
                                     </div>
                                     <div className="text-center">
                                       <div className="text-[13px] text-[#828282] mb-0.5">Lãi / Lỗ</div>
-                                      <div className={`text-[13px] font-bold ${stock.isPositive ? 'text-[#129A43]' : 'text-[#DF3C40]'}`}>{stock.pnlAmount}</div>
+                                      <div className={`text-[13px] ${stock.isPositive ? 'font-medium text-[#129A43]' : 'font-bold text-[#DF3C40]'}`}>{stock.pnlAmount}</div>
                                     </div>
                                   </div>
    

@@ -201,10 +201,10 @@ export default function RealizedPnL({ onNavigate }: RealizedPnLProps) {
         <section className="bg-white rounded-xl p-4 flex justify-between items-center border border-[#e2e8f0]" style={{ boxShadow: '0 2px 8px -2px rgba(0, 0, 0, 0.05), 0 4px 6px -4px rgba(0, 0, 0, 0.02)' }}>
           <span className="font-bold text-[#1e293b] text-base">Tổng cộng</span>
           <div className="text-right flex items-center space-x-3 mr-[8%]">
-            <span className={`font-bold text-base ${isPnLPositive ? 'text-[#16a34a]' : 'text-[#dc2626]'}`}>
+            <span className={`${isPnLPositive ? 'font-medium text-[#16a34a]' : 'font-extrabold text-[#dc2626]'}`}>
               {totalPnLAmountFormatted}
             </span>
-            <span className={`font-bold text-sm ${isPnLPositive ? 'text-[#16a34a]' : 'text-[#dc2626]'}`}>
+            <span className={`text-sm ${isPnLPositive ? 'font-medium text-[#16a34a]' : 'font-extrabold text-[#dc2626]'}`}>
               {totalPnLPercentFormatted}
             </span>
           </div>
@@ -240,15 +240,15 @@ export default function RealizedPnL({ onNavigate }: RealizedPnLProps) {
                       <div className="text-xs text-[rgba(197,165,167,1)] mb-[14px] font-medium">Mã CK</div>
                       <div className="text-sm font-extrabold text-[#1e293b]">{pnl.symbol}</div>
                     </div>
-                    <div className="w-1/4 text-center">
+                    <div className="w-1/4 text-right">
                       <div className="text-xs text-[rgba(197,165,167,1)] mb-[14px] font-medium">Lãi/lỗ</div>
-                      <div className={`text-[11px] font-extrabold ${isProfit ? 'text-[#16a34a]' : 'text-[#dc2626]'}`}>
+                      <div className={`text-[11px] ${isProfit ? 'font-medium text-[#16a34a]' : 'font-extrabold text-[#dc2626]'}`}>
                         {formattedAmount}
                       </div>
                     </div>
                     <div className="w-1/4 text-center flex flex-col items-center relative">
                       <div className="text-xs text-[rgba(197,165,167,1)] mb-[14px] font-medium">%lãi/lỗ</div>
-                      <div className={`text-[11px] font-extrabold ${isProfit ? 'text-[#16a34a]' : 'text-[#dc2626]'}`}>
+                      <div className={`text-[11px] ${isProfit ? 'font-medium text-[#16a34a]' : 'font-extrabold text-[#dc2626]'}`}>
                         {formattedPercent}
                       </div>
                       <button className="absolute -right-1 top-1/2 -translate-y-1/2 text-black p-1 rotate-180">
