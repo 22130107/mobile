@@ -308,10 +308,10 @@ export default function StockPortfolio({ onNavigate }: StockPortfolioProps) {
                     <EyeOff className="w-5 h-5 text-slate-400 ml-1.5" />
                   </div>
                   <div className="flex items-center gap-1">
-                    <span className={`font-bold text-[15px] ${isPnLPositive ? 'text-[#13A849]' : 'text-[#DF3C40]'}`}>
+                    <span className={`font-bold text-[15px] ${isPnLPositive ? 'text-[#129A43]' : 'text-[#DF3C40]'}`}>
                       {totalPnLAmountFormatted}
                     </span>
-                    <span className={`${isPnLPositive ? 'bg-[#13A849]/10 text-[#13A849]' : 'bg-[#DF3C40]/10 text-[#DF3C40]'} text-[11px] px-1.5 py-0.5 rounded-full font-bold`}>
+                    <span className={`${isPnLPositive ? 'bg-[#129A43]/10 text-[#129A43]' : 'bg-[#DF3C40]/10 text-[#DF3C40]'} text-[11px] px-1.5 py-0.5 rounded-full font-bold`}>
                       {totalPnLPercentFormatted}
                     </span>
                   </div>
@@ -364,7 +364,7 @@ export default function StockPortfolio({ onNavigate }: StockPortfolioProps) {
                         <th className="py-1.5 text-[11px] font-medium text-slate-500 uppercase w-[15%]">Mã CP</th>
                         <th className="py-1.5 text-[11px] font-medium text-slate-500 uppercase text-left w-[16%]">GIÁ VỐN</th>
                         <th className="py-1.5 text-[11px] font-medium text-slate-500 uppercase text-left w-[16%]">GIÁ TT</th>
-                        <th className="py-1.5 text-[11px] font-medium text-slate-500 uppercase text-right w-[26%]">
+                        <th className="py-1.5 text-[11px] font-medium text-slate-500 uppercase text-right w-[20%]">
                           <div className="flex items-center justify-end">
                             KL
                             <svg className="w-3.5 h-3.5 ml-0.5" fill="currentColor" viewBox="0 0 24 24">
@@ -372,7 +372,7 @@ export default function StockPortfolio({ onNavigate }: StockPortfolioProps) {
                             </svg>
                           </div>
                         </th>
-                        <th className="py-1.5 text-[11px] font-medium text-slate-500 uppercase text-right w-[27%]">LÃI/LỖ</th>
+                        <th className="py-1.5 text-[11px] font-medium text-slate-500 uppercase text-right w-[33%]">LÃI/LỖ</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -383,7 +383,7 @@ export default function StockPortfolio({ onNavigate }: StockPortfolioProps) {
                             onClick={() => toggleStock(stock.symbol)}
                           >
                             <td className="py-2.5">
-                              <div className={`flex items-center font-bold text-[13px] ${stock.isPositive ? 'text-[#13A849]' : 'text-[#DF3C40]'}`}>
+                              <div className={`flex items-center font-bold text-[13px] ${stock.isPositive ? 'text-[#129A43]' : 'text-[#DF3C40]'}`}>
                                 {stock.symbol}
                                 {expandedStocks.includes(stock.symbol) ? (
                                   <ChevronUp className="w-3.5 h-3.5 ml-1 text-slate-400" />
@@ -395,14 +395,14 @@ export default function StockPortfolio({ onNavigate }: StockPortfolioProps) {
                             <td className="py-2.5 text-left font-bold text-slate-900 text-[13px]">{stock.costPrice}</td>
                             <td className="py-2.5 text-left font-bold text-slate-900 text-[13px]">{stock.marketPrice}</td>
                             <td className="py-2.5 text-right font-bold text-slate-900 text-[13px]">{stock.quantity}</td>
-                            <td className={`py-2.5 text-right font-bold text-[13px] ${stock.isPositive ? 'text-[#13A849]' : 'text-[#DF3C40]'}`}>{stock.pnlPercent}</td>
+                            <td className={`py-2.5 text-right font-bold text-[13px] ${stock.isPositive ? 'text-[#129A43]' : 'text-[#DF3C40]'}`}>{stock.pnlPercent}</td>
                           </tr>
                           {expandedStocks.includes(stock.symbol) && (
                             <tr>
                               <td colSpan={5} className="p-0">
                                 <div className="bg-white px-0 py-3.5 space-y-3">
                                   {/* Summary Row */}
-                                  <div className="grid grid-cols-3 gap-2 bg-[#F5F6FA] rounded-xl p-2.5 py-2">
+                                  <div className="grid grid-cols-3 gap-2 bg-[#f6f5fb] rounded-xl p-2.5 py-2">
                                     <div className="text-center">
                                       <div className="text-[13px] text-[#828282] mb-0.5">Tổng vốn</div>
                                       <div className="text-[15px] font-bold text-black">{stock.totalCapital}</div>
@@ -413,67 +413,67 @@ export default function StockPortfolio({ onNavigate }: StockPortfolioProps) {
                                     </div>
                                     <div className="text-center">
                                       <div className="text-[13px] text-[#828282] mb-0.5">Lãi / Lỗ</div>
-                                      <div className={`text-[15px] font-bold ${stock.isPositive ? 'text-[#13A849]' : 'text-[#DF3C40]'}`}>{stock.pnlAmount}</div>
+                                      <div className={`text-[15px] font-bold ${stock.isPositive ? 'text-[#129A43]' : 'text-[#DF3C40]'}`}>{stock.pnlAmount}</div>
                                     </div>
                                   </div>
    
                                   {/* Detail Grid */}
                                   <div className="grid grid-cols-2 gap-2">
                                     {/* Left Column */}
-                                    <div className="bg-[#F5F6FA] rounded-xl p-2.5 py-2 flex flex-col justify-between h-full">
+                                    <div className="bg-[#f6f5fb] rounded-xl p-2.5 py-2 flex flex-col justify-between h-full">
                                       <div className="flex justify-between items-center">
                                         <span className="text-[13px] text-[#828282]">Tổng KL</span>
-                                        <span className="text-[14px] font-bold text-black">{stock.totalQty}</span>
+                                        <span className="text-[13px] font-bold text-black">{stock.totalQty}</span>
                                       </div>
                                       <div className="flex justify-between items-center">
                                         <span className="text-[13px] text-[#828282]">KL thường</span>
-                                        <span className="text-[14px] font-bold text-black">{stock.normalQty}</span>
+                                        <span className="text-[13px] font-bold text-black">{stock.normalQty}</span>
                                       </div>
                                       <div className="flex justify-between items-center">
                                         <span className="text-[13px] text-[#828282]">KL FS</span>
-                                        <span className="text-[14px] font-bold text-black">{stock.fsQty}</span>
+                                        <span className="text-[13px] font-bold text-black">{stock.fsQty}</span>
                                       </div>
                                       <div className="flex justify-between items-center">
                                         <span className="text-[13px] text-[#828282]">KL có thể bán</span>
-                                        <span className="text-[14px] font-bold text-black">{stock.sellableQty}</span>
+                                        <span className="text-[13px] font-bold text-black">{stock.sellableQty}</span>
                                       </div>
                                       <div className="flex justify-between items-center">
                                         <span className="text-[13px] text-[#828282]">Outroom</span>
-                                        <span className="text-[14px] font-bold text-black">{stock.outroom}</span>
+                                        <span className="text-[13px] font-bold text-black">{stock.outroom}</span>
                                       </div>
                                     </div>
    
                                     {/* Right Column Container */}
                                     <div className="flex flex-col gap-2">
                                       {/* Top Box */}
-                                      <div className="bg-[#F5F6FA] rounded-xl p-2.5 py-2 space-y-1.5">
+                                      <div className="bg-[#f6f5fb] rounded-xl p-2.5 py-2 space-y-1.5">
                                         <div className="flex justify-between items-center">
                                           <div className="flex items-center gap-1">
                                             <span className="text-[13px] text-[#828282]">KL Khác</span>
                                             <Info className="w-3.5 h-3.5 text-[#828282]" />
                                           </div>
-                                          <span className="text-[14px] font-bold text-black">{stock.otherQty}</span>
+                                          <span className="text-[13px] font-bold text-black">{stock.otherQty}</span>
                                         </div>
                                         <div className="flex justify-between items-center">
                                           <span className="text-[13px] text-[#828282]">CPCT/Thưởng</span>
-                                          <span className="text-[14px] font-bold text-black">{stock.cpctBonus}</span>
+                                          <span className="text-[13px] font-bold text-black">{stock.cpctBonus}</span>
                                         </div>
                                       </div>
  
                                       {/* Bottom Box */}
-                                      <div className="bg-[#F5F6FA] rounded-xl p-2.5 py-2 space-y-1.5">
-                                        <div className="text-[14px] font-bold text-black">KL mua chờ về</div>
+                                      <div className="bg-[#f6f5fb] rounded-xl p-2.5 py-2 space-y-1.5">
+                                        <div className="text-[13px] font-bold text-black">KL mua chờ về</div>
                                         <div className="flex justify-between items-center">
                                           <span className="text-[13px] text-[#828282]">KL T0</span>
-                                          <span className="text-[14px] font-bold text-black">{stock.t0}</span>
+                                          <span className="text-[13px] font-bold text-black">{stock.t0}</span>
                                         </div>
                                         <div className="flex justify-between items-center">
                                           <span className="text-[13px] text-[#828282]">KL T1</span>
-                                          <span className="text-[14px] font-bold text-black">{stock.t1}</span>
+                                          <span className="text-[13px] font-bold text-black">{stock.t1}</span>
                                         </div>
                                         <div className="flex justify-between items-center">
                                           <span className="text-[13px] text-[#828282]">KL T2</span>
-                                          <span className="text-[14px] font-bold text-black">{stock.t2}</span>
+                                          <span className="text-[13px] font-bold text-black">{stock.t2}</span>
                                         </div>
                                       </div>
                                     </div>
@@ -482,7 +482,7 @@ export default function StockPortfolio({ onNavigate }: StockPortfolioProps) {
                                   {/* Action Buttons */}
                                   <div className="grid grid-cols-3 gap-2 pt-0.5">
                                     <button
-                                      className="border-[1.5px] border-[#13A849] text-[#13A849] font-semibold py-2 rounded-full text-[14px] hover:bg-green-50 transition-colors"
+                                      className="border-[1.5px] border-[#129A43] text-[#129A43] font-semibold py-2 rounded-full text-[14px] hover:bg-green-50 transition-colors"
                                       onClick={() => setBuyModalStock(stock)}
                                     >
                                       Mua
@@ -517,7 +517,7 @@ export default function StockPortfolio({ onNavigate }: StockPortfolioProps) {
         <div className="px-4 py-2.5 flex space-x-3 bg-white">
           <button
             onClick={() => setBuyModalStock(defaultNewStock)}
-            className="flex-1 bg-[#13A849] text-white font-medium py-3 rounded-full text-[15px] hover:bg-opacity-90 active:scale-95 transition-transform"
+            className="flex-1 bg-[#129A43] text-white font-medium py-3 rounded-full text-[15px] hover:bg-opacity-90 active:scale-95 transition-transform"
           >
             MUA
           </button>
@@ -696,7 +696,7 @@ export default function StockPortfolio({ onNavigate }: StockPortfolioProps) {
             <div className="mt-4 space-y-2">
               <button
                 type="submit"
-                className="w-full bg-[#13A849] text-white font-semibold py-2.5 rounded-lg text-[14px] hover:bg-opacity-90 transition-opacity"
+                className="w-full bg-[#129A43] text-white font-semibold py-2.5 rounded-lg text-[14px] hover:bg-opacity-90 transition-opacity"
               >
                 Lưu
               </button>

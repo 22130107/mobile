@@ -221,7 +221,7 @@ export default function OrderBook({ onNavigate }: OrderBookProps) {
             const remaining = Math.max(0, order.qty - order.matched_qty);
             
             // Màu sắc trạng thái
-            let statusBulletColor = 'bg-[#13A849]';
+            let statusBulletColor = 'bg-[#129A43]';
             if (order.status === 'Chờ khớp') statusBulletColor = 'bg-yellow-500';
             if (order.status === 'Đã hủy') statusBulletColor = 'bg-gray-400';
 
@@ -236,7 +236,7 @@ export default function OrderBook({ onNavigate }: OrderBookProps) {
                     <span className="text-xs text-gray-400 mt-0.5">{formattedTime}</span>
                   </div>
                   <div className="flex flex-col items-start">
-                    <span className={`font-bold text-[16px] ${isBuy ? 'text-[#13A849]' : 'text-[#DF3C40]'}`}>
+                    <span className={`font-bold text-[16px] ${isBuy ? 'text-[#129A43]' : 'text-[#DF3C40]'}`}>
                       {isBuy ? 'Mua' : 'Bán'}
                     </span>
                     <span className="text-xs text-gray-400 mt-0.5">{order.order_type}</span>
