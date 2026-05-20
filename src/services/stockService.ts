@@ -12,7 +12,7 @@ export const stockService = {
       .from('stocks')
       .select('*')
       .eq('account_id', accountId)
-      .order('symbol', { ascending: true });
+      .order('created_at', { ascending: true });
 
     if (error) throw error;
     return data || [];
