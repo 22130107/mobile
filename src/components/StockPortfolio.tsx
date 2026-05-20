@@ -324,10 +324,10 @@ export default function StockPortfolio({ onNavigate }: StockPortfolioProps) {
                     <EyeOff className="w-5 h-5 text-slate-400 ml-1.5" />
                   </div>
                   <div className="flex items-center gap-1">
-                    <span className={`font-bold text-[15px] ${isPnLPositive ? 'text-[#129A43]' : 'text-[#DF3C40]'}`}>
+                    <span className={`font-bold text-[15px] ${isPnLPositive ? 'text-[#129A43]' : 'text-[#d82034]'}`}>
                       {totalPnLAmountFormatted}
                     </span>
-                    <span className={`${isPnLPositive ? 'bg-[#129A43]/10 text-[#129A43]' : 'bg-[#DF3C40]/10 text-[#DF3C40]'} text-[11px] px-1.5 py-0.5 rounded-full font-bold`}>
+                    <span className={`${isPnLPositive ? 'bg-[#129A43]/10 text-[#129A43]' : 'bg-[#d82034]/10 text-[#d82034]'} text-[11px] px-1.5 py-0.5 rounded-full font-bold`}>
                       {totalPnLPercentFormatted}
                     </span>
                   </div>
@@ -368,7 +368,7 @@ export default function StockPortfolio({ onNavigate }: StockPortfolioProps) {
                   />
                   <span className="text-[15px] text-slate-700">Ẩn khối lượng</span>
                 </label>
-                <button className="border border-[#DF3C40] text-[#DF3C40] text-[13px] px-4 py-1.5 rounded-full font-medium">
+                <button className="border border-[#d82034] text-[#d82034] text-[13px] px-4 py-1.5 rounded-full font-medium">
                   Bán nhiều mã
                 </button>
               </div>
@@ -405,7 +405,7 @@ export default function StockPortfolio({ onNavigate }: StockPortfolioProps) {
                             onClick={() => toggleStock(stock.symbol)}
                           >
                             <td className="py-2.5">
-                              <div className={`font-bold text-[13px] ${stock.isPositive ? 'text-[#129A43]' : 'text-[#DF3C40]'}`}>
+                              <div className={`font-bold text-[13px] ${stock.isPositive ? 'text-[#129A43]' : 'text-[#d82034]'}`}>
                                 {stock.symbol}
                               </div>
                             </td>
@@ -421,7 +421,7 @@ export default function StockPortfolio({ onNavigate }: StockPortfolioProps) {
                             <td className="py-2.5 text-right font-bold text-slate-900 text-[13px]">
                               {hideVolume ? '***' : stock.sellableQty}
                             </td>
-                            <td className={`py-2.5 text-right text-[13px] ${stock.isPositive ? 'font-medium text-[#129A43]' : 'font-bold text-[#DF3C40]'}`}>{stock.pnlPercent}</td>
+                            <td className={`py-2.5 text-right text-[13px] ${stock.isPositive ? 'font-medium text-[#129A43]' : 'font-bold text-[#d82034]'}`}>{stock.pnlPercent}</td>
                           </tr>
                           {expandedStocks.includes(stock.symbol) && (
                             <tr>
@@ -439,7 +439,7 @@ export default function StockPortfolio({ onNavigate }: StockPortfolioProps) {
                                     </div>
                                     <div className="text-center">
                                       <div className="text-[13px] text-[#828282] mb-0.5">Lãi / Lỗ</div>
-                                      <div className={`text-[13px] ${stock.isPositive ? 'font-medium text-[#129A43]' : 'font-bold text-[#DF3C40]'}`}>{stock.pnlAmount}</div>
+                                      <div className={`text-[13px] ${stock.isPositive ? 'font-medium text-[#129A43]' : 'font-bold text-[#d82034]'}`}>{stock.pnlAmount}</div>
                                     </div>
                                   </div>
    
@@ -514,7 +514,7 @@ export default function StockPortfolio({ onNavigate }: StockPortfolioProps) {
                                       Mua
                                     </button>
                                     <button
-                                      className="border-[1.5px] border-[#DF3C40] text-[#DF3C40] font-semibold py-2 rounded-full text-[14px] hover:bg-red-50 transition-colors"
+                                      className="border-[1.5px] border-[#d82034] text-[#d82034] font-semibold py-2 rounded-full text-[14px] hover:bg-red-50 transition-colors"
                                       onClick={() => handleDeleteStock(stock)}
                                     >
                                       Bán
@@ -547,7 +547,7 @@ export default function StockPortfolio({ onNavigate }: StockPortfolioProps) {
           >
             MUA
           </button>
-          <button className="flex-1 bg-[#DF3C40] text-white font-medium py-3 rounded-full text-[15px] hover:bg-opacity-90 active:scale-95 transition-transform">
+          <button className="flex-1 bg-[#d82034] text-white font-medium py-3 rounded-full text-[15px] hover:bg-opacity-90 active:scale-95 transition-transform">
             BÁN
           </button>
         </div>

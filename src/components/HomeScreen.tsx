@@ -32,7 +32,7 @@ export default function HomeScreen({ onNavigate }: HomeScreenProps) {
           {/* Notification button with dot */}
           <button className="w-[42px] h-[42px] rounded-xl bg-white border border-gray-100 flex items-center justify-center text-gray-800 shadow-sm relative hover:bg-gray-50 active:scale-95 transition-transform">
             <Bell className="w-5 h-5" strokeWidth={2} />
-            <span className="absolute top-2.5 right-2.5 w-[7px] h-[7px] bg-[#DF3C40] rounded-full border border-white"></span>
+            <span className="absolute top-2.5 right-2.5 w-[7px] h-[7px] bg-[#d82034] rounded-full border border-white"></span>
           </button>
         </div>
       </header>
@@ -262,12 +262,12 @@ export default function HomeScreen({ onNavigate }: HomeScreenProps) {
           <div className="min-w-[130px] bg-[#FFF5F5] border border-[#FFD8D8] rounded-xl p-3 shadow-[0_2px_6px_rgba(0,0,0,0.01)]">
             <p className="text-gray-500 text-xs font-semibold mb-0.5">VN-INDEX</p>
             <p className="text-[17px] font-bold text-gray-900 mb-0.5 leading-tight">1912.93</p>
-            <p className="text-[#DF3C40] text-[11px] font-bold">-15.01 (-0.78%)</p>
+            <p className="text-[#d82034] text-[11px] font-bold">-15.01 (-0.78%)</p>
           </div>
           <div className="min-w-[130px] bg-[#FFF5F5] border border-[#FFD8D8] rounded-xl p-3 shadow-[0_2px_6px_rgba(0,0,0,0.01)]">
             <p className="text-gray-500 text-xs font-semibold mb-0.5">VN30</p>
             <p className="text-[17px] font-bold text-gray-900 mb-0.5 leading-tight">2027.45</p>
-            <p className="text-[#DF3C40] text-[11px] font-bold">-18.92 (-0.92%)</p>
+            <p className="text-[#d82034] text-[11px] font-bold">-18.92 (-0.92%)</p>
           </div>
           <div className="min-w-[130px] bg-[#F0FDF4] border border-[#DCFCE7] rounded-xl p-3 shadow-[0_2px_6px_rgba(0,0,0,0.01)]">
             <p className="text-gray-500 text-xs font-semibold mb-0.5">HNX</p>
