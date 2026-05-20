@@ -131,7 +131,7 @@ export default function RealizedPnL({ onNavigate }: RealizedPnLProps) {
   const totalPnLPercentFormatted = `${isPnLPositive ? '+' : ''}${totalPnLPercent.toFixed(2)}%`;
 
   return (
-    <div className="w-full min-h-screen bg-[#f8f8fb] relative flex flex-col shadow-xl overflow-hidden pb-16">
+    <div className="w-full min-h-screen bg-[rgba(240,239,244,1)] relative flex flex-col shadow-xl overflow-hidden pb-16">
       {/* Header */}
       <header className="bg-white flex items-center justify-between px-4 py-3 sticky top-0 z-20 shadow-sm border-b border-[#e2e8f0]">
         <button onClick={() => onNavigate('home')} className="w-8 h-8 flex items-center justify-center text-[#1e293b]">
@@ -183,7 +183,7 @@ export default function RealizedPnL({ onNavigate }: RealizedPnLProps) {
           </div>
 
           {/* Search Bar */}
-          <div className="relative w-full">
+          <div className="relative w-full mb-16">
             <input
               className="w-full py-2.5 pl-4 pr-10 bg-white border border-[#e2e8f0] rounded-lg text-sm outline-none focus:border-[#6b21a8] focus:ring-1 focus:ring-[#6b21a8] transition-colors text-gray-800 placeholder-gray-300"
               placeholder="Mã CK"
@@ -201,10 +201,10 @@ export default function RealizedPnL({ onNavigate }: RealizedPnLProps) {
         <section className="bg-white rounded-xl p-4 flex justify-between items-center border border-[#e2e8f0]" style={{ boxShadow: '0 2px 8px -2px rgba(0, 0, 0, 0.05), 0 4px 6px -4px rgba(0, 0, 0, 0.02)' }}>
           <span className="font-bold text-[#1e293b] text-base">Tổng cộng</span>
           <div className="text-right flex items-center space-x-3">
-            <span className={`font-bold text-base ${isPnLPositive ? 'text-[#16a34a]' : 'text-[#dc2626]'}`}>
+            <span className={`font-bold text-lg ${isPnLPositive ? 'text-[#16a34a]' : 'text-[#dc2626]'}`}>
               {totalPnLAmountFormatted}
             </span>
-            <span className={`font-bold text-sm ${isPnLPositive ? 'text-[#16a34a]' : 'text-[#dc2626]'}`}>
+            <span className={`font-bold text-base ${isPnLPositive ? 'text-[#16a34a]' : 'text-[#dc2626]'}`}>
               {totalPnLPercentFormatted}
             </span>
           </div>
