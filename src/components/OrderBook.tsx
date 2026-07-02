@@ -250,7 +250,7 @@ export default function OrderBook({ onNavigate }: OrderBookProps) {
                   </div>
                   <div className="flex flex-col items-center">
                     <span className="text-center font-bold text-gray-900 text-[14px]">{order.qty.toLocaleString('de-DE')}</span>
-                    <span className="text-center text-[13px] text-gray-400 mt-0.5">{order.price.toFixed(1)}</span>
+                    <span className="text-center text-[13px] text-gray-400 mt-0.5">{order.price}</span>
                   </div>
                   <div className="flex flex-col items-end">
                     <span className="font-bold text-gray-900 text-[14px]">{order.matched_qty.toLocaleString('de-DE')}</span>
